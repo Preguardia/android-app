@@ -54,8 +54,6 @@ proguard/
 # Android Studio Navigation editor temp files
 .navigation/
 ### Gradle template
-.gradle
-build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
