@@ -13,6 +13,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
+import com.preguardia.app.user.landing.LandingFragment;
+import com.preguardia.app.user.register.RegisterFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView textView = (TextView) findViewById(R.id.main_text);
-
         Firebase myFirebaseRef = new Firebase(BuildConfig.FIREBASE_API_URL);
 
         myFirebaseRef.child("consultations").setValue("Test value");
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         myFirebaseRef.child("consultations").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                textView.setText(snapshot.getValue(String.class));
+                System.out.println(snapshot.getValue(String.class));
             }
 
             @Override
@@ -54,6 +54,12 @@ public class MainActivity extends AppCompatActivity {
                 // there was an error
             }
         });
+
+        // Show Lading for User
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, LandingFragment.newInstance(0))
+                .commit();
     }
 
     protected void onStart() {
@@ -81,5 +87,13 @@ public class MainActivity extends AppCompatActivity {
         Batch.onNewIntent(this, intent);
 
         super.onNewIntent(intent);
+    }
+
+    public void onLoadPatientRegister() {
+        // Show Register section
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, RegisterFragment.newInstance(0))
+                .commit();
     }
 }
