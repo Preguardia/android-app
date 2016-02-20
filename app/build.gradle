@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def propertiesFile = rootProject.file("local.properties");
+def properties = new Properties()
+properties.load(new FileInputStream(propertiesFile))
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -13,16 +17,16 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('../keystore.jks')
-            storePassword 'adrito'
-            keyAlias 'debug'
-            keyPassword 'adrito'
+            storeFile file(properties['storeFile'])
+            storePassword properties['storePassword']
+            keyAlias properties['debugKeyAlias']
+            keyPassword properties['debugKeyPassword']
         }
         release {
-            storeFile file('../keystore.jks')
-            storePassword 'adrito'
-            keyAlias 'release'
-            keyPassword 'adrito'
+            storeFile file(properties['storeFile'])
+            storePassword properties['storePassword']
+            keyAlias properties['releaseKeyAlias']
+            keyPassword properties['releaseKeyPassword']
         }
     }
     buildTypes {
