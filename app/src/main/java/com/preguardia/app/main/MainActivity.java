@@ -1,4 +1,4 @@
-package com.preguardia.app;
+package com.preguardia.app.main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,8 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.preguardia.app.BuildConfig;
+import com.preguardia.app.R;
 
 public class MainActivity extends AppCompatActivity {
 
