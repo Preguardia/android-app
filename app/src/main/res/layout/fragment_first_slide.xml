@@ -27,7 +27,7 @@
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
         android:textSize="16sp"
-        android:text="Una descripción del la aplicación"/>
+        android:text="Una descripción de la aplicación"/>
 
     <LinearLayout
         android:layout_width="fill_parent"

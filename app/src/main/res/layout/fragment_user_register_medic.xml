@@ -43,13 +43,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Obra social" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Teléfono" />
-
+            android:hint="Matrícula" />
 
         <Button
             android:layout_width="match_parent"

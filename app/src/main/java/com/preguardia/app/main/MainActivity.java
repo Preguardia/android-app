@@ -3,7 +3,6 @@ package com.preguardia.app.main;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.batch.android.Batch;
 import com.firebase.client.AuthData;
@@ -14,7 +13,8 @@ import com.firebase.client.ValueEventListener;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
 import com.preguardia.app.user.landing.LandingFragment;
-import com.preguardia.app.user.register.RegisterFragment;
+import com.preguardia.app.user.register.medic.RegisterMedicFragment;
+import com.preguardia.app.user.register.patient.RegisterPatientFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,11 +89,19 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
     }
 
-    public void onLoadPatientRegister() {
+    public void onLoadRegisterPatient() {
         // Show Register section
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_container, RegisterFragment.newInstance(0))
+                .replace(R.id.main_container, RegisterPatientFragment.newInstance(0))
+                .commit();
+    }
+
+    public void onLoadRegisterMedic() {
+        // Show Register section
+        getSupportFragmentManager()
+                .beginTransaction()
+                    .replace(R.id.main_container, RegisterMedicFragment.newInstance(0))
                 .commit();
     }
 }

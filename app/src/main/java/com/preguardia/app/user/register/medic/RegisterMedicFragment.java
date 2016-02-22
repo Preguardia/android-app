@@ -1,4 +1,4 @@
-package com.preguardia.app.user.landing;
+package com.preguardia.app.user.register.medic;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,19 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.main.MainActivity;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author amouly on 2/20/16.
  */
-public class LandingFragment extends Fragment {
+public class RegisterMedicFragment extends Fragment {
 
 
-    public static LandingFragment newInstance(int param) {
-        LandingFragment sampleSlide = new LandingFragment();
+    public static RegisterMedicFragment newInstance(int param) {
+        RegisterMedicFragment sampleSlide = new RegisterMedicFragment();
 
         Bundle args = new Bundle();
         args.putInt("PARAM", param);
@@ -31,21 +29,11 @@ public class LandingFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_landing, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_register_medic, container, false);
 
         ButterKnife.bind(this, view);
 
         return view;
-    }
-
-    @OnClick(R.id.user_landing_patient)
-    public void onPatientButtonClick() {
-        ((MainActivity) getActivity()).onLoadRegisterPatient();
-    }
-
-    @OnClick(R.id.user_landing_medic)
-    public void onMedicButtonClick() {
-        ((MainActivity) getActivity()).onLoadRegisterMedic();
     }
 
     @Override
@@ -53,4 +41,5 @@ public class LandingFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 }

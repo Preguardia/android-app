@@ -1,4 +1,4 @@
-package com.preguardia.app.user.register;
+package com.preguardia.app.user.register.patient;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,19 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.main.MainActivity;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author amouly on 2/20/16.
  */
-public class RegisterFragment extends Fragment {
+public class RegisterPatientFragment extends Fragment {
 
 
-    public static RegisterFragment newInstance(int param) {
-        RegisterFragment sampleSlide = new RegisterFragment();
+    public static RegisterPatientFragment newInstance(int param) {
+        RegisterPatientFragment sampleSlide = new RegisterPatientFragment();
 
         Bundle args = new Bundle();
         args.putInt("PARAM", param);
