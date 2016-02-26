@@ -1,8 +1,8 @@
 package com.preguardia.app.user;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.batch.android.Batch;
 import com.firebase.client.AuthData;

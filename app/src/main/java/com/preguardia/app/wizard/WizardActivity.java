@@ -5,8 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.preguardia.app.user.UserActivity;
 import com.preguardia.app.R;
+import com.preguardia.app.user.UserActivity;
 
 public class WizardActivity extends AppIntro {
 

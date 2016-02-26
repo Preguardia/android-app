@@ -23,13 +23,13 @@ public class HistoryFragment extends Fragment {
     ListView historyList;
 
     public static HistoryFragment newInstance(int param) {
-        HistoryFragment sampleSlide = new HistoryFragment();
+        HistoryFragment fragment = new HistoryFragment();
 
         Bundle args = new Bundle();
         args.putInt("PARAM", param);
-        sampleSlide.setArguments(args);
+        fragment.setArguments(args);
 
-        return sampleSlide;
+        return fragment;
     }
 
     @Override
