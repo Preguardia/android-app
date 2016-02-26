@@ -26,3 +26,15 @@
 -dontwarn com.batch.android.mediation.**
 
 -dontwarn com.batch.android.BatchPushService
+
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}

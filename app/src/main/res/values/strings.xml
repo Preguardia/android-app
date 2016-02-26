@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">Preguardia</string>
-    <string name="title_activity_intro">IntroActivity</string>
+    <string name="app_name" translatable="false">Preguardia</string>
+    <string name="title_activity_intro" translatable="false">IntroActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">Preguardia</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_main" translatable="false">Preguardia</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-    <string name="drawer_consultation_new">Realizar consulta</string>
-    <string name="drawer_consultation_history">Historial de consultas</string>
-    <string name="drawer_help">Ayuda</string>
-    <string name="drawer_terms">Términos y condiciones</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="drawer_consultation_new">New consultation</string>
+    <string name="drawer_consultation_history">Consultation history</string>
+    <string name="drawer_help">Help</string>
+    <string name="drawer_terms">Terms and conditions</string>
 
 </resources>
