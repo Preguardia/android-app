@@ -1,107 +1,76 @@
 package com.preguardia.app.main;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import com.batch.android.Batch;
-import com.firebase.client.AuthData;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
-import com.preguardia.app.user.landing.LandingFragment;
-import com.preguardia.app.user.register.medic.RegisterMedicFragment;
-import com.preguardia.app.user.register.patient.RegisterPatientFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Firebase myFirebaseRef = new Firebase(BuildConfig.FIREBASE_API_URL);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        myFirebaseRef.child("consultations").setValue("Test value");
-
-        myFirebaseRef.child("consultations").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue(String.class));
-            }
-
-            @Override
-            public void onCancelled(FirebaseError error) {
-            }
-        });
-
-
-        myFirebaseRef.authWithPassword("adrian@mouly.io", "", new Firebase.AuthResultHandler() {
-            @Override
-            public void onAuthenticated(AuthData authData) {
-                System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
-
-                Batch.User.getEditor()
-                        .setIdentifier(authData.getUid())
-                        .save();
-            }
-
-            @Override
-            public void onAuthenticationError(FirebaseError firebaseError) {
-                // there was an error
-            }
-        });
-
-        // Show Lading for User
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, LandingFragment.newInstance(0))
-                .commit();
-    }
-
-    protected void onStart() {
-        super.onStart();
-
-        Batch.onStart(this);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
-    protected void onStop() {
-        Batch.onStop(this);
-
-        super.onStop();
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
-    protected void onDestroy() {
-        Batch.onDestroy(this);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
-        super.onDestroy();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    protected void onNewIntent(Intent intent) {
-        Batch.onNewIntent(this, intent);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
-        super.onNewIntent(intent);
-    }
 
-    public void onLoadRegisterPatient() {
-        // Show Register section
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, RegisterPatientFragment.newInstance(0))
-                .commit();
-    }
 
-    public void onLoadRegisterMedic() {
-        // Show Register section
-        getSupportFragmentManager()
-                .beginTransaction()
-                    .replace(R.id.main_container, RegisterMedicFragment.newInstance(0))
-                .commit();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 }

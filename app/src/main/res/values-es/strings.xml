@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Preguardia</string>
+    <string name="drawer_consultation_new">Realizar consulta</string>
+    <string name="drawer_consultation_history">Historial de consultas</string>
+    <string name="drawer_help">Ayuda</string>
+    <string name="drawer_terms">Términos y condiciones</string>
+</resources>

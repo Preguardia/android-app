@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.main.MainActivity;
+import com.preguardia.app.user.UserActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,12 +40,12 @@ public class LandingFragment extends Fragment {
 
     @OnClick(R.id.user_landing_patient)
     public void onPatientButtonClick() {
-        ((MainActivity) getActivity()).onLoadRegisterPatient();
+        ((UserActivity) getActivity()).onLoadRegisterPatient();
     }
 
     @OnClick(R.id.user_landing_medic)
     public void onMedicButtonClick() {
-        ((MainActivity) getActivity()).onLoadRegisterMedic();
+        ((UserActivity) getActivity()).onLoadRegisterMedic();
     }
 
     @Override
