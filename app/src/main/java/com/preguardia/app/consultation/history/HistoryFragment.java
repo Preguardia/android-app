@@ -54,5 +54,4 @@ public class HistoryFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 }
