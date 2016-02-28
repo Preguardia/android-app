@@ -6,4 +6,8 @@
     <string name="drawer_terms">Términos y condiciones</string>
     <string name="navigation_drawer_close">Cerrar menu</string>
     <string name="navigation_drawer_open">Abrir menu</string>
+
+    <string name="consultation_new_category">Categoría</string>
+    <string name="consultation_new_title">Resumen de la consulta</string>
+
 </resources>

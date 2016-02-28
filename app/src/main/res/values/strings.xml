@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Preguardia</string>
+    <string name="app_name">Preguardia</string>
 
     <string name="title_activity_main" translatable="false">Preguardia</string>
 
@@ -10,5 +10,16 @@
     <string name="drawer_consultation_history">Consultation history</string>
     <string name="drawer_help">Help</string>
     <string name="drawer_terms">Terms and conditions</string>
+
+    <string name="consultation_new_category">Category</string>
+    <string name="consultation_new_title">Consultation summary</string>
+
+    <string-array name="array_test">
+
+        <item>Test 1</item>
+        <item>Test 2</item>
+        <item>Test 2</item>
+
+    </string-array>
 
 </resources>
