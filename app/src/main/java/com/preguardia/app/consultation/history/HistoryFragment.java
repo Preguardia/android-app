@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.preguardia.app.R;
+import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * @author amouly on 2/20/16.
@@ -47,6 +50,13 @@ public class HistoryFragment extends Fragment {
         historyList.setAdapter(adapter);
 
         return view;
+    }
+
+    @OnItemClick(R.id.consultation_history_list)
+    public void onItemClick() {
+        Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
+
+        startActivity(intent);
     }
 
     @Override
