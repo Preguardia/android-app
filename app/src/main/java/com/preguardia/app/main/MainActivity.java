@@ -40,6 +40,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            // Set default home
+            navigationView.setCheckedItem(R.id.nav_consultation_new);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_container, NewConsultationFragment.newInstance(0))
+                    .commit();
+        }
     }
 
     @Override

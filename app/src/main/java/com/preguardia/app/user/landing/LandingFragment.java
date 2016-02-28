@@ -38,14 +38,9 @@ public class LandingFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.user_landing_patient)
-    public void onPatientButtonClick() {
-        ((UserActivity) getActivity()).onLoadRegisterPatient();
-    }
-
-    @OnClick(R.id.user_landing_medic)
-    public void onMedicButtonClick() {
-        ((UserActivity) getActivity()).onLoadRegisterMedic();
+    @OnClick(R.id.register_medic_button)
+    public void onRegisterClick() {
+        ((UserActivity) getActivity()).onLoadConsultationMain();
     }
 
     @Override

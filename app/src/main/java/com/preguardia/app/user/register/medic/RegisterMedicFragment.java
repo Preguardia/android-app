@@ -8,10 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.user.UserActivity;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * @author amouly on 2/20/16.
@@ -38,10 +36,6 @@ public class RegisterMedicFragment extends Fragment {
         return view;
     }
 
-    @OnClick(R.id.register_medic_button)
-    public void onRegisterClick() {
-        ((UserActivity) getActivity()).onLoadConsultationMain();
-    }
 
     @Override
     public void onDestroyView() {

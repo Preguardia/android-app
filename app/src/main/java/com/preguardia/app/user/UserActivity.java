@@ -14,8 +14,6 @@ import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
 import com.preguardia.app.main.MainActivity;
 import com.preguardia.app.user.landing.LandingFragment;
-import com.preguardia.app.user.register.medic.RegisterMedicFragment;
-import com.preguardia.app.user.register.patient.RegisterPatientFragment;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -97,19 +95,5 @@ public class UserActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onLoadRegisterPatient() {
-        // Show Register section
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, RegisterPatientFragment.newInstance(0))
-                .commit();
-    }
 
-    public void onLoadRegisterMedic() {
-        // Show Register section
-        getSupportFragmentManager()
-                .beginTransaction()
-                    .replace(R.id.main_container, RegisterMedicFragment.newInstance(0))
-                .commit();
-    }
 }
