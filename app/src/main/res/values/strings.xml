@@ -16,6 +16,16 @@
     <string name="consultation_new_where">Where in your body?</string>
     <string name="consultation_new_lasttime">When you noticed last time?</string>
     <string name="consultation_details_title">Consultation details</string>
+    <string name="user_landing_name">Nombre y Apellido</string>
+    <string name="user_landing_patient">Soy Paciente</string>
+    <string name="user_landing_medic">Soy Médico</string>
+    <string name="user_landing_surname">Apellido</string>
+    <string name="user_landing_email">eMail</string>
+    <string name="user_landing_date">Fecha de nacimiento</string>
+    <string name="user_landing_social">Obra social</string>
+    <string name="user_landing_phone">Teléfono</string>
+    <string name="user_landing_plate">Matrícula</string>
+    <string name="user_lading_register">Registrarme</string>
 
     <string-array name="consultation_category_list">
 

@@ -44,6 +44,10 @@ public class ConsultationDetailsActivity extends AppCompatActivity {
         adapter.add("Otra consulta");
         adapter.add("Otra consulta");
         adapter.add("Otra consulta");
+        adapter.add("Otra consulta");
+        adapter.add("Otra consulta");
+        adapter.add("Otra consulta");
+        adapter.add("Otra consulta");
 
         detailsList.setAdapter(adapter);
 

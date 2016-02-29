@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/item_history_picture"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/pic_medic"
         android:layout_marginRight="15dp"
         android:layout_alignParentLeft="true" />
@@ -30,7 +30,7 @@
             android:maxLines="1"
             tools:text="Ricardo Ramos - Pediatra"
             android:textColor="#666"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,13 +38,13 @@
             android:fontFamily="sans-serif-normal"
             android:text="Inflamación ocular"
             android:maxLines="2"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:tint="#666"

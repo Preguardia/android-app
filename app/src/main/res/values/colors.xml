@@ -5,4 +5,8 @@
     <color name="colorAccent">#448AFF</color>
 
     <color name="main_background">#ebebeb</color>
+
+    <color name="landing_button_pressed">#727272</color>
+    <color name="landing_button_focused">#727272</color>
+    <color name="landing_button_normal">#ebebeb</color>
 </resources>
