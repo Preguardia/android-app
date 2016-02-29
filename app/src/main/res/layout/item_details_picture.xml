@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,14 +14,14 @@
         card_view:cardBackgroundColor="#FFF"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="2dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:contentPadding="12dp">
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/details_list_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Descripción de la enfermedad" />
+        <ImageView
+            android:id="@+id/item_details_picture_img"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_injury" />
 
 
     </android.support.v7.widget.CardView>

@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:orientation="vertical">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".activities.details.ActivitiesDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="80dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/consultation_details_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:layout_height="80dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -69,7 +70,6 @@
 
             </RelativeLayout>
 
-
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
@@ -77,100 +77,36 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/consultation_details_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            card_view:cardBackgroundColor="#ececec"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="2dp"
-            card_view:cardUseCompatPadding="true">
+        <include
+            android:id="@+id/consultation_details_bottom"
+            layout="@layout/content_details_bottom" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/consultation_details_header_ico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="15dp"
-                    android:src="@drawable/ic_assignment_24dp"
-                    android:tint="#666" />
-
-                <ImageView
-                    android:id="@+id/consultation_details_header_ico2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/consultation_details_header_ico"
-                    android:padding="15dp"
-                    android:src="@drawable/ic_add_box_24dp"
-                    android:tint="#666" />
-
-                <TextView
-                    android:id="@+id/consultation_details_header_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toLeftOf="@+id/consultation_details_header_ico2"
-                    android:fontFamily="sans-serif-medium"
-                    android:maxLines="2"
-                    android:text="Título del síntoma o enfermedad" />
-
-
-            </RelativeLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:id="@+id/consultation_details_bottom"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_marginBottom="5dp"-->
-        <!--android:layout_marginLeft="15dp"-->
-        <!--android:layout_marginRight="15dp"-->
-        <!--android:layout_marginTop="15dp"-->
-        <!--card_view:cardBackgroundColor="#3F51B5"-->
-        <!--card_view:cardCornerRadius="4dp"-->
-        <!--card_view:cardElevation="2dp"-->
-        <!--card_view:contentPadding="12dp"-->
-        <!--card_view:cardUseCompatPadding="true">-->
-
-        <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:text="test" />-->
-
-        <!--</android.support.v7.widget.CardView>-->
-
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/consultation_details_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/consultation_details_header"
-            android:layout_marginBottom="15dp"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:overScrollMode="never"
-            tools:listitem="@layout/item_details_list" />
+            android:layout_above="@id/consultation_details_bottom"
+            android:layout_alignParentTop="true"
+            android:clipToPadding="false"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:scrollbars="none"
+            android:windowSoftInputMode="adjustResize"
+            tools:listitem="@layout/item_details_message" />
 
     </RelativeLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/activities_details_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_done_24dp"
+        android:tint="@android:color/white"
+        app:layout_anchor="@id/consultation_details_toolbar"
+        app:layout_anchorGravity="bottom|right|end" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

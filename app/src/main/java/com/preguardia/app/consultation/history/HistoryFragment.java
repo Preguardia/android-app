@@ -46,6 +46,14 @@ public class HistoryFragment extends Fragment {
 
         adapter.add("Ricardo Ramos - Pediatra");
         adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
+        adapter.add("Marcos Gimenez - Oculista");
 
         historyList.setAdapter(adapter);
 
