@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Preguardia</string>
+    <string name="app_name" translatable="false">Preguardia</string>
 
     <string name="title_activity_main" translatable="false">Preguardia</string>
 
@@ -14,8 +14,8 @@
     <string name="consultation_new_category">Category</string>
     <string name="consultation_new_title">Consultation summary</string>
     <string name="consultation_new_where">Where in your body?</string>
-    <string name="consultation_new_lasttime">¿Cuando lo notó por ultima vez?</string>
-    <string name="consultation_details_title">Detalles de consulta</string>
+    <string name="consultation_new_lasttime">When you noticed last time?</string>
+    <string name="consultation_details_title">Consultation details</string>
 
     <string-array name="consultation_category_list">
 
