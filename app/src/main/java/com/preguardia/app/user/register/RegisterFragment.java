@@ -1,4 +1,4 @@
-package com.preguardia.app.user.landing;
+package com.preguardia.app.user.register;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +20,7 @@ import butterknife.OnTouch;
 /**
  * @author amouly on 2/20/16.
  */
-public class LandingFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
     @Bind(R.id.user_landing_patient)
     Button patientButton;
@@ -40,8 +40,8 @@ public class LandingFragment extends Fragment {
     @Bind(R.id.user_input_plate)
     TextInputLayout plateImputView;
 
-    public static LandingFragment newInstance(int param) {
-        LandingFragment sampleSlide = new LandingFragment();
+    public static RegisterFragment newInstance(int param) {
+        RegisterFragment sampleSlide = new RegisterFragment();
 
         Bundle args = new Bundle();
         args.putInt("PARAM", param);
@@ -86,10 +86,6 @@ public class LandingFragment extends Fragment {
     @OnClick(R.id.register_medic_button)
     public void onRegisterClick() {
         ((UserActivity) getActivity()).onLoadConsultationMain();
-
-        String text = nameInputView.getEditText().getText().toString();
-
-        System.out.println(text);
 
         // Kill activity
         getActivity().finish();

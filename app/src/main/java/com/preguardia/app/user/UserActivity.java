@@ -13,7 +13,8 @@ import com.firebase.client.ValueEventListener;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
 import com.preguardia.app.main.MainActivity;
-import com.preguardia.app.user.landing.LandingFragment;
+import com.preguardia.app.user.login.LoginFragment;
+import com.preguardia.app.user.register.RegisterFragment;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -57,7 +58,7 @@ public class UserActivity extends AppCompatActivity {
         // Show Lading for User
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_container, LandingFragment.newInstance(0))
+                .replace(R.id.main_container, LoginFragment.newInstance(0))
                 .commit();
     }
 
@@ -81,13 +82,20 @@ public class UserActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    public void onLoadRegisterSection() {
+        // Show Lading for User
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, RegisterFragment.newInstance(0))
+                .commit();
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         Batch.onNewIntent(this, intent);
 
         super.onNewIntent(intent);
     }
-
 
     public void onLoadConsultationMain() {
         Intent intent = new Intent(this, MainActivity.class);
