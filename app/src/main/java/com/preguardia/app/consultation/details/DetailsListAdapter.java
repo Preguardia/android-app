@@ -13,6 +13,8 @@ import com.preguardia.app.consultation.details.message.MessageViewHolder;
 import com.preguardia.app.consultation.details.message.MessageViewHolder2;
 import com.preguardia.app.consultation.details.picture.PictureItem;
 import com.preguardia.app.consultation.details.picture.PictureViewHolder;
+import com.preguardia.app.consultation.details.title.TitleItem;
+import com.preguardia.app.consultation.details.title.TitleViewHolder;
 
 import java.util.List;
 
@@ -34,13 +36,15 @@ public class DetailsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        //Object item = itemsList.get(position);
+        Object item = itemsList.get(position);
 
-        if (itemsList.get(position) instanceof MessageItem) {
+        if (item instanceof TitleItem) {
+            return 0;
+        } else if (item instanceof MessageItem) {
             return 1;
-        } else if (itemsList.get(position) instanceof PictureItem) {
+        } else if (item instanceof PictureItem) {
             return 2;
-        } else if (itemsList.get(position) instanceof MessageItem2) {
+        } else if (item instanceof MessageItem2) {
             return 3;
         }
 
@@ -53,7 +57,10 @@ public class DetailsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         RecyclerView.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        if (viewType == 1) {
+        if (viewType == 0) {
+            View cardHeader = inflater.inflate(R.layout.item_details_first, viewGroup, false);
+            viewHolder = new TitleViewHolder(cardHeader);
+        } else if (viewType == 1) {
             View cardHeader = inflater.inflate(R.layout.item_details_message, viewGroup, false);
             viewHolder = new MessageViewHolder(cardHeader);
         } else if (viewType == 2) {
@@ -69,6 +76,13 @@ public class DetailsListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+
+        if (viewHolder instanceof TitleViewHolder) {
+            final String text = ((TitleItem) itemsList.get(position)).getText();
+            final TitleViewHolder messageHolder = (TitleViewHolder) viewHolder;
+
+            messageHolder.setText(text);
+        }
 
         if (viewHolder instanceof MessageViewHolder) {
             final String text = ((MessageItem) itemsList.get(position)).getText();

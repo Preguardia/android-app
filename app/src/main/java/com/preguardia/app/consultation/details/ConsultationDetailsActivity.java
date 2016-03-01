@@ -15,6 +15,7 @@ import com.preguardia.app.consultation.details.generic.GenericItem;
 import com.preguardia.app.consultation.details.message.MessageItem;
 import com.preguardia.app.consultation.details.message.MessageItem2;
 import com.preguardia.app.consultation.details.picture.PictureItem;
+import com.preguardia.app.consultation.details.title.TitleItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,17 +52,13 @@ public class ConsultationDetailsActivity extends AppCompatActivity {
 
         final List<GenericItem> itemList = new ArrayList<>();
 
-        itemList.add(new MessageItem("test"));
+        itemList.add(new TitleItem("Titulo del síntoma o enfermedad"));
+        itemList.add(new MessageItem("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen."));
         itemList.add(new PictureItem("test"));
+
         itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
+        itemList.add(new MessageItem2("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen."));
         itemList.add(new MessageItem2("test 21sa sadsd"));
-        itemList.add(new MessageItem2("test 21sa sadsd"));
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
         itemList.add(new MessageItem("test"));
         itemList.add(new MessageItem("test"));
 

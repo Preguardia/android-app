@@ -9,12 +9,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.HelpFragment;
 import com.preguardia.app.general.TermsFragment;
+import com.preguardia.app.user.profile.ProfileFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +42,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Listener for User profile section
+        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Load profile section
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_container, ProfileFragment.newInstance())
+                        .commit();
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
 
         if (savedInstanceState == null) {
             // Set default home
