@@ -1,4 +1,4 @@
-package com.preguardia.app.user.register.medic;
+package com.preguardia.app.general;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,24 +12,19 @@ import com.preguardia.app.R;
 import butterknife.ButterKnife;
 
 /**
- * @author amouly on 2/20/16.
+ * @author amouly on 2/26/16.
  */
-public class RegisterMedicFragment extends Fragment {
+public class HelpFragment extends Fragment {
 
+    public static HelpFragment newInstance() {
+        HelpFragment fragment = new HelpFragment();
 
-    public static RegisterMedicFragment newInstance(int param) {
-        RegisterMedicFragment sampleSlide = new RegisterMedicFragment();
-
-        Bundle args = new Bundle();
-        args.putInt("PARAM", param);
-        sampleSlide.setArguments(args);
-
-        return sampleSlide;
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_register_medic, container, false);
+        View view = inflater.inflate(R.layout.fragment_help, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -41,5 +36,4 @@ public class RegisterMedicFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 }

@@ -12,7 +12,7 @@ android {
         applicationId "com.preguardia.app"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 1
+        versionCode 3
         versionName "1.0"
     }
     signingConfigs {
@@ -48,11 +48,11 @@ android {
         }
         release {
             signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             debuggable false
 
-            resValue "string", "GOOGLE_DEV_KEY", '"AIzaSyBx50SmjoqIeTFHrucxRx9GGypskb07XPo"'
+            resValue "string", "GOOGLE_DEV_KEY", '"AIzaSyBd6XJ_5LjYGwvxTeyMkpsRTo_pQXH15Tg"'
             buildConfigField "String", "FIREBASE_API_URL", '"https://medicapp.firebaseio.com/"'
             buildConfigField "String", "BATCH_API_KEY", '"DEV56C405C8D2D434791981F5B0909"'
             buildConfigField "String", "GCM_SENDER_ID", '"810564243533"'
@@ -74,6 +74,7 @@ dependencies {
     // Support
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:cardview-v7:23.1.1'
 
     // Play Services
     compile 'com.google.android.gms:play-services-base:8.4.0'
@@ -90,6 +91,10 @@ dependencies {
 
     // View
     compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'de.hdodenhof:circleimageview:1.3.0'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
+        transitive = true
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'

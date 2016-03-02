@@ -1,7 +1,75 @@
 <resources>
-    <string name="app_name">MedicApp</string>
-    <string name="title_activity_intro">IntroActivity</string>
+    <string name="app_name" translatable="false">Preguardia</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main" translatable="false">Preguardia</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="drawer_consultation_new">New consultation</string>
+    <string name="drawer_consultation_history">Consultation history</string>
+    <string name="drawer_help">Help</string>
+    <string name="drawer_terms">Terms and conditions</string>
+
+    <string name="consultation_new_category">Category</string>
+    <string name="consultation_new_title">Consultation summary</string>
+    <string name="consultation_new_where">Where in your body?</string>
+    <string name="consultation_new_lasttime">When you noticed last time?</string>
+    <string name="consultation_details_title">Consultation details</string>
+    <string name="user_landing_name">Name and Surname</string>
+    <string name="user_landing_patient">I\'m patient</string>
+    <string name="user_landing_medic">I\'m medic</string>
+    <string name="user_landing_surname">Surname</string>
+    <string name="user_landing_email">eMail</string>
+    <string name="user_landing_date">Birth date</string>
+    <string name="user_landing_social">Social</string>
+    <string name="user_landing_phone">Phone</string>
+    <string name="user_landing_plate">Plate</string>
+    <string name="user_lading_register">Register</string>
+
+    <string-array name="consultation_category_list">
+
+        <item>- Desconocido -</item>
+        <item>Pediatría</item>
+        <item>Cardiología</item>
+        <item>Neurología</item>
+        <item>Neurología</item>
+        <item>Otra 1</item>
+        <item>Otra 2</item>
+        <item>Otra 3</item>
+        <item>Otra 4</item>
+
+    </string-array>
+
+    <string-array name="consultation_where_list">
+
+        <item>Brazos</item>
+        <item>Piernas</item>
+        <item>Cabeza</item>
+        <item>Pecho</item>
+        <item>Pies</item>
+        <item>Ojo derecho</item>
+        <item>Boca</item>
+
+    </string-array>
+
+    <string-array name="consultation_lasttime_list">
+
+        <item>- No recuerdo -</item>
+        <item>Ahora</item>
+        <item>Ayer</item>
+        <item>Hoy</item>
+        <item>La semana pasada</item>
+
+    </string-array>
+
+
+    <string-array name="consultation_details_media">
+
+        <item>Foto</item>
+        <item>Video</item>
+        <item>Audio</item>
+
+    </string-array>
+
 </resources>

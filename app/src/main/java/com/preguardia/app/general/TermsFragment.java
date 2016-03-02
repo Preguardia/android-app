@@ -1,4 +1,4 @@
-package com.preguardia.app.user.register.patient;
+package com.preguardia.app.general;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,30 +6,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.preguardia.app.R;
 
 import butterknife.ButterKnife;
 
 /**
- * @author amouly on 2/20/16.
+ * @author amouly on 2/26/16.
  */
-public class RegisterPatientFragment extends Fragment {
+public class TermsFragment extends Fragment {
 
+    public static TermsFragment newInstance() {
+        TermsFragment fragment = new TermsFragment();
 
-    public static RegisterPatientFragment newInstance(int param) {
-        RegisterPatientFragment sampleSlide = new RegisterPatientFragment();
-
-        Bundle args = new Bundle();
-        args.putInt("PARAM", param);
-        sampleSlide.setArguments(args);
-
-        return sampleSlide;
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_register_patient, container, false);
+        View view = inflater.inflate(R.layout.fragment_terms, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -41,5 +37,4 @@ public class RegisterPatientFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
-
 }

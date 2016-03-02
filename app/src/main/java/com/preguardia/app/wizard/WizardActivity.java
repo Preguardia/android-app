@@ -5,8 +5,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.paolorotolo.appintro.AppIntro;
-import com.preguardia.app.main.MainActivity;
 import com.preguardia.app.R;
+import com.preguardia.app.user.UserActivity;
 
 public class WizardActivity extends AppIntro {
 
@@ -48,7 +48,7 @@ public class WizardActivity extends AppIntro {
     }
 
     private void loadMainActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
 }

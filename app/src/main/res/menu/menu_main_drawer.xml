@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/group_feature"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_consultation_new"
+            android:icon="@drawable/ic_insert_comment_24dp"
+            android:title="@string/drawer_consultation_new" />
+        <item
+            android:id="@+id/nav_consultation_history"
+            android:icon="@drawable/ic_assignment_24dp"
+            android:title="@string/drawer_consultation_history" />
+    </group>
+
+    <group
+        android:id="@+id/group_feature2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_24dp"
+            android:title="@string/drawer_help" />
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/ic_info_24dp"
+            android:title="@string/drawer_terms" />
+    </group>
+
+</menu>
