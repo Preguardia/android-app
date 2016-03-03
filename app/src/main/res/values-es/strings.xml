@@ -59,4 +59,12 @@
         <item>La semana pasada</item>
 
     </string-array>
+
+    <string-array name="consultation_details_media">
+
+        <item>Foto</item>
+        <item>Video</item>
+        <item>Audio</item>
+
+    </string-array>
 </resources>
