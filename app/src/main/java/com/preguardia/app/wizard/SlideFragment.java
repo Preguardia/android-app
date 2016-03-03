@@ -7,6 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.preguardia.app.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SlideFragment extends Fragment {
 
     private static final String ARG_LAYOUT_RES_ID = "layoutResId";
@@ -35,7 +40,23 @@ public class SlideFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(layoutResId, container, false);
+        View view = inflater.inflate(layoutResId, container, false);
+
+        ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.wizard_button)
+    public void onButtonClick() {
+        ((WizardActivity) getActivity()).loadMainActivity();
     }
 
 }

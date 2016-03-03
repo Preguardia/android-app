@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_wizard_step1">
+
+    <Button
+        android:id="@+id/wizard_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginBottom="105dp"
+        android:layout_alignParentBottom="true"
+        android:text="Empezar" />
+
+    <TextView
+        android:id="@+id/wizard_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:paddingLeft="64dp"
+        android:paddingRight="64dp"
+        android:layout_marginBottom="30dp"
+        android:text="Consulta a los mejores médicos ONLINE"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/wizard_button"
+        android:textSize="18sp" />
+
+</RelativeLayout>
