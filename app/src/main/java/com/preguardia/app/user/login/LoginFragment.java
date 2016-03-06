@@ -56,9 +56,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         ButterKnife.bind(this, view);
 
+        // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
                 .title(R.string.user_login_title)
                 .content(R.string.user_login_loading)
+                .cancelable(false)
                 .progress(true, 0);
 
         progressDialog = progressBuilder.build();

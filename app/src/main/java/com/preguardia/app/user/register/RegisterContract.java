@@ -4,4 +4,26 @@ package com.preguardia.app.user.register;
  * @author amouly on 3/5/16.
  */
 public interface RegisterContract {
+
+    interface View {
+
+        void showError();
+
+        void showProgress();
+
+        void hideProgress();
+
+        void openMain();
+
+        void toggleKeyboard();
+
+        void setUserActionListener(UserActionsListener listener);
+    }
+
+    interface UserActionsListener {
+
+        void registerUser(String type, String name, String email, String password, String birthDate,
+                          String social, String plate, String phone);
+    }
+
 }
