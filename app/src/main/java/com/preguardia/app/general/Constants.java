@@ -7,6 +7,9 @@ import com.preguardia.app.BuildConfig;
  */
 public class Constants {
 
+    public static final String PREFERENCES_USER_UID = "user_uid";
+    public static final String PREFERENCES_USER_TOKEN = "user_token";
+
     public static final String FIREBASE_CONSULTATIONS = "consultations";
 
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;

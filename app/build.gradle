@@ -14,6 +14,9 @@ android {
         targetSdkVersion 23
         versionCode 4
         versionName "1.0"
+
+        // Set a unique tray authority based on your applicationId
+        resValue "string", "tray__authority", "${applicationId}.tray"
     }
     signingConfigs {
         debug {
@@ -88,6 +91,9 @@ dependencies {
 
     // Wizard
     compile 'com.github.paolorotolo:appintro:3.4.0'
+
+    // Storage
+    compile 'net.grandcentrix.tray:tray:0.9.2'
 
     // View
     compile 'com.jakewharton:butterknife:7.0.1'

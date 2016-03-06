@@ -5,16 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.batch.android.Batch;
-import com.firebase.client.Firebase;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
-import com.preguardia.app.consultation.model.Message;
-import com.preguardia.app.general.Constants;
-import com.preguardia.app.main.MainActivity;
+import com.preguardia.app.main.MenuActivity;
 import com.preguardia.app.user.login.LoginFragment;
 import com.preguardia.app.user.register.RegisterFragment;
-
-import java.util.ArrayList;
 
 public class UserActivity extends AppCompatActivity {
 
@@ -38,35 +32,6 @@ public class UserActivity extends AppCompatActivity {
 //        });
 
 
-        ArrayList<Message> messages = new ArrayList<>();
-
-        Message message1 = new Message("un texto1", "15/03/2014");
-        Message message2 = new Message("un texto2", "15/03/2014");
-        Message message3 = new Message("un texto3", "15/03/2014");
-        Message message4 = new Message("un texto4", "15/03/2014");
-
-        messages.add(message1);
-        messages.add(message2);
-        messages.add(message3);
-        messages.add(message4);
-
-        Consultation consultation = new Consultation("05/03/2014", "Un titulo", "Una categoria", "Un detalle", messages);
-
-        Firebase listsRef = new Firebase(Constants.FIREBASE_URL_CONSULTATIONS);
-        Firebase newListRef = listsRef.push();
-
-            /* Save listsRef.push() to maintain same random Id */
-        final String listId = newListRef.getKey();
-
-        /**
-         * Set raw version of date to the ServerValue.TIMESTAMP value and save into
-         * timestampCreatedMap
-         */
-
-        /* Add the shopping list */
-        newListRef.setValue(consultation);
-
-
 //        myFirebaseRef.authWithPassword("adrian@mouly.io", "", new Firebase.AuthResultHandler() {
 //            @Override
 //            public void onAuthenticated(AuthData authData) {
@@ -83,10 +48,32 @@ public class UserActivity extends AppCompatActivity {
 //            }
 //        });
 
+        //            ArrayList<Message> messages = new ArrayList<>();
+//
+//            Message message1 = new Message("un texto1", "15/03/2014");
+//            Message message2 = new Message("un texto2", "15/03/2014");
+//            Message message3 = new Message("un texto3", "15/03/2014");
+//            Message message4 = new Message("un texto4", "15/03/2014");
+//
+//            messages.add(message1);
+//            messages.add(message2);
+//            messages.add(message3);
+//            messages.add(message4);
+//
+//            Consultation consultation = new Consultation("05/03/2014", "Un titulo", "Una categoria", "Un detalle", messages);
+//
+//            Firebase newListRef = firebase.push();
+//
+//            /* Save listsRef.push() to maintain same random Id */
+//            final String listId = newListRef.getKey();
+//
+//
+//            newListRef.setValue(consultation);
+
         // Show Lading for User
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_container, LoginFragment.newInstance(0))
+                .replace(R.id.main_container, LoginFragment.newInstance())
                 .commit();
     }
 
@@ -126,10 +113,8 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void onLoadConsultationMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
 
         startActivity(intent);
     }
-
-
 }

@@ -27,9 +27,9 @@ public class RegisterFragment extends Fragment {
     @Bind(R.id.user_landing_medic)
     Button medicButton;
 
-    @Bind(R.id.user_input_name)
+    @Bind(R.id.user_login_email)
     TextInputLayout nameInputView;
-    @Bind(R.id.user_input_email)
+    @Bind(R.id.user_login_password)
     TextInputLayout emailImputView;
     @Bind(R.id.user_input_date)
     TextInputLayout dateImputView;
