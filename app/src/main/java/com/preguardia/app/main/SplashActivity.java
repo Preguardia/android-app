@@ -51,5 +51,8 @@ public class SplashActivity extends AppCompatActivity {
 
         // Start the thread
         t.start();
+
+        // Close Splash
+        this.finish();
     }
 }

@@ -17,12 +17,12 @@
     <string name="user_register_patient">Soy Paciente</string>
     <string name="user_register_medic">Soy Médico</string>
     <string name="user_register_surname">Apellido</string>
-    <string name="user_landing_email">eMail</string>
-    <string name="user_landing_date">Fecha de nacimiento</string>
-    <string name="user_landing_social">Obra social</string>
-    <string name="user_landing_phone">Teléfono</string>
-    <string name="user_landing_plate">Matrícula</string>
-    <string name="user_lading_register">Registrarme</string>
+    <string name="user_register_email">eMail</string>
+    <string name="user_register_date">Fecha de nacimiento</string>
+    <string name="user_register_social">Obra social</string>
+    <string name="user_register_phone">Teléfono</string>
+    <string name="user_register_plate">Matrícula</string>
+    <string name="user_register_button">Registrarme</string>
 
     <string name="user_login_title">Login</string>
     <string name="user_login_error_positive">OK</string>
@@ -73,8 +73,8 @@
     </string-array>
     <string name="user_login_button">Ingresar</string>
     <string name="user_login_email">Email</string>
-    <string name="user_login_error_field">Porfavor ingrese un usuario y contraseña válidos.</string>
-    <string name="user_login_loading">Cargando...</string>
+    <string name="user_login_error_field">Ingrese un usuario y contraseña válidos.</string>
+    <string name="user_login_loading">Cargando…</string>
     <string name="user_login_password">Contraseña</string>
     <string name="user_login_register">No estoy registrado</string>
     <string name="user_login_welcome">Bienvenido</string>

@@ -20,12 +20,13 @@
     <string name="user_register_patient">I\'m patient</string>
     <string name="user_register_medic">I\'m medic</string>
     <string name="user_register_surname">Surname</string>
-    <string name="user_landing_email">eMail</string>
-    <string name="user_landing_date">Birth date</string>
-    <string name="user_landing_social">Social</string>
-    <string name="user_landing_phone">Phone</string>
-    <string name="user_landing_plate">Plate</string>
-    <string name="user_lading_register">Register</string>
+    <string name="user_register_email">eMail</string>
+    <string name="user_register_date">Birth date</string>
+    <string name="user_register_social">Social</string>
+    <string name="user_register_phone">Phone</string>
+    <string name="user_register_plate">Plate</string>
+    <string name="user_register_button">Register</string>
+    <string name="user_register_title">Register</string>
 
     <string name="user_login_title">Login</string>
     <string name="user_login_error_positive">OK</string>
@@ -36,7 +37,8 @@
     <string name="user_login_register">I\'m not registered</string>
     <string name="user_login_welcome">Welcome</string>
     <string name="user_login_error_field">Please enter a valid email and password.</string>
-    <string name="user_login_loading">Loading...</string>
+    <string name="user_login_loading">Loading…</string>
+    <string name="user_register_password">Password</string>
 
     <string-array name="consultation_category_list">
 

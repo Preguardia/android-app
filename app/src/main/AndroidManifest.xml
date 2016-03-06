@@ -47,6 +47,11 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".user.register.RegisterActivity"
+            android:label="@string/user_register_title"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <service android:name="com.batch.android.BatchPushService" />
 
         <receiver

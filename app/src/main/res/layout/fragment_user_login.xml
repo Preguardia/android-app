@@ -89,7 +89,7 @@
                         android:fontFamily="sans-serif"
                         android:hint="@string/user_login_email"
                         android:inputType="textEmailAddress"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -104,7 +104,7 @@
                         android:hint="@string/user_login_password"
                         android:inputType="textPassword"
                         android:singleLine="true"
-                        android:textSize="15sp" />
+                        android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -135,6 +135,7 @@
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:padding="20dp"
+        android:textAllCaps="true"
         android:text="@string/user_login_register" />
 
 </RelativeLayout>

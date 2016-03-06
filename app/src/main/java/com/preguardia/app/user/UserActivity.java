@@ -8,10 +8,9 @@ import com.batch.android.Batch;
 import com.preguardia.app.R;
 import com.preguardia.app.main.MainActivity;
 import com.preguardia.app.user.login.LoginFragment;
-import com.preguardia.app.user.register.RegisterFragment;
+import com.preguardia.app.user.register.RegisterActivity;
 
 public class UserActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,11 +97,9 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void onLoadRegisterSection() {
-        // Show Lading for User
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.main_container, RegisterFragment.newInstance(0))
-                .commit();
+        Intent intent = new Intent(this, RegisterActivity.class);
+
+        startActivity(intent);
     }
 
     @Override
