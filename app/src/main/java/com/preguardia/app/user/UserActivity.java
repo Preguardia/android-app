@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.batch.android.Batch;
 import com.preguardia.app.R;
-import com.preguardia.app.main.MenuActivity;
+import com.preguardia.app.main.MainActivity;
 import com.preguardia.app.user.login.LoginFragment;
 import com.preguardia.app.user.register.RegisterFragment;
 
@@ -113,7 +113,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void onLoadConsultationMain() {
-        Intent intent = new Intent(this, MenuActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
 
         startActivity(intent);
     }

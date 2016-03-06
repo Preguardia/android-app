@@ -7,6 +7,7 @@ import com.preguardia.app.BuildConfig;
  */
 public class Constants {
 
+    public static final String PREFERENCES_FIRST_START = "firstStart";
     public static final String PREFERENCES_USER_UID = "user_uid";
     public static final String PREFERENCES_USER_TOKEN = "user_token";
 
