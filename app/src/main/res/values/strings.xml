@@ -22,7 +22,7 @@
     <string name="user_register_surname">Surname</string>
     <string name="user_register_email">eMail</string>
     <string name="user_register_date">Birth date</string>
-    <string name="user_register_social">Social</string>
+    <string name="user_register_medical">Medical Care</string>
     <string name="user_register_phone">Phone</string>
     <string name="user_register_plate">Plate</string>
     <string name="user_register_button">Register</string>

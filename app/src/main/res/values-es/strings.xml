@@ -19,7 +19,7 @@
     <string name="user_register_surname">Apellido</string>
     <string name="user_register_email">eMail</string>
     <string name="user_register_date">Fecha de nacimiento</string>
-    <string name="user_register_social">Obra social</string>
+    <string name="user_register_medical">Obra social</string>
     <string name="user_register_phone">Teléfono</string>
     <string name="user_register_plate">Matrícula</string>
     <string name="user_register_button">Registrarme</string>

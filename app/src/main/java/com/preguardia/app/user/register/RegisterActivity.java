@@ -47,16 +47,16 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     TextInputLayout passwordInputView;
     @Bind(R.id.user_register_date)
     TextInputLayout dateInputView;
-    @Bind(R.id.user_register_social)
-    TextInputLayout socialInputView;
+    @Bind(R.id.user_register_medical)
+    TextInputLayout medicalInputView;
     @Bind(R.id.user_register_phone)
     TextInputLayout phoneInputView;
     @Bind(R.id.user_input_plate)
     TextInputLayout plateInputView;
     @Bind(R.id.user_register_plate_container)
     LinearLayout plateContainerView;
-    @Bind(R.id.user_register_social_container)
-    LinearLayout socialContainerView;
+    @Bind(R.id.user_register_medical_container)
+    LinearLayout medicalContainerView;
 
     private RegisterContract.UserActionsListener mActionListener;
     private MaterialDialog progressDialog;
@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @SuppressWarnings("unused")
     @OnTouch(R.id.user_register_patient)
     public boolean onPatientClick() {
-        socialContainerView.setVisibility(View.VISIBLE);
+        medicalContainerView.setVisibility(View.VISIBLE);
         plateContainerView.setVisibility(View.GONE);
 
         patientButton.setPressed(true);
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @SuppressWarnings("unused")
     @OnTouch(R.id.user_register_medic)
     public boolean onMedicClick() {
-        socialContainerView.setVisibility(View.GONE);
+        medicalContainerView.setVisibility(View.GONE);
         plateContainerView.setVisibility(View.VISIBLE);
 
         patientButton.setPressed(false);
@@ -118,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String email = emailInputView.getEditText().getText().toString();
         String password = passwordInputView.getEditText().getText().toString();
         String birthDate = dateInputView.getEditText().getText().toString();
-        String social = socialInputView.getEditText().getText().toString();
+        String medical = medicalInputView.getEditText().getText().toString();
         String plate = plateInputView.getEditText().getText().toString();
         String phone = phoneInputView.getEditText().getText().toString();
 
@@ -130,7 +130,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         this.toggleKeyboard();
 
-        mActionListener.registerUser(type, name, email, password, birthDate, social, plate, phone);
+        mActionListener.registerUser(type, name, email, password, birthDate, medical, plate, phone);
     }
 
     @Override

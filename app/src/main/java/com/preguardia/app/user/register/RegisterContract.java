@@ -23,7 +23,7 @@ public interface RegisterContract {
     interface UserActionsListener {
 
         void registerUser(String type, String name, String email, String password, String birthDate,
-                          String social, String plate, String phone);
+                          String medical, String plate, String phone);
     }
 
 }

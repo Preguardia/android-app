@@ -4,9 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,9 +32,8 @@ public class RegisterPresenter implements RegisterContract.UserActionsListener {
     }
 
     @Override
-    public void registerUser(String type, String name, String email, String password, String birthDate,
-                             String social, String plate, String phone) {
-
+    public void registerUser(final String type, final String name, final String email, final String password,
+                             final String birthDate, final String medical, final String plate, final String phone) {
 
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !birthDate.isEmpty()) {
             registerView.showProgress();
@@ -42,6 +43,21 @@ public class RegisterPresenter implements RegisterContract.UserActionsListener {
                 @Override
                 public void onSuccess(Map<String, Object> result) {
                     System.out.println("Successfully created user account with uid: " + result.get("uid"));
+                    Object uuid = result.get("uid");
+
+                    // Authentication just completed successfully
+                    Map<String, String> map = new HashMap<>();
+
+                    // Save user attributes
+                    map.put("name", name);
+                    map.put("birthDate", birthDate);
+                    map.put("type", type);
+                    map.put("medical", medical);
+                    map.put("plate", plate);
+                    map.put("phone", phone);
+
+                    // Send to Firebase
+                    firebase.child(Constants.FIREBASE_USERS).child(uuid.toString()).setValue(map);
 
                     registerView.hideProgress();
                 }
