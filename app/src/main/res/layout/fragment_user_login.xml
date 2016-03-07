@@ -13,8 +13,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="218dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="238dp"
+        android:background="@drawable/bg_login"
         android:elevation="2dp">
 
         <RelativeLayout
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Bienvenido"
+                    android:text="@string/user_login_welcome"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -78,7 +78,7 @@
                 android:padding="20dp">
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/user_input_name"
+                    android:id="@+id/user_login_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp">
@@ -86,20 +86,25 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
-                        android:textSize="15sp" />
+                        android:fontFamily="sans-serif"
+                        android:hint="@string/user_login_email"
+                        android:inputType="textEmailAddress"
+                        android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/user_input_email"
+                    android:id="@+id/user_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Contraseña"
-                        android:textSize="15sp" />
+                        android:fontFamily="sans-serif"
+                        android:hint="@string/user_login_password"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        android:textSize="16sp" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -112,7 +117,7 @@
                 android:background="@color/colorPrimaryDark"
                 android:fontFamily="sans-serif-medium"
                 android:padding="18dp"
-                android:text="Ingresar"
+                android:text="@string/user_login_button"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
@@ -130,6 +135,7 @@
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:padding="20dp"
-        android:text="NO ESTOY REGISTRADO" />
+        android:textAllCaps="true"
+        android:text="@string/user_login_register" />
 
 </RelativeLayout>

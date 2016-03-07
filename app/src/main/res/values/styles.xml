@@ -18,10 +18,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="FullWidthEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:padding">20dp</item>
-        <item name="android:background">@null</item>
-        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+    <style name="UserRegisterContainer">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="UserRegisterIcon">
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
 </resources>

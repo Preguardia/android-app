@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name" translatable="false">Preguardia</string>
+    <string name="app_name" translatable="false">GraciasDoc</string>
 
-    <string name="title_activity_main" translatable="false">Preguardia</string>
+    <string name="title_activity_main" translatable="false">GraciasDoc</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,16 +16,29 @@
     <string name="consultation_new_where">Where in your body?</string>
     <string name="consultation_new_lasttime">When you noticed last time?</string>
     <string name="consultation_details_title">Consultation details</string>
-    <string name="user_landing_name">Name and Surname</string>
-    <string name="user_landing_patient">I\'m patient</string>
-    <string name="user_landing_medic">I\'m medic</string>
-    <string name="user_landing_surname">Surname</string>
-    <string name="user_landing_email">eMail</string>
-    <string name="user_landing_date">Birth date</string>
-    <string name="user_landing_social">Social</string>
-    <string name="user_landing_phone">Phone</string>
-    <string name="user_landing_plate">Plate</string>
-    <string name="user_lading_register">Register</string>
+    <string name="user_register_name">Name and Surname</string>
+    <string name="user_register_patient">I\'m patient</string>
+    <string name="user_register_medic">I\'m medic</string>
+    <string name="user_register_surname">Surname</string>
+    <string name="user_register_email">eMail</string>
+    <string name="user_register_date">Birth date</string>
+    <string name="user_register_social">Social</string>
+    <string name="user_register_phone">Phone</string>
+    <string name="user_register_plate">Plate</string>
+    <string name="user_register_button">Register</string>
+    <string name="user_register_title">Register</string>
+
+    <string name="user_login_title">Login</string>
+    <string name="user_login_error_positive">OK</string>
+    <string name="user_login_error_message">Incorrect user or password</string>
+    <string name="user_login_email">Email</string>
+    <string name="user_login_password">Password</string>
+    <string name="user_login_button">Enter</string>
+    <string name="user_login_register">I\'m not registered</string>
+    <string name="user_login_welcome">Welcome</string>
+    <string name="user_login_error_field">Please enter a valid email and password.</string>
+    <string name="user_login_loading">Loading…</string>
+    <string name="user_register_password">Password</string>
 
     <string-array name="consultation_category_list">
 
