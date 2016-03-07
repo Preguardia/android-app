@@ -7,6 +7,8 @@ public interface RegisterContract {
 
     interface View {
 
+        void showSuccess();
+
         void showError();
 
         void showProgress();

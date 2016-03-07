@@ -80,4 +80,7 @@
     <string name="user_login_welcome">Bienvenido</string>
     <string name="user_register_password">Contraseña</string>
     <string name="user_register_title">Registro</string>
+    <string name="user_register_incomplete_fields">Complete todos los campos.</string>
+    <string name="user_register_success_content">Registro exitoso. Bienvenido!</string>
+    <string name="user_register_success_positive">Aceptar</string>
 </resources>

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.orhanobut.logger.Logger;
 import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
@@ -42,8 +43,9 @@ public class RegisterPresenter implements RegisterContract.UserActionsListener {
             firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
                 @Override
                 public void onSuccess(Map<String, Object> result) {
-                    System.out.println("Successfully created user account with uid: " + result.get("uid"));
-                    Object uuid = result.get("uid");
+                    final Object uuid = result.get("uid");
+
+                    Logger.d("Successfully created user UID: " + result.get("uid"));
 
                     // Authentication just completed successfully
                     Map<String, String> map = new HashMap<>();
@@ -60,18 +62,21 @@ public class RegisterPresenter implements RegisterContract.UserActionsListener {
                     firebase.child(Constants.FIREBASE_USERS).child(uuid.toString()).setValue(map);
 
                     registerView.hideProgress();
+                    registerView.showSuccess();
                 }
 
                 @Override
                 public void onError(FirebaseError firebaseError) {
-                    // there was an error
-
-                    System.out.println("FIREBASE ERROR: " + firebaseError.getMessage());
+                    // There was an error
+                    Logger.e("Firebase register error: " + firebaseError.getMessage());
 
                     registerView.hideProgress();
+                    registerView.showError();
                 }
             });
         } else {
+            Logger.d("Empty field");
+
             registerView.showError();
         }
 

@@ -89,6 +89,9 @@ dependencies {
     // Firebase
     compile 'com.firebase:firebase-client-android:2.3.1'
 
+    // Logs
+    compile 'com.github.orhanobut:logger:1.12'
+
     // Wizard
     compile 'com.github.paolorotolo:appintro:3.4.0'
 

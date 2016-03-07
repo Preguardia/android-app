@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import com.batch.android.Batch;
 import com.batch.android.Config;
 import com.firebase.client.Firebase;
+import com.orhanobut.logger.Logger;
 
 /**
  * @author amouly on 2/17/16.
@@ -15,6 +16,9 @@ public class MedicApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // Init Logger
+        Logger.init(BuildConfig.APPLICATION_ID);
 
         // Start Firebase
         Firebase.setAndroidContext(this);

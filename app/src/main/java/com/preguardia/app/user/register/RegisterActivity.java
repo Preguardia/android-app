@@ -3,6 +3,7 @@ package com.preguardia.app.user.register;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -14,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
@@ -131,6 +133,22 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         this.toggleKeyboard();
 
         mActionListener.registerUser(type, name, email, password, birthDate, medical, plate, phone);
+    }
+
+    @Override
+    public void showSuccess() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.user_register_title)
+                .content(R.string.user_register_success_content)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        openMain();
+                    }
+                })
+                .positiveText(R.string.user_register_success_positive)
+                .autoDismiss(false)
+                .show();
     }
 
     @Override
