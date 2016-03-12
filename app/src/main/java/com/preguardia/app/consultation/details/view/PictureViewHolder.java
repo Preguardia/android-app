@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.details.picture;
+package com.preguardia.app.consultation.details.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

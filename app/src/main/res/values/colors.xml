@@ -11,4 +11,6 @@
     <color name="landing_button_normal">#FFFFFF</color>
 
     <color name="user_register_icon">#727272</color>
+
+    <color name="history_list_divider">#cccccc</color>
 </resources>

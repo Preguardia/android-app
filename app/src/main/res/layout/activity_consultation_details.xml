@@ -94,7 +94,7 @@
             android:paddingTop="10dp"
             android:scrollbars="none"
             android:windowSoftInputMode="adjustResize"
-            tools:listitem="@layout/item_details_message" />
+            tools:listitem="@layout/item_details_message_left" />
 
     </RelativeLayout>
 

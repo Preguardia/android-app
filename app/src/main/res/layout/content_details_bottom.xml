@@ -16,10 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_attachment_24dp"
+        android:src="@drawable/ic_send_24dp"
         android:tint="@color/landing_button_pressed" />
 
     <EditText
+        android:id="@+id/consultation_details_bottom_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

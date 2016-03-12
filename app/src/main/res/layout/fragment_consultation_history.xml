@@ -14,14 +14,14 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:paddingTop="20dp"
-        android:text="Últimas consultas realizadas a nuestros especialistas."
+        android:text="@string/history_help_title"
         android:textSize="15sp" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/consultation_history_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#ccc"
+        android:divider="@color/history_list_divider"
         android:dividerHeight="1dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"

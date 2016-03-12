@@ -7,28 +7,35 @@ import java.util.List;
  */
 public class Consultation {
 
-    private String patient;
+    private String patientId;
     private String dateCreated;
-    private String title;
+    private String summary;
     private String category;
     private String details;
     private List<Question> questions;
-    private List<Message> messages;
 
-    public Consultation(String dateCreated, String title, String category, String details, List<Message> messages) {
+    public Consultation(String patientId, String dateCreated, String summary, String category, String details) {
+        this.patientId = patientId;
         this.dateCreated = dateCreated;
-        this.title = title;
+        this.summary = summary;
         this.category = category;
         this.details = details;
-        this.messages = messages;
     }
 
-    public String getTitle() {
-        return title;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String title) {
+        this.summary = title;
     }
 
     public String getCategory() {
@@ -45,14 +52,6 @@ public class Consultation {
 
     public void setDetails(String details) {
         this.details = details;
-    }
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
     }
 
     public String getDateCreated() {

@@ -4,14 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.firebase.client.Firebase;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
+import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.general.Constants;
+
+import net.grandcentrix.tray.TrayAppPreferences;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,19 +27,33 @@ import butterknife.OnItemClick;
 /**
  * @author amouly on 2/20/16.
  */
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Bind(R.id.consultation_history_list)
-    ListView historyList;
+    RecyclerView recyclerView;
 
-    public static HistoryFragment newInstance(int param) {
-        HistoryFragment fragment = new HistoryFragment();
+    private HistoryContract.UserActionsListener mActionListener;
+    private MaterialDialog progressDialog;
 
-        Bundle args = new Bundle();
-        args.putInt("PARAM", param);
-        fragment.setArguments(args);
+    public static HistoryFragment newInstance() {
+        return new HistoryFragment();
+    }
 
-        return fragment;
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // Init Progress dialog
+        MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
+                .title(R.string.drawer_consultation_history)
+                .content(R.string.user_login_loading)
+                .cancelable(false)
+                .progress(true, 0);
+
+        progressDialog = progressBuilder.build();
+
+        this.mActionListener = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
+                new TrayAppPreferences(getContext()), this);
     }
 
     @Override
@@ -42,24 +63,11 @@ public class HistoryFragment extends Fragment {
         ButterKnife.bind(this, view);
 
 
-        ArrayAdapter adapter = new ArrayAdapter(getActivity(), R.layout.item_history_list, R.id.item_history_medic);
-
-        adapter.add("Ricardo Ramos - Pediatra");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-        adapter.add("Marcos Gimenez - Oculista");
-
-        historyList.setAdapter(adapter);
 
         return view;
     }
 
+    @SuppressWarnings("unused")
     @OnItemClick(R.id.consultation_history_list)
     public void onItemClick() {
         Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
@@ -71,5 +79,20 @@ public class HistoryFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void showItems(List<GenericMessage> notes) {
+
     }
 }
