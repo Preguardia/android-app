@@ -42,12 +42,16 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     private MaterialDialog progressDialog;
     private ConsultationDetailsContract.UserActionsListener mActionListener;
 
-    private String sentConsultation = "-KCXREQ1H5dmkRH4nFgk";
+    private String sentConsultation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_consultation_details);
+
+        // Get the requested Consultation ID
+        sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
 
         ButterKnife.bind(this);
 

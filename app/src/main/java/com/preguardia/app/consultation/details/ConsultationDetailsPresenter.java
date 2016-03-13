@@ -67,7 +67,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
     @Override
     public void loadItems() {
-        detailsView.showLoading();
+        //detailsView.showLoading();
 
         // Handle new messages from Firebase
         messagesRef.addChildEventListener(new ChildEventListener() {
@@ -81,8 +81,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
                 // Add item to Messages list
                 detailsView.addItem(model);
-
-                detailsView.hideLoading();
+                //detailsView.hideLoading();
             }
 
             @Override

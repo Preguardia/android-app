@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
+import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
@@ -43,7 +45,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0));
+        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), mItemListener);
     }
 
     @Override
@@ -121,4 +123,23 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         mAdapter.addItem(item);
         mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
     }
+
+    @Override
+    public void openDetails(@Nullable String consultationId) {
+        Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
+
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
+
+        startActivity(intent);
+    }
+
+    /**
+     * Listener for clicks on notes in the RecyclerView.
+     */
+    HistoryContract.ConsultationItemListener mItemListener = new HistoryContract.ConsultationItemListener() {
+        @Override
+        public void onConsultationClick(@Nullable String consultationId) {
+            openDetails(consultationId);
+        }
+    };
 }

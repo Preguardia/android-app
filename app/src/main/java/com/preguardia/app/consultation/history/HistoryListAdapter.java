@@ -10,15 +10,19 @@ import com.preguardia.app.consultation.model.Consultation;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * @author amouly on 3/12/16.
  */
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
 
     private List<Consultation> historyList;
+    private HistoryContract.ConsultationItemListener itemListener;
 
-    public HistoryListAdapter(List<Consultation> itemsList) {
+    public HistoryListAdapter(List<Consultation> itemsList, HistoryContract.ConsultationItemListener clickListener) {
         this.historyList = itemsList;
+        this.itemListener = clickListener;
     }
 
     @Override
@@ -27,7 +31,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
         View item = inflater.inflate(R.layout.item_history_list, parent, false);
 
-        return new HistoryViewHolder(parent.getContext(), item);
+        return new HistoryViewHolder(parent.getContext(), item, itemListener);
     }
 
     @Override
@@ -37,6 +41,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
         switch (consultation.getStatus()) {
             case "pending":
 
+                // TODO: replace with resource string
                 holder.setUserName("Pendiente de aprobación");
                 holder.setStateIcoImageView(R.drawable.ic_access_time_24dp);
 
@@ -57,12 +62,22 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 break;
         }
 
+        // TODO: replace with dynamic image
         holder.setUserImageView("https://randomuser.me/api/portraits/med/men/54.jpg");
         holder.setSummaryText(consultation.getSummary());
     }
 
     public void addItem(Consultation item) {
         historyList.add(item);
+    }
+
+    private void setList(List<Consultation> consultations) {
+        historyList = checkNotNull(consultations);
+    }
+
+    public void replaceData(List<Consultation> consultations) {
+        setList(consultations);
+        notifyDataSetChanged();
     }
 
     @Override

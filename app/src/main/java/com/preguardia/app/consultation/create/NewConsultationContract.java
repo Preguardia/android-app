@@ -25,6 +25,8 @@ public interface NewConsultationContract {
         void showImagePreview(@NonNull String uri);
 
         void openDetails(@Nullable String consultationId);
+
+        void openHistory();
     }
 
     interface UserActionsListener {

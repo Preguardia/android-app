@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Consultation {
 
+    private String id;
     private String patientId;
     private String medicId;
     private String dateCreated;
@@ -20,12 +21,21 @@ public class Consultation {
     public Consultation() {
     }
 
-    public Consultation(String patientId, String dateCreated, String summary, String category, String details) {
+    public Consultation(String patientId, String dateCreated, String status, String summary, String category, String details) {
         this.patientId = patientId;
         this.dateCreated = dateCreated;
+        this.status = status;
         this.summary = summary;
         this.category = category;
         this.details = details;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPatientId() {

@@ -15,9 +15,14 @@ public class Constants {
     public static final String FIREBASE_USERS = "users";
     public static final String FIREBASE_MESSAGES = "messages";
 
+    public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";
+    public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";
+    public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";
+
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
     public static final String FIREBASE_URL_CONSULTATIONS = FIREBASE_URL + "/" + FIREBASE_CONSULTATIONS;
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_USERS;
     public static final String FIREBASE_URL_MESSAGES = FIREBASE_URL + "/" + FIREBASE_MESSAGES;
 
+    public static final String EXTRA_CONSULTATION_ID = "extra:consultation:id";
 }

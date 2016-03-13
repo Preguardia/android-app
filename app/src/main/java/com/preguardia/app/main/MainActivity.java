@@ -117,15 +117,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
+        this.loadSection(fragment, title);
+
+        return true;
+    }
+
+    private void loadSection(Fragment fragment, String title) {
         setTitle(title);
 
-        // Show section
+        // Show Fragment
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, fragment)
                 .commit();
+    }
 
-        return true;
+    public void loadHistorySection() {
+        this.loadSection(HistoryFragment.newInstance(), getString(R.string.drawer_consultation_history));
     }
 
     @Override

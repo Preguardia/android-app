@@ -50,13 +50,14 @@ public class NewConsultationPresenter implements NewConsultationContract.UserAct
 
         consultationView.showLoading();
 
-        // Create consultation model
-        Consultation consultation = new Consultation(userId, currentTime, summary, category, details);
+        // Create a Pending Consultation
+        Consultation consultation = new Consultation(userId, currentTime,
+                Constants.FIREBASE_CONSULTATION_STATUS_PENDING, summary, category, details);
 
         Firebase newConsultation = firebase.push();
 
         // Save generated ID
-        final String listId = newConsultation.getKey();
+        final String consultationId = newConsultation.getKey();
 
         // Send object to Firebase
         newConsultation.setValue(consultation, new Firebase.CompletionListener() {
@@ -68,7 +69,7 @@ public class NewConsultationPresenter implements NewConsultationContract.UserAct
                     System.out.println("Data saved successfully.");
 
                     consultationView.hideLoading();
-                    consultationView.showSuccess(listId);
+                    consultationView.showSuccess(consultationId);
                 }
             }
         });

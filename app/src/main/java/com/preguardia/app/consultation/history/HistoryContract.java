@@ -1,5 +1,7 @@
 package com.preguardia.app.consultation.history;
 
+import android.support.annotation.Nullable;
+
 import com.preguardia.app.consultation.model.Consultation;
 
 import java.util.List;
@@ -17,10 +19,16 @@ public interface HistoryContract {
         void showItems(List<Consultation> consultations);
 
         void addItem(Consultation item);
+
+        void openDetails(@Nullable String consultationId);
     }
 
     interface UserActionsListener {
 
         void loadItems();
+    }
+
+    interface ConsultationItemListener {
+        void onConsultationClick(@Nullable String consultationId);
     }
 }

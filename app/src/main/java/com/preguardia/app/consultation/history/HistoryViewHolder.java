@@ -16,9 +16,10 @@ import butterknife.ButterKnife;
 /**
  * @author amouly on 3/12/16.
  */
-public class HistoryViewHolder extends RecyclerView.ViewHolder {
+public class HistoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final Context context;
+    private HistoryContract.ConsultationItemListener itemListener;
 
     @Bind(R.id.item_history_user_name)
     TextView userNameView;
@@ -29,10 +30,14 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.item_history_state_ico)
     ImageView stateIcoImageView;
 
-    public HistoryViewHolder(Context context, View itemView) {
+    public HistoryViewHolder(Context context, View itemView, HistoryContract.ConsultationItemListener itemListener) {
         super(itemView);
 
         this.context = context;
+        this.itemListener = itemListener;
+
+        // Handle click on view
+        itemView.setOnClickListener(this);
 
         ButterKnife.bind(this, itemView);
     }
@@ -53,5 +58,11 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
 
     public void setStateIcoImageView(@DrawableRes int drawable) {
         stateIcoImageView.setImageResource(drawable);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // TODO: Send a proper Consultation ID
+        itemListener.onConsultationClick("-KCXREQ1H5dmkRH4nFgk");
     }
 }

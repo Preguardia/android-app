@@ -19,6 +19,7 @@ import com.firebase.client.Firebase;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.main.MainActivity;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -190,7 +191,14 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     public void openDetails(@Nullable String consultationId) {
         Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
 
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
+
         startActivity(intent);
+    }
+
+    @Override
+    public void openHistory() {
+        ((MainActivity) getActivity()).loadHistorySection();
     }
 
     @Override
@@ -201,7 +209,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        openDetails(consultationId);
+                        openHistory();
                     }
                 })
                 .positiveText(R.string.user_register_success_positive)
