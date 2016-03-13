@@ -39,13 +39,10 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     TextView inputView;
 
     private MessagesListAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
     private MaterialDialog progressDialog;
-
     private ConsultationDetailsContract.UserActionsListener mActionListener;
 
-    String sentConsultation = "-KCXREQ1H5dmkRH4nFgk";
+    private String sentConsultation = "-KCXREQ1H5dmkRH4nFgk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +70,12 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
                 this,
                 sentConsultation);
 
+        // Load first items and attach
+        mActionListener.loadItems();
+
         // Config Recycler view
         recyclerView.setHasFixedSize(false);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
         // Create adapter with empty list

@@ -102,6 +102,10 @@ dependencies {
         transitive = true
     }
     compile 'com.firebaseui:firebase-ui:0.3.1'
+
+    compile 'com.yqritc:recyclerview-flexibledivider:1.2.9'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

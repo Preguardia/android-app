@@ -1,6 +1,6 @@
 package com.preguardia.app.consultation.history;
 
-import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.consultation.model.Consultation;
 
 import java.util.List;
 
@@ -14,7 +14,9 @@ public interface HistoryContract {
 
         void hideLoading();
 
-        void showItems(List<GenericMessage> notes);
+        void showItems(List<Consultation> consultations);
+
+        void addItem(Consultation item);
     }
 
     interface UserActionsListener {

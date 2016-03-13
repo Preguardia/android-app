@@ -9,25 +9,36 @@
     android:paddingBottom="15dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_history_picture"
+        android:id="@+id/item_history_user_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentLeft="true"
-        android:src="@drawable/pic_medic"
+        tools:src="@drawable/pic_medic"
         app:border_color="@android:color/white"
         app:border_width="1dp" />
+
+    <ImageView
+        android:id="@+id/item_history_state_ico"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:tint="#666"
+        android:src="@drawable/ic_access_time_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/item_history_picture">
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@id/item_history_user_picture"
+        android:layout_toLeftOf="@+id/item_history_state_ico">
 
         <TextView
-            android:id="@+id/item_history_medic"
-            android:layout_width="wrap_content"
+            android:id="@+id/item_history_user_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
@@ -36,21 +47,14 @@
             android:textSize="14sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/item_history_summary"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-normal"
-            android:text="Inflamación ocular"
+            tools:text="Inflamación ocular"
             android:maxLines="2"
             android:textSize="14sp" />
 
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:tint="#666"
-        android:src="@drawable/ic_access_time_24dp"/>
 
 </RelativeLayout>
