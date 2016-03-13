@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.preguardia.app.R;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.UserActivity;
 import com.preguardia.app.wizard.WizardActivity;
@@ -29,30 +30,32 @@ public class SplashActivity extends AppCompatActivity {
                 boolean isFirstStart = preferences.getBoolean(Constants.PREFERENCES_FIRST_START, true);
                 String userToken = preferences.getString(Constants.PREFERENCES_USER_TOKEN, null);
 
+                Intent intent;
+
                 // If the activity has never started before
                 if (isFirstStart) {
                     // Launch app intro
-                    Intent i = new Intent(SplashActivity.this, WizardActivity.class);
-                    startActivity(i);
+                    intent = new Intent(SplashActivity.this, WizardActivity.class);
 
                     // Edit preference to make it false because we don't want this to run again
                     preferences.put(Constants.PREFERENCES_FIRST_START, false);
                 } else if (userToken == null) {
                     // Launch User login
-                    Intent i = new Intent(SplashActivity.this, UserActivity.class);
-                    startActivity(i);
+                    intent = new Intent(SplashActivity.this, UserActivity.class);
                 } else {
                     // Launch app Main
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+                // Close splash
+                finish();
             }
         });
 
         // Start the thread
         t.start();
-
-        // Close Splash
-        this.finish();
     }
 }

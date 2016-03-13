@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.orhanobut.logger.Logger;
 import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
@@ -38,7 +39,7 @@ public class LoginPresenter implements LoginContract.UserActionsListener {
             firebase.authWithPassword(user, password, new Firebase.AuthResultHandler() {
                 @Override
                 public void onAuthenticated(AuthData authData) {
-                    System.out.println("User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
+                    Logger.d("Login successfully - User ID: " + authData.getUid() + ", Provider: " + authData.getProvider());
 
                     // Save information about user
                     appPreferences.put(Constants.PREFERENCES_USER_UID, authData.getUid());
@@ -50,12 +51,16 @@ public class LoginPresenter implements LoginContract.UserActionsListener {
 
                 @Override
                 public void onAuthenticationError(FirebaseError firebaseError) {
+                    Logger.e("Login error - Message: " + firebaseError.getMessage());
+
                     loginView.showLoginError(firebaseError.getMessage());
                     loginView.hideProgress();
                 }
             });
 
         } else {
+            Logger.d("Empty fields.");
+
             loginView.showEmptyFieldError();
         }
     }

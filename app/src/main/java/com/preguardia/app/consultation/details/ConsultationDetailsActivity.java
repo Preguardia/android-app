@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.details;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,15 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.firebase.client.Firebase;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.details.generic.GenericItem;
-import com.preguardia.app.consultation.details.message.MessageItem;
-import com.preguardia.app.consultation.details.message.MessageItem2;
-import com.preguardia.app.consultation.details.picture.PictureItem;
-import com.preguardia.app.consultation.details.title.TitleItem;
+import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.general.Constants;
+
+import net.grandcentrix.tray.TrayAppPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,72 +29,82 @@ import butterknife.OnClick;
 /**
  * @author amouly on 2/27/16.
  */
-public class ConsultationDetailsActivity extends AppCompatActivity {
+public class ConsultationDetailsActivity extends AppCompatActivity implements ConsultationDetailsContract.View {
 
     @Bind(R.id.consultation_details_toolbar)
     Toolbar toolbar;
     @Bind(R.id.consultation_details_list)
-    RecyclerView detailsList;
+    RecyclerView recyclerView;
+    @Bind(R.id.consultation_details_bottom_input)
+    TextView inputView;
 
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private MessagesListAdapter mAdapter;
+    private MaterialDialog progressDialog;
+    private ConsultationDetailsContract.UserActionsListener mActionListener;
+
+    private String sentConsultation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_consultation_details);
 
-        ButterKnife.bind(this);
+        // Get the requested Consultation ID
+        sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
 
+        ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.consultation_details_title);
 
+        // Init Progress dialog
+        MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
+                .title(R.string.drawer_consultation_history)
+                .content(R.string.user_login_loading)
+                .cancelable(false)
+                .progress(true, 0);
 
-        final List<GenericItem> itemList = new ArrayList<>();
+        progressDialog = progressBuilder.build();
 
-        itemList.add(new TitleItem("Titulo del síntoma o enfermedad"));
-        itemList.add(new MessageItem("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen."));
-        itemList.add(new PictureItem("test"));
+        // Create presenter with sent ID
+        mActionListener = new ConsultationDetailsPresenter(new Firebase(Constants.FIREBASE_URL),
+                new TrayAppPreferences(this),
+                this,
+                sentConsultation);
 
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem2("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen."));
-        itemList.add(new MessageItem2("test 21sa sadsd"));
-        itemList.add(new MessageItem("test"));
-        itemList.add(new MessageItem("test"));
+        // Load first items and attach
+        mActionListener.loadItems();
 
+        // Config Recycler view
+        recyclerView.setHasFixedSize(false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
 
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        detailsList.setHasFixedSize(false);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        detailsList.setLayoutManager(mLayoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new DetailsListAdapter(itemList);
-        detailsList.setAdapter(mAdapter);
-
-        detailsList.scrollToPosition(itemList.size() - 1);
+        // Create adapter with empty list
+        mAdapter = new MessagesListAdapter(new ArrayList<GenericMessage>(0));
+        recyclerView.setAdapter(mAdapter);
     }
 
+    @SuppressWarnings("unused")
     @OnClick(R.id.consultation_details_bottom_action)
     public void onActionButtonClick() {
+        String message = inputView.getText().toString();
 
-        new MaterialDialog.Builder(this)
-                .title("Adjuntar archivo")
-                .items(R.array.consultation_details_media)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+        mActionListener.sendMessage(message);
 
-
-                    }
-                })
-                .show();
-
+//        new MaterialDialog.Builder(this)
+//                .title("Adjuntar archivo")
+//                .items(R.array.consultation_details_media)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//
+//
+//                    }
+//                })
+//                .show();
     }
 
     @Override
@@ -116,5 +128,56 @@ public class ConsultationDetailsActivity extends AppCompatActivity {
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void showLoading() {
+        progressDialog.show();
+    }
 
+    @Override
+    public void hideLoading() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void setUserActionListener(ConsultationDetailsContract.UserActionsListener listener) {
+        mActionListener = listener;
+    }
+
+    @Override
+    public void showSuccess() {
+
+    }
+
+    @Override
+    public void showEmptyFieldError() {
+
+    }
+
+    @Override
+    public void showImagePreview() {
+
+    }
+
+    @Override
+    public void clearInput() {
+        inputView.setText("");
+    }
+
+    @Override
+    public void toggleKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
+    }
+
+    @Override
+    public void showItems(List<GenericMessage> notes) {
+
+    }
+
+    @Override
+    public void addItem(GenericMessage item) {
+        mAdapter.addItem(item);
+        recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+        mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+    }
 }

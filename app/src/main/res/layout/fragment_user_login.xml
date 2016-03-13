@@ -118,7 +118,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:padding="18dp"
                 android:text="@string/user_login_button"
-                android:textAllCaps="false"
+                android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 

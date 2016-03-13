@@ -12,7 +12,7 @@
     <string name="drawer_terms">Terms and conditions</string>
 
     <string name="consultation_new_category">Category</string>
-    <string name="consultation_new_title">Consultation summary</string>
+    <string name="consultation_new_summary_title">Consultation summary</string>
     <string name="consultation_new_where">Where in your body?</string>
     <string name="consultation_new_lasttime">When you noticed last time?</string>
     <string name="consultation_details_title">Consultation details</string>
@@ -22,7 +22,7 @@
     <string name="user_register_surname">Surname</string>
     <string name="user_register_email">eMail</string>
     <string name="user_register_date">Birth date</string>
-    <string name="user_register_social">Social</string>
+    <string name="user_register_medical">Medical Care</string>
     <string name="user_register_phone">Phone</string>
     <string name="user_register_plate">Plate</string>
     <string name="user_register_button">Register</string>
@@ -39,6 +39,13 @@
     <string name="user_login_error_field">Please enter a valid email and password.</string>
     <string name="user_login_loading">Loading…</string>
     <string name="user_register_password">Password</string>
+    <string name="user_register_incomplete_fields">Complete all the fields.</string>
+    <string name="user_register_success_content">Register successfully. Welcome!</string>
+    <string name="user_register_success_positive">OK</string>
+    <string name="consultation_new_summary_desc">Ingrese una descripción</string>
+    <string name="consultation_new_details_hint">Ingrese todos los detalles que usted crea que puedan ayudar a su diagnóstico</string>
+    <string name="consultation_new_picture_desc">Puede ingresar una foto relacionada a su consulta</string>
+    <string name="history_help_title">Últimas consultas realizadas a nuestros especialistas.</string>
 
     <string-array name="consultation_category_list">
 

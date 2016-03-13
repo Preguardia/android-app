@@ -36,6 +36,7 @@
                 android:id="@+id/consultation_new_category"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_new"
                 android:padding="15dp">
 
                 <TextView
@@ -90,7 +91,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_marginBottom="5dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/consultation_new_title"
+                    android:text="@string/consultation_new_summary_title"
                     android:textColor="#666"
                     android:textSize="15sp" />
 
@@ -110,8 +111,10 @@
                 android:visibility="gone" />
 
             <RelativeLayout
+                android:id="@+id/consultation_new_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_new"
                 android:padding="15dp">
 
                 <LinearLayout
@@ -124,15 +127,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/consultation_new_title"
+                        android:text="@string/consultation_new_summary_title"
                         android:textColor="#666"
                         android:textSize="15sp" />
 
                     <TextView
+                        android:id="@+id/consultation_new_summary_content"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-normal"
-                        android:text="Ingrese una descripción"
+                        android:text="@string/consultation_new_summary_desc"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -156,6 +160,7 @@
                 android:id="@+id/consultation_new_where"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_new"
                 android:padding="15dp">
 
                 <LinearLayout
@@ -201,6 +206,7 @@
                 android:id="@+id/consultation_new_lasttime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_new"
                 android:padding="15dp">
 
                 <LinearLayout
@@ -245,6 +251,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_new"
                 android:padding="15dp">
 
                 <LinearLayout
@@ -304,10 +311,12 @@
                     android:textSize="15sp" />
 
                 <EditText
+                    android:id="@+id/consultation_new_details"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:gravity="top"
-                    android:hint="Ingrese todos los detalles que usted crea que puedan ayudar a su diagnóstico"
+                    android:hint="@string/consultation_new_details_hint"
+                    android:inputType="textCapSentences"
                     android:maxLines="100"
                     android:textSize="15sp" />
 
@@ -366,7 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-normal"
-                        android:text="Puede ingresar una foto relacionada a su consulta"
+                        android:text="@string/consultation_new_picture_desc"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -375,6 +384,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/consultation_new_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"

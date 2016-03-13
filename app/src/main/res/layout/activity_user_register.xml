@@ -74,7 +74,7 @@
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingTop="20dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="15dp">
 
                 <LinearLayout
                     style="@style/UserRegisterContainer"
@@ -97,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_name"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -176,6 +176,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_date"
+                            android:inputType="text"
+                            android:maxLines="1"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -209,7 +211,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/user_register_social_container"
+                    android:id="@+id/user_register_medical_container"
                     style="@style/UserRegisterContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -223,15 +225,15 @@
                         android:tint="@color/user_register_icon" />
 
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/user_register_social"
+                        android:id="@+id/user_register_medical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/user_register_social"
-                            android:inputType="text"
+                            android:hint="@string/user_register_medical"
+                            android:inputType="textCapWords"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

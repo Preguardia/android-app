@@ -7,28 +7,51 @@ import java.util.List;
  */
 public class Consultation {
 
-    private String patient;
+    private String id;
+    private String patientId;
+    private String medicId;
     private String dateCreated;
-    private String title;
+    private String summary;
     private String category;
     private String details;
+    private String medicName;
+    private String status;
     private List<Question> questions;
-    private List<Message> messages;
 
-    public Consultation(String dateCreated, String title, String category, String details, List<Message> messages) {
+    public Consultation() {
+    }
+
+    public Consultation(String patientId, String dateCreated, String status, String summary, String category, String details) {
+        this.patientId = patientId;
         this.dateCreated = dateCreated;
-        this.title = title;
+        this.status = status;
+        this.summary = summary;
         this.category = category;
         this.details = details;
-        this.messages = messages;
     }
 
-    public String getTitle() {
-        return title;
+    public String getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String title) {
+        this.summary = title;
     }
 
     public String getCategory() {
@@ -47,19 +70,35 @@ public class Consultation {
         this.details = details;
     }
 
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
-
     public String getDateCreated() {
         return dateCreated;
     }
 
     public void setDateCreated(String dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getMedicName() {
+        return medicName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setMedicName(String medicName) {
+        this.medicName = medicName;
+    }
+
+    public String getMedicId() {
+        return medicId;
+    }
+
+    public void setMedicId(String medicId) {
+        this.medicId = medicId;
     }
 }

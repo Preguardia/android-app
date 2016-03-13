@@ -10,13 +10,10 @@ android {
 
     defaultConfig {
         applicationId "com.preguardia.app"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 23
-        versionCode 4
+        versionCode 5
         versionName "1.0"
-
-        // Set a unique tray authority based on your applicationId
-        resValue "string", "tray__authority", "${applicationId}.tray"
     }
     signingConfigs {
         debug {
@@ -47,6 +44,9 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix '-DEVEL'
 
+            // Set a unique tray authority based on your applicationId
+            resValue "string", "tray__authority", "com.preguardia.app.tray"
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
@@ -59,6 +59,9 @@ android {
             buildConfigField "String", "UNIQUE_FIREBASE_ROOT_URL", '"https://medicapp.firebaseio.com"'
             buildConfigField "String", "BATCH_API_KEY", '"DEV56C405C8D2D434791981F5B0909"'
             buildConfigField "String", "GCM_SENDER_ID", '"810564243533"'
+
+            // Set a unique tray authority based on your applicationId
+            resValue "string", "tray__authority", "com.preguardia.app.debug.tray"
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -73,34 +76,38 @@ android {
 dependencies {
     // Testing
     testCompile 'junit:junit:4.12'
-
     // Support
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:cardview-v7:23.1.1'
-
     // Play Services
     compile 'com.google.android.gms:play-services-base:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
-
     // Batch
     compile 'com.batch.android:batch-sdk:1.5.2'
-
     // Firebase
     compile 'com.firebase:firebase-client-android:2.3.1'
-
+    // Logs
+    compile 'com.github.orhanobut:logger:1.12'
     // Wizard
     compile 'com.github.paolorotolo:appintro:3.4.0'
-
     // Storage
-    compile 'net.grandcentrix.tray:tray:0.9.2'
-
+    compile "net.grandcentrix.tray:tray:0.9.2"
+    // Time library
+    compile "net.danlew:android.joda:2.9.2"
     // View
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'de.hdodenhof:circleimageview:1.3.0'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
         transitive = true
     }
+    compile "com.firebaseui:firebase-ui:0.3.1"
+
+    compile "com.yqritc:recyclerview-flexibledivider:1.2.9"
+
+    compile "com.squareup.picasso:picasso:2.5.2"
+
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'

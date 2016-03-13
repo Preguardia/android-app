@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_container, NewConsultationFragment.newInstance(0))
+                    .replace(R.id.main_container, NewConsultationFragment.newInstance())
                     .commit();
         }
     }
@@ -88,14 +88,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.nav_consultation_new:
 
-                fragment = NewConsultationFragment.newInstance(0);
+                fragment = NewConsultationFragment.newInstance();
                 title = getString(R.string.drawer_consultation_new);
 
                 break;
 
             case R.id.nav_consultation_history:
 
-                fragment = HistoryFragment.newInstance(0);
+                fragment = HistoryFragment.newInstance();
                 title = getString(R.string.drawer_consultation_history);
 
                 break;
@@ -117,15 +117,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout.closeDrawer(GravityCompat.START);
 
+        this.loadSection(fragment, title);
+
+        return true;
+    }
+
+    private void loadSection(Fragment fragment, String title) {
         setTitle(title);
 
-        // Show section
+        // Show Fragment
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, fragment)
                 .commit();
+    }
 
-        return true;
+    public void loadHistorySection() {
+        this.loadSection(HistoryFragment.newInstance(), getString(R.string.drawer_consultation_history));
     }
 
     @Override
