@@ -23,7 +23,7 @@ public interface HistoryContract {
         void openDetails(@Nullable String consultationId);
     }
 
-    interface UserActionsListener {
+    interface Presenter {
 
         void loadItems();
     }

@@ -10,22 +10,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.HelpFragment;
 import com.preguardia.app.general.TermsFragment;
 import com.preguardia.app.user.profile.ProfileFragment;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MainContract.View,
+        NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.nav_view) NavigationView navigationView;
+
+    private View drawerHeader;
+    private ImageView userImageView;
+    private TextView userNameTextView;
+    private TextView userDescTextView;
+
+    private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,35 +48,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(toggle);
-        toggle.syncState();
-
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Listener for User profile section
-        navigationView.getHeaderView(0).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Load profile section
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_container, ProfileFragment.newInstance())
-                        .commit();
-
-                drawerLayout.closeDrawer(GravityCompat.START);
-            }
-        });
+        configLoading();
+        configDrawer();
+        configDrawerHeader();
 
         if (savedInstanceState == null) {
             // Set default home
             navigationView.setCheckedItem(R.id.nav_consultation_new);
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.main_container, NewConsultationFragment.newInstance())
-                    .commit();
+            loadSection(NewConsultationFragment.newInstance(), getString(R.string.drawer_consultation_new));
         }
     }
 
@@ -76,6 +68,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void configLoading() {
+        // Init Progress dialog
+        MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
+                .title(R.string.app_name)
+                .content(R.string.user_login_loading)
+                .cancelable(false)
+                .progress(true, 0);
+
+        progressDialog = progressBuilder.build();
+    }
+
+    private void configDrawer() {
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        drawerHeader = navigationView.getHeaderView(0);
+    }
+
+    private void configDrawerHeader() {
+        userImageView = (ImageView) drawerHeader.findViewById(R.id.drawer_profile_image);
+        userNameTextView = (TextView) drawerHeader.findViewById(R.id.drawer_profile_name);
+        userDescTextView = (TextView) drawerHeader.findViewById(R.id.drawer_profile_desc);
+
+        drawerHeader.setOnClickListener(this);
     }
 
     @Override
@@ -140,5 +159,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // Load profile section
+        loadSection(ProfileFragment.newInstance(), getString(R.string.drawer_user_profile));
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void showLoading() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideLoading() {
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void showUserName(String name) {
+        userNameTextView.setText(name);
+    }
+
+    @Override
+    public void showUserDesc(String desc) {
+        userDescTextView.setText(desc);
+    }
+
+    @Override
+    public void showUserPicture(String url) {
+        Picasso.with(this)
+                .load(url)
+                .into(userImageView);
     }
 }

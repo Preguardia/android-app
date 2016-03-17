@@ -35,7 +35,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     RecyclerView recyclerView;
 
     private HistoryListAdapter mAdapter;
-    private HistoryContract.UserActionsListener mActionListener;
+    private HistoryContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     public static HistoryFragment newInstance() {
@@ -43,20 +43,10 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), mItemListener);
-    }
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_consultation_history, container, false);
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mActionListener.loadItems();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        ButterKnife.bind(this, view);
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
@@ -67,15 +57,10 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         progressDialog = progressBuilder.build();
 
-        this.mActionListener = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
+        presenter = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
                 new TrayAppPreferences(getContext()), this);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_consultation_history, container, false);
-
-        ButterKnife.bind(this, view);
+        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), mItemListener);
 
         // Config Recycler view
         recyclerView.setHasFixedSize(true);
@@ -85,6 +70,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         // Create adapter with empty list
         recyclerView.setAdapter(mAdapter);
+
+        presenter.loadItems();
 
         return view;
     }
