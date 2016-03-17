@@ -43,7 +43,6 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     public void loadItems() {
         historyView.showLoading();
 
-
         consultationsRef
                 .orderByChild("patientId")
                 .equalTo(this.currentUserId)

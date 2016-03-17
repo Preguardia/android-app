@@ -15,6 +15,9 @@ public class Constants {
     public static final String FIREBASE_USERS = "users";
     public static final String FIREBASE_MESSAGES = "messages";
 
+    public static final String FIREBASE_USER_TYPE_MEDIC = "medic";
+    public static final String FIREBASE_USER_TYPE_PATIENT = "patient";
+
     public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";
     public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";
     public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";

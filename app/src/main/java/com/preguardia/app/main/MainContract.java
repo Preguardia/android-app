@@ -3,7 +3,7 @@ package com.preguardia.app.main;
 /**
  * @author amouly on 3/17/16.
  */
-public class MainContract {
+public interface MainContract {
 
     interface View {
 
@@ -20,6 +20,7 @@ public class MainContract {
 
     interface Presenter {
 
+        void loadUserInfo();
 
     }
 }

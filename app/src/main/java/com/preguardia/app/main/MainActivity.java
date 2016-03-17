@@ -14,13 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.firebase.client.Firebase;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
+import com.preguardia.app.general.Constants;
 import com.preguardia.app.general.HelpFragment;
 import com.preguardia.app.general.TermsFragment;
 import com.preguardia.app.user.profile.ProfileFragment;
 import com.squareup.picasso.Picasso;
+
+import net.grandcentrix.tray.TrayAppPreferences;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,20 +41,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private TextView userNameTextView;
     private TextView userDescTextView;
 
+    private MainPresenter presenter;
+
     private MaterialDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
-
         setSupportActionBar(toolbar);
 
         configLoading();
         configDrawer();
         configDrawerHeader();
+
+        presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
+        presenter.loadUserInfo();
 
         if (savedInstanceState == null) {
             // Set default home
