@@ -31,7 +31,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
         View item = inflater.inflate(R.layout.item_history_list, parent, false);
 
-        return new HistoryViewHolder(parent.getContext(), item, itemListener);
+        return new HistoryViewHolder(parent.getContext(), item);
     }
 
     @Override
@@ -51,6 +51,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
                 holder.setUserName(consultation.getMedicName());
                 holder.setStateIcoImageView(R.drawable.ic_chevron_right_24dp);
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(consultation.getId());
+                    }
+                });
 
                 break;
 

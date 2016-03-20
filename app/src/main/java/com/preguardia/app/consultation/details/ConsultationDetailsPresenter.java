@@ -6,7 +6,10 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
+import com.preguardia.app.BuildConfig;
+import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.consultation.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
@@ -17,7 +20,7 @@ import java.io.IOException;
 /**
  * @author amouly on 3/11/16.
  */
-public class ConsultationDetailsPresenter implements ConsultationDetailsContract.UserActionsListener {
+public class ConsultationDetailsPresenter implements ConsultationDetailsContract.Presenter {
 
     @NonNull
     private final ConsultationDetailsContract.View detailsView;
@@ -27,7 +30,9 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     private Firebase messagesRef;
     @NonNull
     private final TrayAppPreferences appPreferences;
+
     private final String consultationId;
+    private final String currentUserType;
 
     public ConsultationDetailsPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
@@ -35,10 +40,12 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                         @NonNull String consultationId) {
         this.appPreferences = appPreferences;
         this.detailsView = view;
-        this.detailsView.setUserActionListener(this);
         this.consultationId = consultationId;
+
         this.messagesRef = firebase.child(Constants.FIREBASE_MESSAGES).child(this.consultationId);
         this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
+
+        this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
     }
 
     @Override
@@ -49,7 +56,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     @Override
     public void sendMessage(String message) {
         if (!message.isEmpty()) {
-            final GenericMessage genericMessage = new GenericMessage(message, "text", "patient");
+            final GenericMessage genericMessage = new GenericMessage(message, "text", currentUserType);
 
             // Push message to Firebase with generated ID
             messagesRef.push().setValue(genericMessage);
@@ -69,6 +76,40 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     public void loadItems() {
         //detailsView.showLoading();
 
+        if (BuildConfig.DEBUG) {
+            Logger.d("Load Consultation Messages - ID: " + consultationId);
+        }
+
+        consultationRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final Consultation consultation = dataSnapshot.getValue(Consultation.class);
+
+                if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+                    String patientName = consultation.getPatientName();
+                    String patientMedical = consultation.getPatientMedical();
+
+                    if ((patientName != null) && (patientMedical != null)) {
+                        detailsView.showUserName(patientName);
+                        detailsView.showUserDesc(patientMedical);
+                    }
+                } else {
+                    String medicName = consultation.getMedicName();
+                    String medicPlate = consultation.getMedicPlate();
+
+                    if ((medicName != null) && (medicPlate != null)) {
+                        detailsView.showUserName(medicName);
+                        detailsView.showUserDesc(medicPlate);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
         // Handle new messages from Firebase
         messagesRef.addChildEventListener(new ChildEventListener() {
             // Retrieve new posts as they are added to the database
@@ -77,11 +118,13 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                 // Convert Firebase object to POJO
                 final GenericMessage model = snapshot.getValue(GenericMessage.class);
 
-                Logger.d("New message received: " + snapshot.getValue().toString());
-
                 // Add item to Messages list
                 detailsView.addItem(model);
                 //detailsView.hideLoading();
+
+                if (BuildConfig.DEBUG) {
+                    Logger.d("New message received: " + snapshot.getValue().toString());
+                }
             }
 
             @Override

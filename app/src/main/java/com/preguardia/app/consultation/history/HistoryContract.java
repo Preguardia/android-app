@@ -16,11 +16,13 @@ public interface HistoryContract {
 
         void hideLoading();
 
-        void showItems(List<Consultation> consultations);
-
         void addItem(Consultation item);
 
+        void showItemList(List<Consultation> items);
+
         void openDetails(@Nullable String consultationId);
+
+        void showEmpty();
     }
 
     interface Presenter {

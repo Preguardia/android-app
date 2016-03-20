@@ -59,13 +59,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
         presenter.loadUserInfo();
-
-        if (savedInstanceState == null) {
-            // Set default home
-            navigationView.setCheckedItem(R.id.nav_consultation_new);
-
-            loadSection(NewConsultationFragment.newInstance(), getString(R.string.drawer_consultation_new));
-        }
     }
 
     @Override
@@ -159,8 +152,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 .commit();
     }
 
+    @Override
+    public void loadNewConsultationSection() {
+        this.loadSection(NewConsultationFragment.newInstance(), getString(R.string.drawer_consultation_new));
+        navigationView.setCheckedItem(R.id.nav_consultation_new);
+    }
+
+    @Override
     public void loadHistorySection() {
         this.loadSection(HistoryFragment.newInstance(), getString(R.string.drawer_consultation_history));
+        navigationView.setCheckedItem(R.id.nav_consultation_history);
     }
 
     @Override
@@ -202,5 +203,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         Picasso.with(this)
                 .load(url)
                 .into(userImageView);
+    }
+
+    @Override
+    public void showMedicMenu() {
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.menu_main_medic);
+    }
+
+    @Override
+    public void showPatientMenu() {
+        navigationView.getMenu().clear();
+        navigationView.inflateMenu(R.menu.menu_main_patient);
     }
 }

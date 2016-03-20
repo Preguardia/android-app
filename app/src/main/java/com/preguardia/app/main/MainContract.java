@@ -16,6 +16,14 @@ public interface MainContract {
         void showUserDesc(String desc);
 
         void showUserPicture(String url);
+
+        void showMedicMenu();
+
+        void showPatientMenu();
+
+        void loadNewConsultationSection();
+
+        void loadHistorySection();
     }
 
     interface Presenter {

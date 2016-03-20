@@ -50,6 +50,7 @@
     <string name="consultation_new_media">Foto o video</string>
     <string name="consultation_approve_button">Take consultation</string>
     <string name="drawer_user_profile">User profile</string>
+    <string name="consultation_details_text_input">Ingrese su consulta</string>
 
     <string-array name="consultation_category_list">
 

@@ -20,7 +20,6 @@ import com.preguardia.app.general.Constants;
 import net.grandcentrix.tray.TrayAppPreferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -38,11 +37,14 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     @Bind(R.id.consultation_details_bottom_input)
     TextView inputView;
 
+    @Bind(R.id.consultation_details_user_name)
+    TextView userNameView;
+    @Bind(R.id.consultation_details_user_desc)
+    TextView userDescView;
+
     private MessagesListAdapter mAdapter;
     private MaterialDialog progressDialog;
-    private ConsultationDetailsContract.UserActionsListener mActionListener;
-
-    private String sentConsultation;
+    private ConsultationDetailsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +53,16 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         setContentView(R.layout.activity_consultation_details);
 
         // Get the requested Consultation ID
-        sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
+        String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
 
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.consultation_details_title);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(R.string.consultation_details_title);
+        }
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
@@ -69,18 +74,19 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         progressDialog = progressBuilder.build();
 
         // Create presenter with sent ID
-        mActionListener = new ConsultationDetailsPresenter(new Firebase(Constants.FIREBASE_URL),
+        presenter = new ConsultationDetailsPresenter(new Firebase(Constants.FIREBASE_URL),
                 new TrayAppPreferences(this),
                 this,
                 sentConsultation);
 
         // Load first items and attach
-        mActionListener.loadItems();
+        presenter.loadItems();
 
         // Config Recycler view
-        recyclerView.setHasFixedSize(false);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(layoutManager);
 
         // Create adapter with empty list
         mAdapter = new MessagesListAdapter(new ArrayList<GenericMessage>(0));
@@ -92,7 +98,7 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     public void onActionButtonClick() {
         String message = inputView.getText().toString();
 
-        mActionListener.sendMessage(message);
+        presenter.sendMessage(message);
 
 //        new MaterialDialog.Builder(this)
 //                .title("Adjuntar archivo")
@@ -139,11 +145,6 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     }
 
     @Override
-    public void setUserActionListener(ConsultationDetailsContract.UserActionsListener listener) {
-        mActionListener = listener;
-    }
-
-    @Override
     public void showSuccess() {
 
     }
@@ -170,8 +171,13 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     }
 
     @Override
-    public void showItems(List<GenericMessage> notes) {
+    public void showUserName(String name) {
+        userNameView.setText(name);
+    }
 
+    @Override
+    public void showUserDesc(String desc) {
+        userDescView.setText(desc);
     }
 
     @Override

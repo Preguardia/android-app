@@ -47,17 +47,17 @@
             android:label="@string/user_register_title"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name="com.batch.android.BatchPushService" />
+        <!--<service android:name="com.batch.android.BatchPushService" />-->
 
-        <receiver
-            android:name="com.batch.android.BatchPushReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+        <!--<receiver-->
+        <!--android:name="com.batch.android.BatchPushReceiver"-->
+        <!--android:permission="com.google.android.c2dm.permission.SEND">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
 
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </receiver>
+        <!--<category android:name="${applicationId}" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.view.MessageLeftViewHolder;
 import com.preguardia.app.consultation.details.view.MessageRightViewHolder;
 import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.general.Constants;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void addItem(GenericMessage item) {
         itemsList.add(item);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -37,7 +39,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         switch (item.getType()) {
             case "text": {
-                if (item.getFrom().equals("medic")) {
+                if (item.getFrom().equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
                     return MESSAGE_TYPE_TEXT_LEFT;
                 } else {
                     return MESSAGE_TYPE_TEXT_RIGHT;

@@ -7,6 +7,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
+import com.preguardia.app.BuildConfig;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.User;
 
@@ -33,7 +34,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void loadUserInfo() {
-        String userToken = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
+        final String userToken = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
 
         mainView.showLoading();
 
@@ -48,17 +49,36 @@ public class MainPresenter implements MainContract.Presenter {
                     String userType = user.getType();
                     String userPicture = user.getPicture();
 
-                    Logger.d("User profile loaded - Name: " + userName);
-
                     mainView.showUserName(userName);
+                    mainView.showUserPicture(userPicture);
 
                     if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+                        // Populate Menu
                         mainView.showUserDesc(user.getPlate());
-                    } else {
+                        mainView.showMedicMenu();
+
+                        // Save type of user
+                        appPreferences.put(Constants.PREFERENCES_USER_TYPE, Constants.FIREBASE_USER_TYPE_MEDIC);
+
+                        // Load History Fragment
+                        mainView.loadHistorySection();
+                    } else if (userType.equals(Constants.FIREBASE_USER_TYPE_PATIENT)) {
+                        // Populate Menu
                         mainView.showUserDesc(user.getMedical());
+                        mainView.showPatientMenu();
+
+                        // Save type of user
+                        appPreferences.put(Constants.PREFERENCES_USER_TYPE, Constants.FIREBASE_USER_TYPE_PATIENT);
+
+                        // Load New Consultation Fragment
+                        mainView.loadNewConsultationSection();
                     }
 
-                    mainView.showUserPicture(userPicture);
+                    mainView.hideLoading();
+
+                    if (BuildConfig.DEBUG) {
+                        Logger.d("User profile loaded - Name: " + userName + " - Type: " + userType);
+                    }
                 }
 
                 @Override
@@ -66,8 +86,6 @@ public class MainPresenter implements MainContract.Presenter {
 
                 }
             });
-
-            mainView.hideLoading();
         }
     }
 }

@@ -13,6 +13,8 @@ import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +30,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     private final TrayAppPreferences appPreferences;
 
     private final String currentUserId;
+    private final String currentUserType;
 
     public HistoryPresenter(@NonNull Firebase firebase,
                             @NonNull TrayAppPreferences appPreferences,
@@ -36,32 +39,50 @@ public class HistoryPresenter implements HistoryContract.Presenter {
         this.appPreferences = appPreferences;
         this.historyView = view;
 
+        // Request User Profile
         this.currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
+        this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
     }
 
     @Override
     public void loadItems() {
         historyView.showLoading();
 
+        String orderBy;
+
+        if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+            orderBy = Constants.FIREBASE_USER_MEDIC_ID;
+        } else {
+            orderBy = Constants.FIREBASE_USER_PATIENT_ID;
+        }
+
+        // Show Consultations for current user
         consultationsRef
-                .orderByChild("patientId")
+                .orderByChild(orderBy)
                 .equalTo(this.currentUserId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
-
-                        System.out.println(snapshot.toString());
-
                         GenericTypeIndicator<Map<String, Consultation>> mapType = new GenericTypeIndicator<Map<String, Consultation>>() {
                         };
 
                         Map<String, Consultation> consultations = snapshot.getValue(mapType);
 
+                        // Check empty list
                         if (consultations != null) {
-                            for (Consultation consultation : consultations.values()) {
+                            List<Consultation> items = new ArrayList<>();
+
+                            for (String key : consultations.keySet()) {
+                                Consultation consultation = consultations.get(key);
+
+                                // Set ID based on key
+                                consultation.setId(key);
+
                                 // Show item on list
-                                historyView.addItem(consultation);
+                                items.add(consultation);
                             }
+
+                            historyView.showItemList(items);
 
                             Logger.d("Consultations loaded - Size: " + consultations.size());
 
@@ -76,34 +97,5 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                     public void onCancelled(FirebaseError firebaseError) {
                     }
                 });
-
-//        // Show Consultations for current user
-//        consultationsRef.orderByChild("patientId").equalTo(this.currentUserId).addChildEventListener(new ChildEventListener() {
-//
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//                System.out.println("The read failed: " + firebaseError.getMessage());
-//            }
-//        });
     }
 }

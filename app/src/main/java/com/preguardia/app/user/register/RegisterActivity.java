@@ -125,9 +125,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String phone = phoneInputView.getEditText().getText().toString();
 
         if (medicButton.isPressed()) {
-            type = "medic";
+            type = Constants.FIREBASE_USER_TYPE_MEDIC;
         } else if (patientButton.isPressed()) {
-            type = "patient";
+            type = Constants.FIREBASE_USER_TYPE_PATIENT;
         }
 
         this.toggleKeyboard();

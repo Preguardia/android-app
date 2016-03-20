@@ -76,14 +76,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         return view;
     }
 
-//    @SuppressWarnings("unused")
-//    @OnItemClick(R.id.consultation_history_list)
-//    public void onItemClick() {
-//        Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
-//
-//        startActivity(intent);
-//    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -101,14 +93,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     }
 
     @Override
-    public void showItems(List<Consultation> consultations) {
-
-    }
-
-    @Override
     public void addItem(Consultation item) {
         mAdapter.addItem(item);
         mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+    }
+
+    @Override
+    public void showItemList(List<Consultation> items) {
+        mAdapter.replaceData(items);
     }
 
     @Override
@@ -118,6 +110,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void showEmpty() {
+
     }
 
     /**
