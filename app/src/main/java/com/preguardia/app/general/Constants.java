@@ -9,8 +9,10 @@ public class Constants {
 
     public static final String PREFERENCES_FIRST_START = "firstStart";
     public static final String PREFERENCES_USER_UID = "user_uid";
+    public static final String PREFERENCES_USER_NAME = "user_name";
     public static final String PREFERENCES_USER_TOKEN = "user_token";
     public static final String PREFERENCES_USER_TYPE = "user_type";
+    public static final String PREFERENCES_USER_MEDIC_PLATE = "user_medic_plate";
 
     public static final String FIREBASE_CONSULTATIONS = "consultations";
     public static final String FIREBASE_USERS = "users";

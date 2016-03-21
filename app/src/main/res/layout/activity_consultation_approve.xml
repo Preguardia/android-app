@@ -48,7 +48,7 @@
                     android:layout_height="75dp"
                     android:layout_alignParentRight="true"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/pic_medic" />
+                    tools:src="@drawable/pic_medic" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Alberto Fernandez"
+                        tools:text="Alberto Fernandez"
                         android:textColor="#666"
                         android:textSize="15sp" />
 
@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif"
-                        android:text="Edad: 25 años"
+                        tools:text="Edad: 25 años"
                         android:textColor="#666"
                         android:textSize="14sp" />
 
@@ -81,7 +81,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="Obra social: OSDE"
+                        tools:text="Obra social: OSDE"
                         android:textColor="#666"
                         android:textSize="14sp" />
 
@@ -338,7 +338,7 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/consultation_approve_details"
+                        android:id="@+id/consultation_approve_details_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-normal"
@@ -403,7 +403,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/consultation_new_submit"
+                android:id="@+id/consultation_approve_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"

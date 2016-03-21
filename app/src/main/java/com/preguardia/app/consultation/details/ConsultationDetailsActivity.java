@@ -183,7 +183,12 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     @Override
     public void addItem(GenericMessage item) {
         mAdapter.addItem(item);
-        recyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
-        mAdapter.notifyItemInserted(mAdapter.getItemCount() - 1);
+
+        int position = mAdapter.getItemCount() - 1;
+
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(position);
+            mAdapter.notifyItemInserted(position);
+        }
     }
 }

@@ -21,6 +21,7 @@ public class Consultation {
     private String medicName;
     private String medicPlate;
     private String status;
+    private String patientBirthDate;
     private List<Question> questions;
 
     public Consultation() {
@@ -145,5 +146,13 @@ public class Consultation {
 
     public void setMedicPlate(String medicPlate) {
         this.medicPlate = medicPlate;
+    }
+
+    public String getPatientBirthDate() {
+        return patientBirthDate;
+    }
+
+    public void setPatientBirthDate(String patientBirthDate) {
+        this.patientBirthDate = patientBirthDate;
     }
 }

@@ -225,15 +225,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void showNotification() {
+
+        String consultationId = "-KCXUzC8YVuHFRB9fYs3";
+
+
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ApproveConsultationActivity.class);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Build notification
-        // Actions are just fake
         Notification notification = new Notification.Builder(this)
                 .setContentTitle("New mail from " + "test@gmail.com")
                 .setContentText("Subject")
