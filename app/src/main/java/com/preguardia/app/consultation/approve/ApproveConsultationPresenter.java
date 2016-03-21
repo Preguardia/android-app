@@ -103,7 +103,6 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     public void takeConsultation() {
         String status = consultation.getStatus();
 
-
         switch (status) {
 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:

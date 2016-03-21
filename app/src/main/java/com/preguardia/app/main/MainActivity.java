@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         configDrawer();
         configDrawerHeader();
 
-        this.showNotification();
-
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
         presenter.loadUserInfo();
     }
@@ -224,7 +222,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         navigationView.inflateMenu(R.menu.menu_main_patient);
     }
 
-    private void showNotification() {
+    @Override
+    public void showNotification() {
 
         String consultationId = "-KCXUzC8YVuHFRB9fYs3";
 
