@@ -104,6 +104,8 @@ dependencies {
 
     compile "com.squareup.picasso:picasso:2.5.2"
 
+    compile 'com.wdullaer:materialdatetimepicker:2.2.0'
+
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 }
 
