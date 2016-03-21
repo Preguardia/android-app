@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
@@ -33,6 +35,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Bind(R.id.consultation_history_list)
     RecyclerView recyclerView;
+
+    @Bind(R.id.consultation_history_empty)
+    RelativeLayout emptyView;
+    @Bind(R.id.consultation_history_results)
+    LinearLayout resultsView;
+
 
     private HistoryListAdapter mAdapter;
     private HistoryContract.Presenter presenter;
@@ -114,7 +122,22 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void showEmpty() {
+        emptyView.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void showResults() {
+        resultsView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmpty() {
+        emptyView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideResults() {
+        resultsView.setVisibility(View.VISIBLE);
     }
 
     /**

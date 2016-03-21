@@ -203,7 +203,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     }
 
     @Override
-    public void showSuccess(@Nullable final String consultationId) {
+    public void showSuccess() {
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.drawer_consultation_new)
                 .content(R.string.consultation_new_success_message)

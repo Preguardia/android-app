@@ -23,6 +23,12 @@ public interface HistoryContract {
         void openDetails(@Nullable String consultationId);
 
         void showEmpty();
+
+        void showResults();
+
+        void hideEmpty();
+
+        void hideResults();
     }
 
     interface Presenter {

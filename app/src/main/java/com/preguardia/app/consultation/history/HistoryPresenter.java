@@ -83,11 +83,14 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                             }
 
                             historyView.showItemList(items);
+                            historyView.showResults();
 
                             Logger.d("Consultations loaded - Size: " + consultations.size());
 
                         } else {
                             Logger.d("Consultations no results");
+
+                            historyView.showEmpty();
                         }
 
                         historyView.hideLoading();

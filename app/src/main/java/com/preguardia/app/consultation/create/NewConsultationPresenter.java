@@ -29,11 +29,22 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
     @NonNull
     final TrayAppPreferences appPreferences;
 
+    private final String currentUserId;
+    private final String currentUserName;
+    private final String patientMedical;
+    private String patientBirthDate;
+
     public NewConsultationPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
                                     @NonNull NewConsultationContract.View consultationView) {
         this.firebase = firebase;
         this.appPreferences = appPreferences;
         this.consultationView = consultationView;
+
+        currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
+        currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
+        patientMedical = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_MEDICAL, null);
+        patientBirthDate = "1990-03-16T18:47:45.919-03:00";
+        patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_BIRTH, null);
     }
 
     @Override
@@ -47,13 +58,24 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
 
         // Request environment attributes
         final String currentTime = fmt.print(new DateTime());
-        final String userId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
 
         consultationView.showLoading();
 
         // Create a Pending Consultation
-        Consultation consultation = new Consultation(userId, currentTime,
-                Constants.FIREBASE_CONSULTATION_STATUS_PENDING, summary, category, details);
+        Consultation consultation = new Consultation();
+
+        // Set Patient data
+        consultation.setPatientId(currentUserId);
+        consultation.setPatientName(currentUserName);
+        consultation.setPatientMedical(patientMedical);
+        consultation.setPatientBirthDate(patientBirthDate);
+
+        // Set Consultation data
+        consultation.setDateCreated(currentTime);
+        consultation.setStatus(Constants.FIREBASE_CONSULTATION_STATUS_PENDING);
+        consultation.setSummary(summary);
+        consultation.setCategory(category);
+        consultation.setDetails(details);
 
         Firebase newConsultation = firebase.push();
 
@@ -73,7 +95,7 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
                     }
                 } else {
                     consultationView.hideLoading();
-                    consultationView.showSuccess(consultationId);
+                    consultationView.showSuccess();
 
                     if (BuildConfig.DEBUG) {
                         Logger.d("New Consultation data saved successfully.");

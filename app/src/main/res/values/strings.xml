@@ -54,6 +54,7 @@
     <string name="consultation_new_empty_fields">Por favor complete todos los campos.</string>
     <string name="consultation_new_success_message">Consulta creada exitosamente.</string>
     <string name="consultation_approve_title">Tomar Consulta</string>
+    <string name="consultation_history_empty_text">No hay consultas asignadas</string>
 
     <string-array name="consultation_category_list">
 

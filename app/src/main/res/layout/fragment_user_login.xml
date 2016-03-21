@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
@@ -10,121 +8,122 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="238dp"
-        android:background="@drawable/bg_login"
-        android:elevation="2dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="15dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="60dp"
-                android:gravity="center_horizontal"
-                android:text="@string/app_name"
-                android:textColor="@android:color/white"
-                android:textSize="28sp" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/user_login_container"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/user_login_toolbar_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="145dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="2dp"
-        card_view:cardUseCompatPadding="true">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/user_login_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:title="@string/app_name" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_login_toolbar_container"
+        android:background="@android:color/white"
+        android:elevation="3dp"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:weightSum="2">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/user_login_welcome"
+            android:textSize="16sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            style="@style/UserRegisterContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                style="@style/UserRegisterIcon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#ebebeb"
-                android:elevation="3dp"
-                android:orientation="horizontal"
-                android:padding="20dp"
-                android:weightSum="2">
+                android:src="@drawable/ic_person_24dp"
+                android:tint="@color/user_register_icon" />
 
-                <TextView
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/user_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="@string/user_login_welcome"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/user_login_email"
+                    android:inputType="textEmailAddress"
                     android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/user_login_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:hint="@string/user_login_email"
-                        android:inputType="textEmailAddress"
-                        android:textSize="16sp" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/user_login_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:hint="@string/user_login_password"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
-                        android:textSize="16sp" />
-                </android.support.design.widget.TextInputLayout>
-
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/user_login_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="sans-serif-medium"
-                android:padding="18dp"
-                android:text="@string/user_login_button"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="15sp" />
-
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            style="@style/UserRegisterContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                style="@style/UserRegisterIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_lock_24dp"
+                android:tint="@color/user_register_icon" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/user_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/user_login_password"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:textSize="16sp" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/user_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="80dp"
+            android:paddingRight="80dp"
+            android:text="@string/user_login_button"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/user_login_register_button"
@@ -132,10 +131,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#fff"
+        android:elevation="3dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:padding="20dp"
-        android:textAllCaps="true"
-        android:text="@string/user_login_register" />
+        android:text="@string/user_login_register"
+        android:textAllCaps="true" />
 
 </RelativeLayout>

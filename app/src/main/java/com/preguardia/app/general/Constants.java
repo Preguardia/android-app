@@ -13,6 +13,8 @@ public class Constants {
     public static final String PREFERENCES_USER_TOKEN = "user_token";
     public static final String PREFERENCES_USER_TYPE = "user_type";
     public static final String PREFERENCES_USER_MEDIC_PLATE = "user_medic_plate";
+    public static final String PREFERENCES_USER_PATIENT_MEDICAL = "user_patient_medical";
+    public static final String PREFERENCES_USER_PATIENT_BIRTH = "user_patient_birth";
 
     public static final String FIREBASE_CONSULTATIONS = "consultations";
     public static final String FIREBASE_USERS = "users";

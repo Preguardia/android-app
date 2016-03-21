@@ -16,7 +16,7 @@ public interface NewConsultationContract {
 
         void hideLoading();
 
-        void showSuccess(@Nullable String consultationId);
+        void showSuccess();
 
         void showEmptyFieldError();
 
