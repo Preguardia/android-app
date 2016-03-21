@@ -16,8 +16,6 @@ public interface NewConsultationContract {
 
         void hideLoading();
 
-        void setUserActionListener(UserActionsListener listener);
-
         void showSuccess(@Nullable String consultationId);
 
         void showEmptyFieldError();
@@ -27,9 +25,11 @@ public interface NewConsultationContract {
         void openDetails(@Nullable String consultationId);
 
         void openHistory();
+
+        void showErrorMessage(String message);
     }
 
-    interface UserActionsListener {
+    interface Presenter {
 
         void takePicture() throws IOException;
 

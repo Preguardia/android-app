@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Bind(R.id.user_register_medical_container)
     LinearLayout medicalContainerView;
 
-    private RegisterContract.UserActionsListener mActionListener;
+    private RegisterContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     @Override
@@ -74,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Init the Presenter
-        mActionListener = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
+        presenter = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         this.toggleKeyboard();
 
-        mActionListener.registerUser(type, name, email, password, birthDate, medical, plate, phone);
+        presenter.registerUser(type, name, email, password, birthDate, medical, plate, phone);
     }
 
     @Override
@@ -184,8 +184,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void setUserActionListener(RegisterContract.UserActionsListener listener) {
-        mActionListener = listener;
+    public void setUserActionListener(RegisterContract.Presenter listener) {
+        presenter = listener;
     }
 
     @Override

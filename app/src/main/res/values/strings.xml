@@ -51,6 +51,9 @@
     <string name="consultation_approve_button">Take consultation</string>
     <string name="drawer_user_profile">User profile</string>
     <string name="consultation_details_text_input">Ingrese su consulta</string>
+    <string name="consultation_new_empty_fields">Por favor complete todos los campos.</string>
+    <string name="consultation_new_success_message">Consulta creada exitosamente.</string>
+    <string name="consultation_approve_title">Tomar Consulta</string>
 
     <string-array name="consultation_category_list">
 

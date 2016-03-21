@@ -1,5 +1,9 @@
 package com.preguardia.app.main;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
+import com.preguardia.app.consultation.approve.ApproveConsultationActivity;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         configLoading();
         configDrawer();
         configDrawerHeader();
+
+        this.showNotification();
 
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
         presenter.loadUserInfo();
@@ -215,5 +222,29 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void showPatientMenu() {
         navigationView.getMenu().clear();
         navigationView.inflateMenu(R.menu.menu_main_patient);
+    }
+
+    private void showNotification() {
+        // Prepare intent which is triggered if the notification is selected
+        Intent intent = new Intent(this, ApproveConsultationActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Build notification
+        // Actions are just fake
+        Notification notification = new Notification.Builder(this)
+                .setContentTitle("New mail from " + "test@gmail.com")
+                .setContentText("Subject")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentIntent(pIntent)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // hide the notification after its selected
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        notificationManager.notify(0, notification);
     }
 }
