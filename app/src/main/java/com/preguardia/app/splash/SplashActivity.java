@@ -1,4 +1,4 @@
-package com.preguardia.app.main;
+package com.preguardia.app.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.preguardia.app.R;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.UserActivity;
+import com.preguardia.app.main.MainActivity;
+import com.preguardia.app.user.login.LoginActivity;
 import com.preguardia.app.wizard.WizardActivity;
 
 import net.grandcentrix.tray.TrayAppPreferences;
@@ -41,7 +42,7 @@ public class SplashActivity extends AppCompatActivity {
                     preferences.put(Constants.PREFERENCES_FIRST_START, false);
                 } else if (userToken == null) {
                     // Launch User login
-                    intent = new Intent(SplashActivity.this, UserActivity.class);
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                 } else {
                     // Launch app Main
                     intent = new Intent(SplashActivity.this, MainActivity.class);

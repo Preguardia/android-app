@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author amouly on 3/5/16.
  */
-public class RegisterPresenter implements RegisterContract.UserActionsListener {
+public class RegisterPresenter implements RegisterContract.Presenter {
 
     @NonNull
     private final RegisterContract.View registerView;

@@ -3,7 +3,6 @@ package com.preguardia.app.consultation.details;
 import com.preguardia.app.consultation.model.GenericMessage;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author amouly on 3/11/16.
@@ -16,8 +15,6 @@ public interface ConsultationDetailsContract {
 
         void hideLoading();
 
-        void setUserActionListener(UserActionsListener listener);
-
         void showSuccess();
 
         void showEmptyFieldError();
@@ -28,12 +25,14 @@ public interface ConsultationDetailsContract {
 
         void toggleKeyboard();
 
-        void showItems(List<GenericMessage> notes);
+        void showUserName(String name);
+
+        void showUserDesc(String desc);
 
         void addItem(GenericMessage item);
     }
 
-    interface UserActionsListener {
+    interface Presenter {
 
         void takePicture() throws IOException;
 

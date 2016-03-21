@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
@@ -43,7 +44,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     @Bind(R.id.consultation_new_details)
     EditText detailsEditText;
 
-    private NewConsultationContract.UserActionsListener mActionListener;
+    private NewConsultationContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     public NewConsultationFragment() {
@@ -57,7 +58,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActionListener = new NewConsultationPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS), new TrayAppPreferences(getContext()), this);
+        presenter = new NewConsultationPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS), new TrayAppPreferences(getContext()), this);
     }
 
     @Override
@@ -152,7 +153,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
         String summary = summaryTextView.getText().toString();
         String details = detailsEditText.getText().toString();
 
-        mActionListener.saveConsultation(category, summary, details);
+        presenter.saveConsultation(category, summary, details);
     }
 
     @Override
@@ -173,13 +174,8 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     }
 
     @Override
-    public void setUserActionListener(NewConsultationContract.UserActionsListener listener) {
-        this.mActionListener = listener;
-    }
-
-    @Override
     public void showEmptyFieldError() {
-
+        Snackbar.make(categoryTextView, R.string.consultation_new_empty_fields, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -202,10 +198,15 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     }
 
     @Override
+    public void showErrorMessage(String message) {
+        Snackbar.make(categoryTextView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void showSuccess(@Nullable final String consultationId) {
         new MaterialDialog.Builder(getActivity())
                 .title(R.string.drawer_consultation_new)
-                .content("Consulta creada exitosamente.")
+                .content(R.string.consultation_new_success_message)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

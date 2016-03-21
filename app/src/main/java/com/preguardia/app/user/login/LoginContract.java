@@ -19,10 +19,10 @@ public interface LoginContract {
 
         void openRegister();
 
-        void setUserActionListener(UserActionsListener listener);
+        void setUserActionListener(Presenter listener);
     }
 
-    interface UserActionsListener {
+    interface Presenter {
 
         void loginUser(String email, String password);
 

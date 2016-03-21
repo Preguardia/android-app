@@ -83,4 +83,12 @@
     <string name="user_register_incomplete_fields">Complete todos los campos.</string>
     <string name="user_register_success_content">Registro exitoso. Bienvenido!</string>
     <string name="user_register_success_positive">Aceptar</string>
+    <string name="consultation_approve_button">Aceptar consulta</string>
+    <string name="consultation_new_details">Detalles</string>
+    <string name="consultation_new_details_hint">Ingrese todos los detalles que usted crea que puedan ayudar a su diagnóstico</string>
+    <string name="consultation_new_media">Foto o video</string>
+    <string name="consultation_new_picture_desc">Puede ingresar una foto relacionada a su consulta</string>
+    <string name="consultation_new_summary_desc">Ingrese una descripción</string>
+    <string name="drawer_user_profile">Perfil de usuario</string>
+    <string name="history_help_title">Últimas consultas realizadas a nuestros especialistas.</string>
 </resources>

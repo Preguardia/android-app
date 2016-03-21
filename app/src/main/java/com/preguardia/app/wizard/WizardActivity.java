@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.preguardia.app.R;
-import com.preguardia.app.user.UserActivity;
+import com.preguardia.app.user.login.LoginActivity;
 
 public class WizardActivity extends AppIntro2 {
 
@@ -39,7 +39,7 @@ public class WizardActivity extends AppIntro2 {
     }
 
     public void loadMainActivity() {
-        Intent intent = new Intent(this, UserActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }

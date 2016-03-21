@@ -45,7 +45,7 @@ android {
             versionNameSuffix '-DEVEL'
 
             // Set a unique tray authority based on your applicationId
-            resValue "string", "tray__authority", "com.preguardia.app.tray"
+            resValue "string", "tray__authority", "com.preguardia.app.debug.tray"
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -61,7 +61,7 @@ android {
             buildConfigField "String", "GCM_SENDER_ID", '"810564243533"'
 
             // Set a unique tray authority based on your applicationId
-            resValue "string", "tray__authority", "com.preguardia.app.debug.tray"
+            resValue "string", "tray__authority", "com.preguardia.app.tray"
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -83,8 +83,6 @@ dependencies {
     // Play Services
     compile 'com.google.android.gms:play-services-base:8.4.0'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
-    // Batch
-    compile 'com.batch.android:batch-sdk:1.5.2'
     // Firebase
     compile 'com.firebase:firebase-client-android:2.3.1'
     // Logs
@@ -101,11 +99,12 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.6@aar') {
         transitive = true
     }
-    compile "com.firebaseui:firebase-ui:0.3.1"
 
     compile "com.yqritc:recyclerview-flexibledivider:1.2.9"
 
     compile "com.squareup.picasso:picasso:2.5.2"
+
+    compile 'com.wdullaer:materialdatetimepicker:2.2.0'
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 }

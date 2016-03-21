@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.orhanobut.logger.Logger;
+import com.preguardia.app.BuildConfig;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
 
@@ -18,7 +20,7 @@ import java.io.IOException;
 /**
  * @author amouly on 3/9/16.
  */
-public class NewConsultationPresenter implements NewConsultationContract.UserActionsListener {
+public class NewConsultationPresenter implements NewConsultationContract.Presenter {
 
     @NonNull
     private final NewConsultationContract.View consultationView;
@@ -32,7 +34,6 @@ public class NewConsultationPresenter implements NewConsultationContract.UserAct
         this.firebase = firebase;
         this.appPreferences = appPreferences;
         this.consultationView = consultationView;
-        this.consultationView.setUserActionListener(this);
     }
 
     @Override
@@ -64,12 +65,19 @@ public class NewConsultationPresenter implements NewConsultationContract.UserAct
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                 if (firebaseError != null) {
-                    System.out.println("Data could not be saved. " + firebaseError.getMessage());
-                } else {
-                    System.out.println("Data saved successfully.");
+                    consultationView.hideLoading();
+                    consultationView.showErrorMessage("Error de servicio.");
 
+                    if (BuildConfig.DEBUG) {
+                        Logger.e("Error creating New Consultation - " + firebaseError.getMessage());
+                    }
+                } else {
                     consultationView.hideLoading();
                     consultationView.showSuccess(consultationId);
+
+                    if (BuildConfig.DEBUG) {
+                        Logger.d("New Consultation data saved successfully.");
+                    }
                 }
             }
         });

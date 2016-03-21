@@ -173,11 +173,14 @@
                         android:layout_height="wrap_content">
 
                         <EditText
+                            android:id="@+id/user_register_date_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_date"
-                            android:inputType="text"
+                            android:inputType="date"
                             android:maxLines="1"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -206,6 +209,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_plate"
+                            android:maxLines="1"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

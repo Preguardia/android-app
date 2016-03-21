@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="3dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_details_message_picture"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/pic_medic"
+        android:layout_alignParentTop="true"
+        app:border_color="@android:color/white"
+        app:border_width="1dp" />
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="0dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="90dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="80dp"
         android:layout_marginTop="0dp"
-        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/item_details_message_picture"
         card_view:cardBackgroundColor="#FFF"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="2dp"
@@ -23,8 +37,7 @@
             android:id="@+id/item_details_message_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Descripción de la enfermedad" />
-
+            tools:text="Un mensaje de prueba enviado por el usuario medico." />
 
     </android.support.v7.widget.CardView>
 

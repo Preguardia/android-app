@@ -5,17 +5,23 @@ import java.util.List;
 /**
  * @author amouly on 3/1/16.
  */
+@SuppressWarnings("unused")
 public class Consultation {
 
     private String id;
     private String patientId;
+    private String patientName;
+    private String patientMedical;
     private String medicId;
     private String dateCreated;
+    private String dateUpdated;
     private String summary;
     private String category;
     private String details;
     private String medicName;
+    private String medicPlate;
     private String status;
+    private String patientBirthDate;
     private List<Question> questions;
 
     public Consultation() {
@@ -100,5 +106,53 @@ public class Consultation {
 
     public void setMedicId(String medicId) {
         this.medicId = medicId;
+    }
+
+    public String getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(String dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientMedical() {
+        return patientMedical;
+    }
+
+    public void setPatientMedical(String patientMedical) {
+        this.patientMedical = patientMedical;
+    }
+
+    public String getMedicPlate() {
+        return medicPlate;
+    }
+
+    public void setMedicPlate(String medicPlate) {
+        this.medicPlate = medicPlate;
+    }
+
+    public String getPatientBirthDate() {
+        return patientBirthDate;
+    }
+
+    public void setPatientBirthDate(String patientBirthDate) {
+        this.patientBirthDate = patientBirthDate;
     }
 }

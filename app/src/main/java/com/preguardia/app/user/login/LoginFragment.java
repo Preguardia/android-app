@@ -15,7 +15,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.UserActivity;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -33,7 +32,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Bind(R.id.user_login_password)
     TextInputLayout passwordInput;
 
-    private LoginContract.UserActionsListener mActionListener;
+    private LoginContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     public LoginFragment() {
@@ -47,7 +46,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActionListener = new LoginPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(getContext()), this);
+        presenter = new LoginPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(getContext()), this);
     }
 
     @Override
@@ -78,13 +77,13 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(emailInput.getWindowToken(), 0);
 
-        mActionListener.loginUser(email, password);
+        presenter.loginUser(email, password);
     }
 
     @SuppressWarnings("unused")
     @OnClick(R.id.user_login_register_button)
     public void onRegisterButtonClick() {
-        mActionListener.registerUser();
+        presenter.registerUser();
     }
 
     @Override
@@ -115,7 +114,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void openMain() {
-        ((UserActivity) getActivity()).onLoadConsultationMain();
+        ((LoginActivity) getActivity()).onLoadConsultationMain();
 
         // Kill activity
         getActivity().finish();
@@ -123,11 +122,11 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     @Override
     public void openRegister() {
-        ((UserActivity) getActivity()).onLoadRegisterSection();
+        ((LoginActivity) getActivity()).onLoadRegisterSection();
     }
 
     @Override
-    public void setUserActionListener(LoginContract.UserActionsListener listener) {
-        mActionListener = listener;
+    public void setUserActionListener(LoginContract.Presenter listener) {
+        presenter = listener;
     }
 }

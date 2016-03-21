@@ -19,10 +19,12 @@ public interface RegisterContract {
 
         void toggleKeyboard();
 
-        void setUserActionListener(UserActionsListener listener);
+        void setUserActionListener(Presenter listener);
+
+        void showSelectedBirthDate(String dateString);
     }
 
-    interface UserActionsListener {
+    interface Presenter {
 
         void registerUser(String type, String name, String email, String password, String birthDate,
                           String medical, String plate, String phone);

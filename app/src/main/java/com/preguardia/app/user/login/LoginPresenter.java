@@ -13,14 +13,14 @@ import net.grandcentrix.tray.TrayAppPreferences;
 /**
  * @author amouly on 3/5/16.
  */
-public class LoginPresenter implements LoginContract.UserActionsListener {
+public class LoginPresenter implements LoginContract.Presenter {
 
     @NonNull
     private final LoginContract.View loginView;
     @NonNull
     private final Firebase firebase;
     @NonNull
-    final TrayAppPreferences appPreferences;
+    private final TrayAppPreferences appPreferences;
 
     public LoginPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
                           @NonNull LoginContract.View loginView) {

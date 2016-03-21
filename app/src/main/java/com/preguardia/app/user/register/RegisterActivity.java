@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -21,8 +22,11 @@ import com.firebase.client.Firebase;
 import com.preguardia.app.R;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.main.MainActivity;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import net.grandcentrix.tray.TrayAppPreferences;
+
+import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +36,7 @@ import butterknife.OnTouch;
 /**
  * @author amouly on 2/20/16.
  */
-public class RegisterActivity extends AppCompatActivity implements RegisterContract.View {
+public class RegisterActivity extends AppCompatActivity implements RegisterContract.View, DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.user_register_toolbar)
     Toolbar toolbar;
@@ -60,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @Bind(R.id.user_register_medical_container)
     LinearLayout medicalContainerView;
 
-    private RegisterContract.UserActionsListener mActionListener;
+    private RegisterContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     @Override
@@ -74,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Init the Presenter
-        mActionListener = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
+        presenter = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
@@ -125,14 +129,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String phone = phoneInputView.getEditText().getText().toString();
 
         if (medicButton.isPressed()) {
-            type = "medic";
+            type = Constants.FIREBASE_USER_TYPE_MEDIC;
         } else if (patientButton.isPressed()) {
-            type = "patient";
+            type = Constants.FIREBASE_USER_TYPE_PATIENT;
         }
 
         this.toggleKeyboard();
 
-        mActionListener.registerUser(type, name, email, password, birthDate, medical, plate, phone);
+        presenter.registerUser(type, name, email, password, birthDate, medical, plate, phone);
     }
 
     @Override
@@ -184,8 +188,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void setUserActionListener(RegisterContract.UserActionsListener listener) {
-        mActionListener = listener;
+    public void setUserActionListener(RegisterContract.Presenter listener) {
+        presenter = listener;
     }
 
     @Override
@@ -203,5 +207,36 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     public void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @SuppressWarnings("unused")
+    @OnClick(R.id.user_register_date_input)
+    public void onBirthDateClick() {
+        Calendar now = Calendar.getInstance();
+
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                RegisterActivity.this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+
+        dpd.show(getFragmentManager(), "Datepickerdialog");
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
+
+        this.showSelectedBirthDate(date);
+    }
+
+    @Override
+    public void showSelectedBirthDate(String dateString) {
+        EditText dateView = dateInputView.getEditText();
+
+        if (dateView != null) {
+            dateView.setText(dateString);
+        }
     }
 }
