@@ -67,18 +67,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         presenter = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
                 new TrayAppPreferences(getContext()), this);
 
-        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), mItemListener);
-
         // Config Recycler view
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
-
-        // Create adapter with empty list
-        recyclerView.setAdapter(mAdapter);
-
-
 
         return view;
     }
@@ -94,6 +87,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void configAdapter(String userType) {
+        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), userType, mItemListener);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

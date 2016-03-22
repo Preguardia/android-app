@@ -24,12 +24,14 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int MESSAGE_TYPE_TEXT_LEFT = 2;
 
     private final Context context;
+    private final String userType;
 
     private List<GenericMessage> itemsList;
 
-    public MessagesListAdapter(Context context, List<GenericMessage> itemsList) {
+    public MessagesListAdapter(Context context, String userType, List<GenericMessage> itemsList) {
         this.itemsList = itemsList;
         this.context = context;
+        this.userType = userType;
     }
 
     public void addItem(GenericMessage item) {
@@ -43,9 +45,16 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         switch (item.getType()) {
             case "text": {
-                if (item.getFrom().equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+                boolean isFromMedic = item.getFrom().equals(Constants.FIREBASE_USER_TYPE_MEDIC);
+                boolean isUserMedic = userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC);
+
+                if (isFromMedic && isUserMedic) {
+                    return MESSAGE_TYPE_TEXT_RIGHT;
+                } else if (!isFromMedic && isUserMedic) {
                     return MESSAGE_TYPE_TEXT_LEFT;
-                } else {
+                } else if (isFromMedic && !isUserMedic) {
+                    return MESSAGE_TYPE_TEXT_LEFT;
+                } else if (!isFromMedic && !isUserMedic) {
                     return MESSAGE_TYPE_TEXT_RIGHT;
                 }
             }

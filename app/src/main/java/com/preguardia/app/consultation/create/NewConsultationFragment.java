@@ -1,6 +1,5 @@
 package com.preguardia.app.consultation.create;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +17,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.main.MainActivity;
 
@@ -181,15 +179,6 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     @Override
     public void showImagePreview(@NonNull String uri) {
 
-    }
-
-    @Override
-    public void openDetails(@Nullable String consultationId) {
-        Intent intent = new Intent(getActivity(), ConsultationDetailsActivity.class);
-
-        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
-
-        startActivity(intent);
     }
 
     @Override

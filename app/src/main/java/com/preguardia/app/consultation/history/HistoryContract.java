@@ -12,6 +12,8 @@ import java.util.List;
 public interface HistoryContract {
     interface View {
 
+        void configAdapter(String userType);
+
         void showLoading();
 
         void hideLoading();

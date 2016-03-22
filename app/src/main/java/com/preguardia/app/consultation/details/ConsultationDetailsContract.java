@@ -11,6 +11,8 @@ public interface ConsultationDetailsContract {
 
     interface View {
 
+        void configureAdapter(String userType);
+
         void showLoading();
 
         void hideLoading();

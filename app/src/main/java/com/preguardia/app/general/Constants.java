@@ -37,4 +37,5 @@ public class Constants {
     public static final String FIREBASE_URL_MESSAGES = FIREBASE_URL + "/" + FIREBASE_MESSAGES;
 
     public static final String EXTRA_CONSULTATION_ID = "extra:consultation:id";
+    public static final String EXTRA_USER_TYPE = "extra:user:type";
 }

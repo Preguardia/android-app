@@ -50,6 +50,9 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         String orderBy;
 
+        historyView.configAdapter(currentUserType);
+
+
         if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
             orderBy = Constants.FIREBASE_USER_MEDIC_ID;
         } else {

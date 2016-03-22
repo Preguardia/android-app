@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.general.Constants;
 
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
     private List<Consultation> historyList;
     private HistoryContract.ConsultationItemListener itemListener;
 
-    public HistoryListAdapter(List<Consultation> itemsList, HistoryContract.ConsultationItemListener clickListener) {
+    private final String userType;
+
+    public HistoryListAdapter(List<Consultation> itemsList, String userType, HistoryContract.ConsultationItemListener clickListener) {
         this.historyList = itemsList;
         this.itemListener = clickListener;
+        this.userType = userType;
     }
 
     @Override
@@ -39,7 +43,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
         final Consultation consultation = historyList.get(position);
 
         switch (consultation.getStatus()) {
-            case "pending":
+            case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
 
                 // TODO: replace with resource string
                 holder.setUserName("Pendiente de aprobación");
@@ -47,9 +51,14 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
                 break;
 
-            case "assigned":
+            case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
-                holder.setUserName(consultation.getMedicName());
+                if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+                    holder.setUserName(consultation.getPatientName());
+                } else {
+                    holder.setUserName(consultation.getMedicName());
+                }
+
                 holder.setStateIcoImageView(R.drawable.ic_chevron_right_24dp);
                 holder.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -60,7 +69,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
                 break;
 
-            case "closed":
+            case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
 
                 holder.setUserName(consultation.getMedicName());
                 holder.setStateIcoImageView(R.drawable.ic_close_24dp);

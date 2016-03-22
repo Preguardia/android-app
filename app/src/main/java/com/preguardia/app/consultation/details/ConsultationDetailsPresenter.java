@@ -80,6 +80,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             Logger.d("Load Consultation Messages - ID: " + consultationId);
         }
 
+        detailsView.configureAdapter(currentUserType);
+
         consultationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

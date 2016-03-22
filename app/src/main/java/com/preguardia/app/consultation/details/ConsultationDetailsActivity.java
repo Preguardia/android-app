@@ -87,10 +87,6 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         layoutManager.setStackFromEnd(true);
 
         recyclerView.setLayoutManager(layoutManager);
-
-        // Create adapter with empty list
-        mAdapter = new MessagesListAdapter(this, new ArrayList<GenericMessage>(0));
-        recyclerView.setAdapter(mAdapter);
     }
 
     @SuppressWarnings("unused")
@@ -132,6 +128,13 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void configureAdapter(String userType) {
+        // Create adapter with empty list
+        mAdapter = new MessagesListAdapter(this, userType, new ArrayList<GenericMessage>(0));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
