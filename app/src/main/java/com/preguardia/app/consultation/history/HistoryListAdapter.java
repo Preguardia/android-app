@@ -69,7 +69,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
         }
 
         // TODO: replace with dynamic image
-        holder.setUserImageView("https://randomuser.me/api/portraits/med/men/54.jpg");
+        holder.setUserImageView("http://media.graciasdoc.com/pictures/user_placeholder.png");
         holder.setSummaryText(consultation.getSummary());
     }
 

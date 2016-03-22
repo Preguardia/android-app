@@ -154,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        openMain();
+                        finish();
                     }
                 })
                 .positiveText(R.string.user_register_success_positive)

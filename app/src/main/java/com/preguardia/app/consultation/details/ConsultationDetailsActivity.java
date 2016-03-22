@@ -89,7 +89,7 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         recyclerView.setLayoutManager(layoutManager);
 
         // Create adapter with empty list
-        mAdapter = new MessagesListAdapter(new ArrayList<GenericMessage>(0));
+        mAdapter = new MessagesListAdapter(this, new ArrayList<GenericMessage>(0));
         recyclerView.setAdapter(mAdapter);
     }
 

@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showNotification() {
 
-        String consultationId = "-KCXUzC8YVuHFRB9fYs3";
+        String consultationId = "-KDPclv-Ks-ad7XmpNXX";
 
 
         // Prepare intent which is triggered if the notification is selected
@@ -238,8 +238,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         // Build notification
         Notification notification = new Notification.Builder(this)
-                .setContentTitle("New mail from " + "test@gmail.com")
-                .setContentText("Subject")
+                .setContentTitle("Nueva consulta creada")
+                .setContentText("Consulta enviada por Adrián Mouly")
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pIntent)
                 .build();

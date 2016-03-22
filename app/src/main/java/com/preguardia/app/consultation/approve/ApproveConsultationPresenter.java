@@ -117,12 +117,12 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 Map<String, Object> attributes = new HashMap<>();
                 attributes.put("medicId", currentUserId);
                 attributes.put("medicName", currentUserName);
-                attributes.put("medicPate", currentMedicPlate);
+                attributes.put("medicPlate", currentMedicPlate);
+                attributes.put("status", Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
 
                 consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-
                         approveView.hideLoading();
                         approveView.showMessage("Consulta tomada exitosamente.");
                     }

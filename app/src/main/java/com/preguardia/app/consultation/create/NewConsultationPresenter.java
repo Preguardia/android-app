@@ -43,8 +43,7 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
         currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
         patientMedical = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_MEDICAL, null);
-        patientBirthDate = "1990-03-16T18:47:45.919-03:00";
-        patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_BIRTH, null);
+        patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_BIRTH, null);
     }
 
     @Override

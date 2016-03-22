@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.details;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,13 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int MESSAGE_TYPE_TEXT_RIGHT = 1;
     private static final int MESSAGE_TYPE_TEXT_LEFT = 2;
 
+    private final Context context;
+
     private List<GenericMessage> itemsList;
 
-    public MessagesListAdapter(List<GenericMessage> itemsList) {
+    public MessagesListAdapter(Context context, List<GenericMessage> itemsList) {
         this.itemsList = itemsList;
+        this.context = context;
     }
 
     public void addItem(GenericMessage item) {
@@ -58,10 +62,10 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         if (viewType == MESSAGE_TYPE_TEXT_RIGHT) {
             View card = inflater.inflate(R.layout.item_details_message_right, viewGroup, false);
-            viewHolder = new MessageRightViewHolder(card);
+            viewHolder = new MessageRightViewHolder(context, card);
         } else if (viewType == MESSAGE_TYPE_TEXT_LEFT) {
             View card = inflater.inflate(R.layout.item_details_message_left, viewGroup, false);
-            viewHolder = new MessageLeftViewHolder(card);
+            viewHolder = new MessageLeftViewHolder(context, card);
         }
 
         return viewHolder;
@@ -82,6 +86,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final MessageRightViewHolder messageHolder = (MessageRightViewHolder) viewHolder;
 
             messageHolder.setText(text);
+            messageHolder.setImage("http://media.graciasdoc.com/pictures/user_placeholder.png");
         }
 
         if (viewHolder instanceof MessageLeftViewHolder) {
@@ -89,6 +94,7 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final MessageLeftViewHolder messageHolder2 = (MessageLeftViewHolder) viewHolder;
 
             messageHolder2.setText(text);
+            messageHolder2.setImage("http://media.graciasdoc.com/pictures/user_placeholder.png");
         }
 
 //        if (viewHolder instanceof PictureViewHolder) {

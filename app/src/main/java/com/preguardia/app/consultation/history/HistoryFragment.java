@@ -41,7 +41,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Bind(R.id.consultation_history_results)
     LinearLayout resultsView;
 
-
     private HistoryListAdapter mAdapter;
     private HistoryContract.Presenter presenter;
     private MaterialDialog progressDialog;
@@ -79,9 +78,16 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         // Create adapter with empty list
         recyclerView.setAdapter(mAdapter);
 
-        presenter.loadItems();
+
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        presenter.loadItems();
     }
 
     @Override
