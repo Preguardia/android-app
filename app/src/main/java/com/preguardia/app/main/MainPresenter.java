@@ -70,8 +70,7 @@ public class MainPresenter implements MainContract.Presenter {
                         // Load History Fragment
                         mainView.loadHistorySection();
 
-                        // TODO: Remove testing notification
-                        mainView.showNotification();
+
                     } else if (userType.equals(Constants.FIREBASE_USER_TYPE_PATIENT)) {
                         String userMedical = user.getMedical();
 

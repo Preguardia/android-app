@@ -52,17 +52,39 @@
             android:label="@string/user_register_title"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--<service android:name="com.batch.android.BatchPushService" />-->
+        <!-- [START gcm_receiver] -->
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="gcm.play.android.samples.com.gcmquickstart" />
+            </intent-filter>
+        </receiver>
+        <!-- [END gcm_receiver] -->
 
-        <!--<receiver-->
-        <!--android:name="com.batch.android.BatchPushReceiver"-->
-        <!--android:permission="com.google.android.c2dm.permission.SEND">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-
-        <!--<category android:name="${applicationId}" />-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- [START gcm_listener] -->
+        <service
+            android:name=".notification.MyGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <!-- [END gcm_listener] -->
+        <!-- [START instanceId_listener] -->
+        <service
+            android:name=".notification.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- [END instanceId_listener] -->
+        <service
+            android:name=".notification.RegistrationIntentService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

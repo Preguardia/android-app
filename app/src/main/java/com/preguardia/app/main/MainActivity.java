@@ -3,10 +3,16 @@ package com.preguardia.app.main;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +25,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.approve.ApproveConsultationActivity;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
@@ -26,6 +34,7 @@ import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.general.HelpFragment;
 import com.preguardia.app.general.TermsFragment;
+import com.preguardia.app.notification.RegistrationIntentService;
 import com.preguardia.app.user.profile.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -41,14 +50,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.nav_view) NavigationView navigationView;
 
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     private View drawerHeader;
     private ImageView userImageView;
     private TextView userNameTextView;
     private TextView userDescTextView;
 
     private MainPresenter presenter;
-
     private MaterialDialog progressDialog;
+
+    private boolean isReceiverRegistered;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +77,30 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
         presenter.loadUserInfo();
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences.getBoolean("sentTokenToServer", false);
+
+                if (sentToken) {
+                    System.out.println("GCM SEND MESSAGE");
+                } else {
+                    System.out.println("TOKEN ERROR MESSAGE");
+                }
+            }
+        };
+
+        // Registering BroadcastReceiver
+        registerReceiver();
+
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
     }
 
     @Override
@@ -249,5 +286,49 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         notificationManager.notify(0, notification);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        isReceiverRegistered = false;
+        super.onPause();
+    }
+
+    private void registerReceiver() {
+        if (!isReceiverRegistered) {
+            LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                    new IntentFilter("registrationComplete"));
+            isReceiverRegistered = true;
+        }
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+
+                System.out.println("DEVICE NOT SUPPORTED");
+
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 }

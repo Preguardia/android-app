@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -95,23 +96,25 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         String message = inputView.getText().toString();
 
         presenter.sendMessage(message);
+    }
 
-//        new MaterialDialog.Builder(this)
-//                .title("Adjuntar archivo")
-//                .items(R.array.consultation_details_media)
-//                .itemsCallback(new MaterialDialog.ListCallback() {
-//                    @Override
-//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-//
-//
-//                    }
-//                })
-//                .show();
+    public void onMediaClick() {
+        new MaterialDialog.Builder(this)
+                .title("Adjuntar archivo")
+                .items(R.array.consultation_details_media)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+
+                    }
+                })
+                .show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_consultation_details, menu);
+        getMenuInflater().inflate(R.menu.menu_consultation_details_medic, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
