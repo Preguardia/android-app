@@ -30,5 +30,6 @@ public interface MainContract {
 
         void loadUserInfo();
 
+        void removeListener();
     }
 }

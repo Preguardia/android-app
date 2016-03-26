@@ -72,12 +72,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         configDrawerHeader();
 
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
-        presenter.loadUserInfo();
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
                 boolean sentToken = sharedPreferences.getBoolean("sentTokenToServer", false);
 
@@ -97,6 +95,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        presenter.loadUserInfo();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        presenter.removeListener();
     }
 
     @Override

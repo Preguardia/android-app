@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
         mainView.showLoading();
 
         if (userToken != null) {
-            userFirebaseRef.child(userToken).addValueEventListener(new ValueEventListener() {
+            userFirebaseRef.child(userToken).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
@@ -99,5 +99,10 @@ public class MainPresenter implements MainContract.Presenter {
                 }
             });
         }
+    }
+
+    @Override
+    public void removeListener() {
+
     }
 }

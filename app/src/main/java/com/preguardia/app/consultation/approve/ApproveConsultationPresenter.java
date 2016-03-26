@@ -18,6 +18,9 @@ import net.grandcentrix.tray.TrayAppPreferences;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author amouly on 3/17/16.
  */
@@ -117,11 +120,14 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 medic.setName(currentUserName);
                 medic.setPlate(currentMedicPlate);
 
-                //Map<String, Object> attributes = new ObjectMapper().convertValue(medic, Map.class);
-                //attributes.put("medic", medic);
-                //attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
+                Map<String, Object> attributes = new HashMap<>();
+                attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
 
-                consultationRef.child("medic").setValue(medic, new Firebase.CompletionListener() {
+                // Set Medic information
+                consultationRef.child(Constants.FIREBASE_USER_TYPE_MEDIC).setValue(medic);
+
+                // Update Consultation status
+                consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         approveView.hideLoading();
