@@ -1,8 +1,5 @@
 package com.preguardia.app.main;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +25,6 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.approve.ApproveConsultationActivity;
 import com.preguardia.app.consultation.create.NewConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
@@ -257,34 +253,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void showPatientMenu() {
         navigationView.getMenu().clear();
         navigationView.inflateMenu(R.menu.menu_main_patient);
-    }
-
-    public void showNotification() {
-
-        String consultationId = "-KDPclv-Ks-ad7XmpNXX";
-
-
-        // Prepare intent which is triggered if the notification is selected
-        Intent intent = new Intent(this, ApproveConsultationActivity.class);
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
-
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Build notification
-        Notification notification = new Notification.Builder(this)
-                .setContentTitle("Nueva consulta creada")
-                .setContentText("Consulta enviada por Adrián Mouly")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentIntent(pIntent)
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // hide the notification after its selected
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-        notificationManager.notify(0, notification);
     }
 
     @Override

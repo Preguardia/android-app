@@ -10,14 +10,13 @@ import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.user.model.Medic;
+import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
 import org.joda.time.DateTime;
 import org.joda.time.Years;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author amouly on 3/17/16.
@@ -67,9 +66,11 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             public void onDataChange(DataSnapshot dataSnapshot) {
                 consultation = dataSnapshot.getValue(Consultation.class);
 
-                String patientName = consultation.getPatientName();
-                String patientMedical = consultation.getPatientMedical();
-                String patientBirth = consultation.getPatientBirthDate();
+                final Patient patient = consultation.getPatient();
+
+                String patientName = patient.getName();
+                String patientMedical = patient.getMedical();
+                String patientBirth = patient.getBirthDate();
 
                 // Calculate Patient age
                 DateTime birthdate = new DateTime(patientBirth);
@@ -82,12 +83,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                     approveView.showPatientInfo(patientName, ageFormatted, patientMedical, null);
                 }
 
-                String category = consultation.getCategory();
-                String summary = consultation.getSummary();
-                String details = consultation.getDetails();
-
-                approveView.showConsultationInfo(category, summary, details);
-
+                approveView.showConsultationInfo(consultation.getCategory(), consultation.getSummary(), consultation.getDetails());
                 approveView.hideLoading();
             }
 
@@ -114,13 +110,16 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
                 approveView.showLoading();
 
-                Map<String, Object> attributes = new HashMap<>();
-                attributes.put("medicId", currentUserId);
-                attributes.put("medicName", currentUserName);
-                attributes.put("medicPlate", currentMedicPlate);
-                attributes.put("status", Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
+                final Medic medic = new Medic();
+                medic.setId(currentUserId);
+                medic.setName(currentUserName);
+                medic.setPlate(currentMedicPlate);
 
-                consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
+                //Map<String, Object> attributes = new ObjectMapper().convertValue(medic, Map.class);
+                //attributes.put("medic", medic);
+                //attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
+
+                consultationRef.child("medic").setValue(medic, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         approveView.hideLoading();

@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -52,13 +51,11 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_consultation_details);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         // Get the requested Consultation ID
         String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,14 +77,23 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
                 this,
                 sentConsultation);
 
-        // Load first items and attach
-        presenter.loadItems();
-
         // Config Recycler view
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
-
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Load first items and attach
+        presenter.loadItems();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @SuppressWarnings("unused")
@@ -96,20 +102,6 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         String message = inputView.getText().toString();
 
         presenter.sendMessage(message);
-    }
-
-    public void onMediaClick() {
-        new MaterialDialog.Builder(this)
-                .title("Adjuntar archivo")
-                .items(R.array.consultation_details_media)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-
-
-                    }
-                })
-                .show();
     }
 
     @Override

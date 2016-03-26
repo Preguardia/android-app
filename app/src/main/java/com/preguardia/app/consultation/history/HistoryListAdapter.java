@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.user.model.Medic;
+import com.preguardia.app.user.model.Patient;
 
 import java.util.List;
 
@@ -54,9 +56,13 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
                 if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-                    holder.setUserName(consultation.getPatientName());
+                    final Patient patient = consultation.getPatient();
+
+                    holder.setUserName(patient.getName());
                 } else {
-                    holder.setUserName(consultation.getMedicName());
+                    final Medic medic = consultation.getMedic();
+
+                    holder.setUserName(medic.getName());
                 }
 
                 holder.setStateIcoImageView(R.drawable.ic_chevron_right_24dp);
@@ -70,8 +76,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
+                final Medic medic = consultation.getMedic();
 
-                holder.setUserName(consultation.getMedicName());
+                holder.setUserName(medic.getName());
                 holder.setStateIcoImageView(R.drawable.ic_close_24dp);
 
                 break;

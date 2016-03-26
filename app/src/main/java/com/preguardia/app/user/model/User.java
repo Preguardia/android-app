@@ -5,6 +5,7 @@ package com.preguardia.app.user.model;
  */
 public class User {
 
+    private String id;
     private String birthDate;
     private String medical;
     private String name;
@@ -16,14 +17,12 @@ public class User {
     public User() {
     }
 
-    public User(String phone, String medical, String name, String plate, String birthDate, String type, String picture) {
-        this.birthDate = birthDate;
-        this.medical = medical;
-        this.name = name;
-        this.phone = phone;
-        this.plate = plate;
-        this.type = type;
-        this.picture = picture;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getBirthDate() {

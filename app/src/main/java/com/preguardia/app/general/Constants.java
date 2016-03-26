@@ -24,12 +24,13 @@ public class Constants {
     public static final String FIREBASE_QUEUE = "queue";
     public static final String FIREBASE_TASKS = "tasks";
 
-    public static final String FIREBASE_USER_MEDIC_ID = "medicId";
-    public static final String FIREBASE_USER_PATIENT_ID = "patientId";
+    public static final String FIREBASE_USER_MEDIC_ID = "medic/id";
+    public static final String FIREBASE_USER_PATIENT_ID = "patient/id";
 
     public static final String FIREBASE_USER_TYPE_MEDIC = "medic";
     public static final String FIREBASE_USER_TYPE_PATIENT = "patient";
 
+    public static final String FIREBASE_CONSULTATION_STATUS = "status";
     public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";
     public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";
     public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";

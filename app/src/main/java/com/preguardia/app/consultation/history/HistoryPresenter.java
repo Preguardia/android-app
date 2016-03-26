@@ -31,6 +31,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
     private final String currentUserId;
     private final String currentUserType;
+    private ValueEventListener consultationsListener;
 
     public HistoryPresenter(@NonNull Firebase firebase,
                             @NonNull TrayAppPreferences appPreferences,
@@ -59,9 +60,9 @@ public class HistoryPresenter implements HistoryContract.Presenter {
         }
 
         // Show Consultations for current user
-        consultationsRef
+        consultationsListener = consultationsRef
                 .orderByChild(orderBy)
-                .equalTo(this.currentUserId)
+                .equalTo(currentUserId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -103,5 +104,10 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                     public void onCancelled(FirebaseError firebaseError) {
                     }
                 });
+    }
+
+    @Override
+    public void stopListener() {
+        consultationsRef.removeEventListener(consultationsListener);
     }
 }

@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -67,13 +68,14 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
         consultationView.showLoading();
 
         // Create a Pending Consultation
-        Consultation consultation = new Consultation();
+        final Consultation consultation = new Consultation();
+        final Patient patient = new Patient();
 
         // Set Patient data
-        consultation.setPatientId(currentUserId);
-        consultation.setPatientName(currentUserName);
-        consultation.setPatientMedical(patientMedical);
-        consultation.setPatientBirthDate(patientBirthDate);
+        patient.setId(currentUserId);
+        patient.setName(currentUserName);
+        patient.setMedical(patientMedical);
+        patient.setBirthDate(patientBirthDate);
 
         // Set Consultation data
         consultation.setDateCreated(currentTime);
@@ -81,6 +83,7 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
         consultation.setSummary(summary);
         consultation.setCategory(category);
         consultation.setDetails(details);
+        consultation.setPatient(patient);
 
         Firebase newConsultation = consultationsRef.push();
 

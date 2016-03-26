@@ -43,5 +43,7 @@ public interface ConsultationDetailsContract {
         void sendPicture();
 
         void loadItems();
+
+        void stopListener();
     }
 }

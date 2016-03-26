@@ -36,6 +36,8 @@ public interface HistoryContract {
     interface Presenter {
 
         void loadItems();
+
+        void stopListener();
     }
 
     interface ConsultationItemListener {
