@@ -16,6 +16,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author amouly on 3/9/16.
@@ -25,7 +27,9 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
     @NonNull
     private final NewConsultationContract.View consultationView;
     @NonNull
-    private final Firebase firebase;
+    private final Firebase consultationsRef;
+    @NonNull
+    private final Firebase tasksRef;
     @NonNull
     final TrayAppPreferences appPreferences;
 
@@ -36,7 +40,9 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
 
     public NewConsultationPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
                                     @NonNull NewConsultationContract.View consultationView) {
-        this.firebase = firebase;
+        this.consultationsRef = firebase.child(Constants.FIREBASE_CONSULTATIONS);
+        this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
+
         this.appPreferences = appPreferences;
         this.consultationView = consultationView;
 
@@ -76,7 +82,7 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
         consultation.setCategory(category);
         consultation.setDetails(details);
 
-        Firebase newConsultation = firebase.push();
+        Firebase newConsultation = consultationsRef.push();
 
         // Save generated ID
         final String consultationId = newConsultation.getKey();
@@ -95,6 +101,14 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
                 } else {
                     consultationView.hideLoading();
                     consultationView.showSuccess();
+
+                    // Push Consultation to be processed
+                    Map<String, String> task = new HashMap<>();
+                    task.put("type", "new-consultation");
+                    task.put("message", "Consulta enviada por " + currentUserName);
+                    task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+                    task.put("topic", "medics");
+                    tasksRef.push().setValue(task);
 
                     if (BuildConfig.DEBUG) {
                         Logger.d("New Consultation data saved successfully.");

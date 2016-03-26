@@ -52,7 +52,6 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         historyView.configAdapter(currentUserType);
 
-
         if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
             orderBy = Constants.FIREBASE_USER_MEDIC_ID;
         } else {
@@ -73,6 +72,8 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
                         // Check empty list
                         if (consultations != null) {
+                            Logger.d("Consultations loaded - Size: " + consultations.size());
+
                             List<Consultation> items = new ArrayList<>();
 
                             for (String key : consultations.keySet()) {
@@ -86,13 +87,12 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                             }
 
                             historyView.showItemList(items);
+                            historyView.hideEmpty();
                             historyView.showResults();
-
-                            Logger.d("Consultations loaded - Size: " + consultations.size());
-
                         } else {
                             Logger.d("Consultations no results");
 
+                            historyView.hideResults();
                             historyView.showEmpty();
                         }
 

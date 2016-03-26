@@ -28,6 +28,9 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.R;
+import com.preguardia.app.general.Constants;
+
+import net.grandcentrix.tray.TrayAppPreferences;
 
 import java.io.IOException;
 
@@ -102,6 +105,10 @@ public class RegistrationIntentService extends IntentService {
     // [START subscribe_topics]
     private void subscribeTopics(String token) throws IOException {
         GcmPubSub pubSub = GcmPubSub.getInstance(this);
+
+        // Subscribe to topic for type of User
+        String userType = new TrayAppPreferences(this).getString(Constants.PREFERENCES_USER_TYPE, null);
+        pubSub.subscribe(token, "/topics/" + userType, null);
 
         for (String topic : TOPICS) {
             pubSub.subscribe(token, "/topics/" + topic, null);

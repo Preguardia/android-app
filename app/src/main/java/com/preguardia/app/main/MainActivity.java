@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         navigationView.inflateMenu(R.menu.menu_main_patient);
     }
 
-    @Override
     public void showNotification() {
 
         String consultationId = "-KDPclv-Ks-ad7XmpNXX";

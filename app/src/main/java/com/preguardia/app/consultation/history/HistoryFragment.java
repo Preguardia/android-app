@@ -73,14 +73,9 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
 
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
         presenter.loadItems();
+
+        return view;
     }
 
     @Override
@@ -142,7 +137,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void hideResults() {
-        resultsView.setVisibility(View.VISIBLE);
+        resultsView.setVisibility(View.GONE);
     }
 
     /**

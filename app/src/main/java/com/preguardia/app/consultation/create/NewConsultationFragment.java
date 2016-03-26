@@ -56,7 +56,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        presenter = new NewConsultationPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS), new TrayAppPreferences(getContext()), this);
+        presenter = new NewConsultationPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(getContext()), this);
     }
 
     @Override
