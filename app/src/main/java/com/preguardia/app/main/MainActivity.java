@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         configDrawerHeader();
 
         presenter = new MainPresenter(new Firebase(Constants.FIREBASE_URL_USERS), new TrayAppPreferences(this), this);
+        presenter.loadUserInfo();
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -98,16 +99,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void onDestroy() {
+        super.onDestroy();
 
-        presenter.loadUserInfo();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
+        ButterKnife.unbind(this);
         presenter.removeListener();
     }
 
@@ -212,12 +207,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void loadHistorySection() {
         this.loadSection(HistoryFragment.newInstance(), getString(R.string.drawer_consultation_history));
         navigationView.setCheckedItem(R.id.nav_consultation_history);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     @Override
