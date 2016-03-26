@@ -36,6 +36,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     private String currentUserId;
     private String currentUserName;
     private String currentMedicPlate;
+    private ValueEventListener consultationListener;
 
     public ApproveConsultationPresenter(@NonNull Firebase consultationsRef,
                                         @NonNull TrayAppPreferences appPreferences,
@@ -61,7 +62,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
         approveView.showLoading();
 
-        consultationRef.addValueEventListener(new ValueEventListener() {
+        // Listen changes on selected Consultation
+        consultationListener = consultationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 consultation = dataSnapshot.getValue(Consultation.class);
@@ -129,5 +131,10 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
                 break;
         }
+    }
+
+    @Override
+    public void stopListener() {
+        consultationRef.removeEventListener(consultationListener);
     }
 }

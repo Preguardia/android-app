@@ -94,6 +94,8 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     @Override
     public void onStop() {
         super.onStop();
+
+        presenter.stopListener();
     }
 
     @SuppressWarnings("unused")

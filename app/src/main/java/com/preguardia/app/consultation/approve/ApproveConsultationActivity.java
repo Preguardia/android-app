@@ -52,13 +52,11 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_consultation_approve);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         // Get the requested Consultation ID
         String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,8 +74,20 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
 
         presenter = new ApproveConsultationPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
                 new TrayAppPreferences(this), this, sentConsultation);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         presenter.loadConsultation();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        presenter.stopListener();
     }
 
     @Override
