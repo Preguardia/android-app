@@ -7,6 +7,8 @@ import com.preguardia.app.BuildConfig;
  */
 public class Constants {
 
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     public static final String PREFERENCES_FIRST_START = "firstStart";
 
     public static final String PREFERENCES_USER_UID = "user_uid";

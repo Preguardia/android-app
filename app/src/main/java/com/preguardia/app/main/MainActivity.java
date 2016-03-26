@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Bind(R.id.drawer_layout) DrawerLayout drawerLayout;
     @Bind(R.id.nav_view) NavigationView navigationView;
 
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
     private View drawerHeader;
     private ImageView userImageView;
     private TextView userNameTextView;
@@ -287,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
             if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                apiAvailability.getErrorDialog(this, resultCode, Constants.PLAY_SERVICES_RESOLUTION_REQUEST)
                         .show();
             } else {
 
