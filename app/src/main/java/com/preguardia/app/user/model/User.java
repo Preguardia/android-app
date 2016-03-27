@@ -13,6 +13,7 @@ public class User {
     private String plate;
     private String type;
     private String picture;
+    private String gcmRegisterId;
 
     public User() {
     }
@@ -79,5 +80,13 @@ public class User {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getGcmRegisterId() {
+        return gcmRegisterId;
+    }
+
+    public void setGcmRegisterId(String gcmRegisterId) {
+        this.gcmRegisterId = gcmRegisterId;
     }
 }

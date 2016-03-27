@@ -33,7 +33,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         this.firebase = firebase;
         this.appPreferences = appPreferences;
         this.registerView = registerView;
-        this.registerView.setUserActionListener(this);
     }
 
     @Override
@@ -69,7 +68,9 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                     map.put("picture", "http://media.graciasdoc.com/pictures/user_placeholder.png");
 
                     // Send to Firebase
-                    firebase.child(Constants.FIREBASE_USERS).child(uuid.toString()).setValue(map);
+                    firebase.child(Constants.FIREBASE_USERS)
+                            .child(uuid.toString())
+                            .setValue(map);
 
                     registerView.hideProgress();
                     registerView.showSuccess();

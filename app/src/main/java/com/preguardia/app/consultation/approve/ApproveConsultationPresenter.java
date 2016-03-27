@@ -31,6 +31,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     @NonNull
     private final Firebase consultationRef;
     @NonNull
+    private final Firebase tasksRef;
+    @NonNull
     private final TrayAppPreferences appPreferences;
 
     private final String consultationId;
@@ -41,7 +43,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     private String currentMedicPlate;
     private ValueEventListener consultationListener;
 
-    public ApproveConsultationPresenter(@NonNull Firebase consultationsRef,
+    public ApproveConsultationPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
                                         @NonNull ApproveConsultationContract.View approveView,
                                         @NonNull String consultationId) {
@@ -49,7 +51,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
         this.approveView = approveView;
         this.consultationId = consultationId;
 
-        this.consultationRef = consultationsRef.child(this.consultationId);
+        this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
+        this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
 
         this.currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         this.currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
@@ -132,6 +135,20 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         approveView.hideLoading();
                         approveView.showMessage("Consulta tomada exitosamente.");
+
+                        // Create Task with data
+                        Map<String, String> task = new HashMap<>();
+                        task.put("type", "consultation-approved");
+                        task.put("content", "Su consulta fue tomada por " + currentUserName);
+                        task.put("patientId", consultation.getPatient().getId());
+                        task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+
+                        // Push task to be processed
+                        tasksRef.push().setValue(task);
+
+                        if (BuildConfig.DEBUG) {
+                            Logger.d("New Consultation data saved successfully.");
+                        }
                     }
                 });
 

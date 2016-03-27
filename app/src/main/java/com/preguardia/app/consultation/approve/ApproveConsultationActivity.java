@@ -72,7 +72,7 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
 
         progressDialog = progressBuilder.build();
 
-        presenter = new ApproveConsultationPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
+        presenter = new ApproveConsultationPresenter(new Firebase(Constants.FIREBASE_URL),
                 new TrayAppPreferences(this), this, sentConsultation);
     }
 

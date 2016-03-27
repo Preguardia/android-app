@@ -23,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.firebase.client.Firebase;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
@@ -91,9 +92,17 @@ public class RegistrationIntentService extends IntentService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
+        String userId = new TrayAppPreferences(this).getString(Constants.PREFERENCES_USER_UID, null);
+
+        // Update Token in Firebase
+        if (userId != null) {
+            new Firebase(Constants.FIREBASE_URL_USERS)
+                    .child(userId)
+                    .child(Constants.FIREBASE_USER_REGISTER_ID)
+                    .setValue(token);
+        }
 
         Logger.d(token);
-
     }
 
     /**

@@ -105,12 +105,13 @@ public class NewConsultationPresenter implements NewConsultationContract.Present
                     consultationView.hideLoading();
                     consultationView.showSuccess();
 
-                    // Push Consultation to be processed
+                    // Create Task with data
                     Map<String, String> task = new HashMap<>();
                     task.put("type", "new-consultation");
-                    task.put("message", "Consulta enviada por " + currentUserName);
+                    task.put("content", "Consulta enviada por " + currentUserName);
                     task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
-                    task.put("topic", "medics");
+
+                    // Push task to be processed
                     tasksRef.push().setValue(task);
 
                     if (BuildConfig.DEBUG) {

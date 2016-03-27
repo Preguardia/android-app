@@ -195,11 +195,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void setUserActionListener(RegisterContract.Presenter listener) {
-        presenter = listener;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button

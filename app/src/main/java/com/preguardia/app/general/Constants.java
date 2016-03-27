@@ -28,9 +28,9 @@ public class Constants {
 
     public static final String FIREBASE_USER_MEDIC_ID = "medic/id";
     public static final String FIREBASE_USER_PATIENT_ID = "patient/id";
-
     public static final String FIREBASE_USER_TYPE_MEDIC = "medic";
     public static final String FIREBASE_USER_TYPE_PATIENT = "patient";
+    public static final String FIREBASE_USER_REGISTER_ID = "gcmRegisterId";
 
     public static final String FIREBASE_CONSULTATION_STATUS = "status";
     public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";

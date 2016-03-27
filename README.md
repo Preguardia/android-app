@@ -10,6 +10,4 @@ Proguardia Android application.
 ## Services
 
 - Google Play Services 8.4.0
-- Firebase Client 2.3.1
-- Batch Client 1.5.2
-
+- Firebase Client 2.5.2
