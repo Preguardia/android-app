@@ -13,4 +13,6 @@
     <color name="user_register_icon">#727272</color>
 
     <color name="history_list_divider">#cccccc</color>
+
+    <color name="empty_ico_color">#cccccc</color>
 </resources>

@@ -31,6 +31,7 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
     private final String currentUserId;
     private final String currentUserType;
+    private ValueEventListener consultationsListener;
 
     public HistoryPresenter(@NonNull Firebase firebase,
                             @NonNull TrayAppPreferences appPreferences,
@@ -50,6 +51,8 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
         String orderBy;
 
+        historyView.configAdapter(currentUserType);
+
         if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
             orderBy = Constants.FIREBASE_USER_MEDIC_ID;
         } else {
@@ -57,9 +60,9 @@ public class HistoryPresenter implements HistoryContract.Presenter {
         }
 
         // Show Consultations for current user
-        consultationsRef
+        consultationsListener = consultationsRef
                 .orderByChild(orderBy)
-                .equalTo(this.currentUserId)
+                .equalTo(currentUserId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -70,6 +73,8 @@ public class HistoryPresenter implements HistoryContract.Presenter {
 
                         // Check empty list
                         if (consultations != null) {
+                            Logger.d("Consultations loaded - Size: " + consultations.size());
+
                             List<Consultation> items = new ArrayList<>();
 
                             for (String key : consultations.keySet()) {
@@ -83,11 +88,13 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                             }
 
                             historyView.showItemList(items);
-
-                            Logger.d("Consultations loaded - Size: " + consultations.size());
-
+                            historyView.hideEmpty();
+                            historyView.showResults();
                         } else {
                             Logger.d("Consultations no results");
+
+                            historyView.hideResults();
+                            historyView.showEmpty();
                         }
 
                         historyView.hideLoading();
@@ -97,5 +104,10 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                     public void onCancelled(FirebaseError firebaseError) {
                     }
                 });
+    }
+
+    @Override
+    public void stopListener() {
+        consultationsRef.removeEventListener(consultationsListener);
     }
 }

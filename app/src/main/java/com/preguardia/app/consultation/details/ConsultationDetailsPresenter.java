@@ -12,6 +12,8 @@ import com.preguardia.app.BuildConfig;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.consultation.model.GenericMessage;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.user.model.Medic;
+import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -33,6 +35,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
     private final String consultationId;
     private final String currentUserType;
+    private ValueEventListener consultationListener;
+    private ChildEventListener messagesListener;
 
     public ConsultationDetailsPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
@@ -46,11 +50,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
         this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
 
         this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
-    }
-
-    @Override
-    public void takePicture() throws IOException {
-
     }
 
     @Override
@@ -80,22 +79,29 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             Logger.d("Load Consultation Messages - ID: " + consultationId);
         }
 
-        consultationRef.addValueEventListener(new ValueEventListener() {
+        detailsView.configureAdapter(currentUserType);
+
+        // Listen to changes on Consultation
+        consultationListener = consultationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final Consultation consultation = dataSnapshot.getValue(Consultation.class);
 
                 if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-                    String patientName = consultation.getPatientName();
-                    String patientMedical = consultation.getPatientMedical();
+                    final Patient patient = consultation.getPatient();
+
+                    String patientName = patient.getName();
+                    String patientMedical = patient.getMedical();
 
                     if ((patientName != null) && (patientMedical != null)) {
                         detailsView.showUserName(patientName);
                         detailsView.showUserDesc(patientMedical);
                     }
                 } else {
-                    String medicName = consultation.getMedicName();
-                    String medicPlate = consultation.getMedicPlate();
+                    final Medic medic = consultation.getMedic();
+
+                    String medicName = medic.getName();
+                    String medicPlate = medic.getPlate();
 
                     if ((medicName != null) && (medicPlate != null)) {
                         detailsView.showUserName(medicName);
@@ -111,7 +117,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
         });
 
         // Handle new messages from Firebase
-        messagesRef.addChildEventListener(new ChildEventListener() {
+        messagesListener = messagesRef.addChildEventListener(new ChildEventListener() {
             // Retrieve new posts as they are added to the database
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
@@ -147,5 +153,16 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
             }
         });
+    }
+
+    @Override
+    public void stopListener() {
+        consultationRef.removeEventListener(consultationListener);
+        messagesRef.removeEventListener(messagesListener);
+    }
+
+    @Override
+    public void takePicture() throws IOException {
+
     }
 }

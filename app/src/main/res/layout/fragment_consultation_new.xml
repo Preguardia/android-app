@@ -316,7 +316,7 @@
                     android:layout_height="200dp"
                     android:gravity="top"
                     android:hint="@string/consultation_new_details_hint"
-                    android:inputType="textCapSentences"
+                    android:inputType="textCapSentences|textMultiLine"
                     android:maxLines="100"
                     android:textSize="15sp" />
 

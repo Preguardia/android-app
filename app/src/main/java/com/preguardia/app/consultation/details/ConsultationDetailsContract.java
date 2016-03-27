@@ -11,6 +11,8 @@ public interface ConsultationDetailsContract {
 
     interface View {
 
+        void configureAdapter(String userType);
+
         void showLoading();
 
         void hideLoading();
@@ -41,5 +43,7 @@ public interface ConsultationDetailsContract {
         void sendPicture();
 
         void loadItems();
+
+        void stopListener();
     }
 }

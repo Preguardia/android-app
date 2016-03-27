@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
@@ -33,6 +35,11 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Bind(R.id.consultation_history_list)
     RecyclerView recyclerView;
+
+    @Bind(R.id.consultation_history_empty)
+    RelativeLayout emptyView;
+    @Bind(R.id.consultation_history_results)
+    LinearLayout resultsView;
 
     private HistoryListAdapter mAdapter;
     private HistoryContract.Presenter presenter;
@@ -60,26 +67,39 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         presenter = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
                 new TrayAppPreferences(getContext()), this);
 
-        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), mItemListener);
-
         // Config Recycler view
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
 
-        // Create adapter with empty list
-        recyclerView.setAdapter(mAdapter);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         presenter.loadItems();
+    }
 
-        return view;
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        presenter.stopListener();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void configAdapter(String userType) {
+        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), userType, mItemListener);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -114,7 +134,22 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void showEmpty() {
+        emptyView.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void showResults() {
+        resultsView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEmpty() {
+        emptyView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideResults() {
+        resultsView.setVisibility(View.GONE);
     }
 
     /**

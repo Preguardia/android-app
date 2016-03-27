@@ -11,6 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.preguardia.app.R;
 
 import butterknife.Bind;
@@ -24,6 +25,8 @@ public class TermsFragment extends Fragment {
     @Bind(R.id.terms_webview)
     WebView webView;
 
+    private MaterialDialog progressDialog;
+
     public static TermsFragment newInstance() {
         return new TermsFragment();
     }
@@ -34,16 +37,16 @@ public class TermsFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        // Init Progress dialog
+        MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
+                .title(R.string.drawer_consultation_history)
+                .content(R.string.user_login_loading)
+                .cancelable(false)
+                .progress(true, 0);
+
+        progressDialog = progressBuilder.build();
+
         webView.setBackgroundColor(Color.TRANSPARENT);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        webView.loadUrl("http://graciasdoc.com/tyc.html");
 
         // Enable Javascript
         WebSettings webSettings = webView.getSettings();
@@ -51,6 +54,22 @@ public class TermsFragment extends Fragment {
 
         // Force links and redirects to open in the WebView instead of in a browser
         webView.setWebViewClient(new WebViewClient());
+
+        webView.setWebViewClient(new WebViewClient() {
+            public void onPageFinished(WebView view, String url) {
+                progressDialog.dismiss();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        webView.loadUrl("http://graciasdoc.com/tyc.html");
+        progressDialog.show();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.preguardia.app.consultation.create;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.io.IOException;
 
@@ -16,13 +15,11 @@ public interface NewConsultationContract {
 
         void hideLoading();
 
-        void showSuccess(@Nullable String consultationId);
+        void showSuccess();
 
         void showEmptyFieldError();
 
         void showImagePreview(@NonNull String uri);
-
-        void openDetails(@Nullable String consultationId);
 
         void openHistory();
 

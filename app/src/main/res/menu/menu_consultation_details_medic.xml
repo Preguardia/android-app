@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/consultation_details_close"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_close_24dp"
+        android:title="@string/menu_consultation_close" />
+
+    <item
+        app:showAsAction="never"
+        android:title="@string/menu_consultation_incident" />
+
+</menu>

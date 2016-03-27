@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
         mainView.showLoading();
 
         if (userToken != null) {
-            userFirebaseRef.child(userToken).addValueEventListener(new ValueEventListener() {
+            userFirebaseRef.child(userToken).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
@@ -48,30 +48,39 @@ public class MainPresenter implements MainContract.Presenter {
                     String userName = user.getName();
                     String userType = user.getType();
                     String userPicture = user.getPicture();
+                    String userBirth = user.getBirthDate();
 
                     mainView.showUserName(userName);
                     mainView.showUserPicture(userPicture);
 
+                    appPreferences.put(Constants.PREFERENCES_USER_NAME, userName);
+                    appPreferences.put(Constants.PREFERENCES_USER_BIRTH, userBirth);
+
                     if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
+                        String medicPlate = user.getPlate();
+
                         // Populate Menu
                         mainView.showUserDesc(user.getPlate());
                         mainView.showMedicMenu();
 
                         // Save type of user
                         appPreferences.put(Constants.PREFERENCES_USER_TYPE, Constants.FIREBASE_USER_TYPE_MEDIC);
+                        appPreferences.put(Constants.PREFERENCES_USER_MEDIC_PLATE, medicPlate);
 
                         // Load History Fragment
                         mainView.loadHistorySection();
 
-                        // TODO: Remove testing notification
-                        mainView.showNotification();
+
                     } else if (userType.equals(Constants.FIREBASE_USER_TYPE_PATIENT)) {
+                        String userMedical = user.getMedical();
+
                         // Populate Menu
                         mainView.showUserDesc(user.getMedical());
                         mainView.showPatientMenu();
 
                         // Save type of user
                         appPreferences.put(Constants.PREFERENCES_USER_TYPE, Constants.FIREBASE_USER_TYPE_PATIENT);
+                        appPreferences.put(Constants.PREFERENCES_USER_PATIENT_MEDICAL, userMedical);
 
                         // Load New Consultation Fragment
                         mainView.loadNewConsultationSection();
@@ -90,5 +99,10 @@ public class MainPresenter implements MainContract.Presenter {
                 }
             });
         }
+    }
+
+    @Override
+    public void removeListener() {
+
     }
 }

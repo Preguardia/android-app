@@ -10,6 +10,8 @@ import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
+import com.preguardia.app.user.model.Medic;
+import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -29,6 +31,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     @NonNull
     private final Firebase consultationRef;
     @NonNull
+    private final Firebase tasksRef;
+    @NonNull
     private final TrayAppPreferences appPreferences;
 
     private final String consultationId;
@@ -37,8 +41,9 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
     private String currentUserId;
     private String currentUserName;
     private String currentMedicPlate;
+    private ValueEventListener consultationListener;
 
-    public ApproveConsultationPresenter(@NonNull Firebase consultationsRef,
+    public ApproveConsultationPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
                                         @NonNull ApproveConsultationContract.View approveView,
                                         @NonNull String consultationId) {
@@ -46,7 +51,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
         this.approveView = approveView;
         this.consultationId = consultationId;
 
-        this.consultationRef = consultationsRef.child(this.consultationId);
+        this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
+        this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
 
         this.currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         this.currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
@@ -62,14 +68,17 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
         approveView.showLoading();
 
-        consultationRef.addValueEventListener(new ValueEventListener() {
+        // Listen changes on selected Consultation
+        consultationListener = consultationRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 consultation = dataSnapshot.getValue(Consultation.class);
 
-                String patientName = consultation.getPatientName();
-                String patientMedical = consultation.getPatientMedical();
-                String patientBirth = consultation.getPatientBirthDate();
+                final Patient patient = consultation.getPatient();
+
+                String patientName = patient.getName();
+                String patientMedical = patient.getMedical();
+                String patientBirth = patient.getBirthDate();
 
                 // Calculate Patient age
                 DateTime birthdate = new DateTime(patientBirth);
@@ -82,12 +91,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                     approveView.showPatientInfo(patientName, ageFormatted, patientMedical, null);
                 }
 
-                String category = consultation.getCategory();
-                String summary = consultation.getSummary();
-                String details = consultation.getDetails();
-
-                approveView.showConsultationInfo(category, summary, details);
-
+                approveView.showConsultationInfo(consultation.getCategory(), consultation.getSummary(), consultation.getDetails());
                 approveView.hideLoading();
             }
 
@@ -114,21 +118,46 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
                 approveView.showLoading();
 
-                Map<String, Object> attributes = new HashMap<>();
-                attributes.put("medicId", currentUserId);
-                attributes.put("medicName", currentUserName);
-                attributes.put("medicPate", currentMedicPlate);
+                final Medic medic = new Medic();
+                medic.setId(currentUserId);
+                medic.setName(currentUserName);
+                medic.setPlate(currentMedicPlate);
 
+                Map<String, Object> attributes = new HashMap<>();
+                attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED);
+
+                // Set Medic information
+                consultationRef.child(Constants.FIREBASE_USER_TYPE_MEDIC).setValue(medic);
+
+                // Update Consultation status
                 consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-
                         approveView.hideLoading();
                         approveView.showMessage("Consulta tomada exitosamente.");
+
+                        // Create Task with data
+                        Map<String, String> task = new HashMap<>();
+                        task.put("type", "consultation-approved");
+                        task.put("content", "Su consulta fue tomada por " + currentUserName);
+                        task.put("patientId", consultation.getPatient().getId());
+                        task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+
+                        // Push task to be processed
+                        tasksRef.push().setValue(task);
+
+                        if (BuildConfig.DEBUG) {
+                            Logger.d("New Consultation data saved successfully.");
+                        }
                     }
                 });
 
                 break;
         }
+    }
+
+    @Override
+    public void stopListener() {
+        consultationRef.removeEventListener(consultationListener);
     }
 }

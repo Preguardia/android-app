@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/pic_medic"
+        tools:src="@drawable/pic_medic"
         android:layout_alignParentTop="true"
         app:border_color="@android:color/white"
         app:border_width="1dp" />

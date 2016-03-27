@@ -98,7 +98,7 @@
                 android:layout_toLeftOf="@id/consultation_details_bottom_action"
                 android:background="@null"
                 android:hint="@string/consultation_details_text_input"
-                android:inputType="textCapSentences"
+                android:inputType="textCapSentences|textMultiLine"
                 android:maxHeight="100dp"
                 android:scrollbars="vertical" />
 

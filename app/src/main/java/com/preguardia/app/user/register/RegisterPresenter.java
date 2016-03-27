@@ -9,6 +9,10 @@ import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +33,6 @@ public class RegisterPresenter implements RegisterContract.Presenter {
         this.firebase = firebase;
         this.appPreferences = appPreferences;
         this.registerView = registerView;
-        this.registerView.setUserActionListener(this);
     }
 
     @Override
@@ -50,16 +53,24 @@ public class RegisterPresenter implements RegisterContract.Presenter {
                     // Authentication just completed successfully
                     Map<String, String> map = new HashMap<>();
 
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+                    DateTime dateTime = formatter.parseDateTime(birthDate);
+                    String formattedDate = dateTime.toDateTimeISO().toString();
+
                     // Save user attributes
                     map.put("name", name);
-                    map.put("birthDate", birthDate);
+                    map.put("birthDate", formattedDate);
                     map.put("type", type);
                     map.put("medical", medical);
                     map.put("plate", plate);
                     map.put("phone", phone);
+                    // TODO: Change with user picture
+                    map.put("picture", "http://media.graciasdoc.com/pictures/user_placeholder.png");
 
                     // Send to Firebase
-                    firebase.child(Constants.FIREBASE_USERS).child(uuid.toString()).setValue(map);
+                    firebase.child(Constants.FIREBASE_USERS)
+                            .child(uuid.toString())
+                            .setValue(map);
 
                     registerView.hideProgress();
                     registerView.showSuccess();

@@ -19,8 +19,6 @@ public interface RegisterContract {
 
         void toggleKeyboard();
 
-        void setUserActionListener(Presenter listener);
-
         void showSelectedBirthDate(String dateString);
     }
 

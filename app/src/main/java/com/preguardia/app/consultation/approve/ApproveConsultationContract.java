@@ -25,5 +25,7 @@ public interface ApproveConsultationContract {
         void loadConsultation();
 
         void takeConsultation();
+
+        void stopListener();
     }
 }

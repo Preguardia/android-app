@@ -12,6 +12,8 @@ import java.util.List;
 public interface HistoryContract {
     interface View {
 
+        void configAdapter(String userType);
+
         void showLoading();
 
         void hideLoading();
@@ -23,11 +25,19 @@ public interface HistoryContract {
         void openDetails(@Nullable String consultationId);
 
         void showEmpty();
+
+        void showResults();
+
+        void hideEmpty();
+
+        void hideResults();
     }
 
     interface Presenter {
 
         void loadItems();
+
+        void stopListener();
     }
 
     interface ConsultationItemListener {

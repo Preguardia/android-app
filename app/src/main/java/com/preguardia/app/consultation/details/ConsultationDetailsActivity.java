@@ -51,13 +51,11 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_consultation_details);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         // Get the requested Consultation ID
         String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
-
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -79,18 +77,25 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
                 this,
                 sentConsultation);
 
-        // Load first items and attach
-        presenter.loadItems();
-
         // Config Recycler view
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
-
         recyclerView.setLayoutManager(layoutManager);
+    }
 
-        // Create adapter with empty list
-        mAdapter = new MessagesListAdapter(new ArrayList<GenericMessage>(0));
-        recyclerView.setAdapter(mAdapter);
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Load first items and attach
+        presenter.loadItems();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        presenter.stopListener();
     }
 
     @SuppressWarnings("unused")
@@ -99,23 +104,11 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         String message = inputView.getText().toString();
 
         presenter.sendMessage(message);
-
-//        new MaterialDialog.Builder(this)
-//                .title("Adjuntar archivo")
-//                .items(R.array.consultation_details_media)
-//                .itemsCallback(new MaterialDialog.ListCallback() {
-//                    @Override
-//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-//
-//
-//                    }
-//                })
-//                .show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_consultation_details, menu);
+        getMenuInflater().inflate(R.menu.menu_consultation_details_medic, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -132,6 +125,13 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void configureAdapter(String userType) {
+        // Create adapter with empty list
+        mAdapter = new MessagesListAdapter(this, userType, new ArrayList<GenericMessage>(0));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

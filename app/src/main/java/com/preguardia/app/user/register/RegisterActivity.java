@@ -36,7 +36,8 @@ import butterknife.OnTouch;
 /**
  * @author amouly on 2/20/16.
  */
-public class RegisterActivity extends AppCompatActivity implements RegisterContract.View, DatePickerDialog.OnDateSetListener {
+public class RegisterActivity extends AppCompatActivity implements RegisterContract.View,
+        DatePickerDialog.OnDateSetListener {
 
     @Bind(R.id.user_register_toolbar)
     Toolbar toolbar;
@@ -99,7 +100,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         plateContainerView.setVisibility(View.GONE);
 
         patientButton.setPressed(true);
+        patientButton.setActivated(true);
+
         medicButton.setPressed(false);
+        medicButton.setActivated(false);
 
         return true;
     }
@@ -111,7 +115,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         plateContainerView.setVisibility(View.VISIBLE);
 
         patientButton.setPressed(false);
+        patientButton.setActivated(false);
+
         medicButton.setPressed(true);
+        medicButton.setActivated(true);
 
         return true;
     }
@@ -128,9 +135,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String plate = plateInputView.getEditText().getText().toString();
         String phone = phoneInputView.getEditText().getText().toString();
 
-        if (medicButton.isPressed()) {
+        if (medicButton.isActivated()) {
             type = Constants.FIREBASE_USER_TYPE_MEDIC;
-        } else if (patientButton.isPressed()) {
+        } else if (patientButton.isActivated()) {
             type = Constants.FIREBASE_USER_TYPE_PATIENT;
         }
 
@@ -147,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        openMain();
+                        finish();
                     }
                 })
                 .positiveText(R.string.user_register_success_positive)
@@ -185,11 +192,6 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     public void toggleKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
-    }
-
-    @Override
-    public void setUserActionListener(RegisterContract.Presenter listener) {
-        presenter = listener;
     }
 
     @Override

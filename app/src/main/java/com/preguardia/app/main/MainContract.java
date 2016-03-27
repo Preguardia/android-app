@@ -24,13 +24,12 @@ public interface MainContract {
         void loadNewConsultationSection();
 
         void loadHistorySection();
-
-        void showNotification();
     }
 
     interface Presenter {
 
         void loadUserInfo();
 
+        void removeListener();
     }
 }

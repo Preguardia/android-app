@@ -1,5 +1,8 @@
 package com.preguardia.app.consultation.model;
 
+import com.preguardia.app.user.model.Medic;
+import com.preguardia.app.user.model.Patient;
+
 import java.util.List;
 
 /**
@@ -9,31 +12,33 @@ import java.util.List;
 public class Consultation {
 
     private String id;
-    private String patientId;
-    private String patientName;
-    private String patientMedical;
-    private String medicId;
     private String dateCreated;
     private String dateUpdated;
     private String summary;
     private String category;
     private String details;
-    private String medicName;
-    private String medicPlate;
     private String status;
-    private String patientBirthDate;
+    private Patient patient;
+    private Medic medic;
     private List<Question> questions;
 
     public Consultation() {
     }
 
-    public Consultation(String patientId, String dateCreated, String status, String summary, String category, String details) {
-        this.patientId = patientId;
-        this.dateCreated = dateCreated;
-        this.status = status;
-        this.summary = summary;
-        this.category = category;
-        this.details = details;
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public void setMedic(Medic medic) {
+        this.medic = medic;
+    }
+
+    public Medic getMedic() {
+        return medic;
     }
 
     public String getId() {
@@ -42,14 +47,6 @@ public class Consultation {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
     }
 
     public String getSummary() {
@@ -84,28 +81,12 @@ public class Consultation {
         this.dateCreated = dateCreated;
     }
 
-    public String getMedicName() {
-        return medicName;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public void setMedicName(String medicName) {
-        this.medicName = medicName;
-    }
-
-    public String getMedicId() {
-        return medicId;
-    }
-
-    public void setMedicId(String medicId) {
-        this.medicId = medicId;
     }
 
     public String getDateUpdated() {
@@ -122,37 +103,5 @@ public class Consultation {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public String getPatientMedical() {
-        return patientMedical;
-    }
-
-    public void setPatientMedical(String patientMedical) {
-        this.patientMedical = patientMedical;
-    }
-
-    public String getMedicPlate() {
-        return medicPlate;
-    }
-
-    public void setMedicPlate(String medicPlate) {
-        this.medicPlate = medicPlate;
-    }
-
-    public String getPatientBirthDate() {
-        return patientBirthDate;
-    }
-
-    public void setPatientBirthDate(String patientBirthDate) {
-        this.patientBirthDate = patientBirthDate;
     }
 }
