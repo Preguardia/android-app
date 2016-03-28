@@ -54,6 +54,7 @@ public class SlideFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
+    @SuppressWarnings("unused")
     @OnClick(R.id.wizard_button)
     public void onButtonClick() {
         ((WizardActivity) getActivity()).loadMainActivity();

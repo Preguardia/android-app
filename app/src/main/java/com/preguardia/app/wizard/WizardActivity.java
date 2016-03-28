@@ -17,10 +17,6 @@ public class WizardActivity extends AppIntro2 {
         addSlide(SlideFragment.newInstance(R.layout.fragment_wizard_second));
         addSlide(SlideFragment.newInstance(R.layout.fragment_wizard_third));
         addSlide(SlideFragment.newInstance(R.layout.fragment_wizard_fourth));
-
-        // Hide Skip/Done button.
-        //showSkipButton(true);
-        //setProgressButtonEnabled(false);
     }
 
     @Override
