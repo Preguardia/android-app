@@ -88,7 +88,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         // Registering BroadcastReceiver
         registerReceiver();
+    }
 
+    @Override
+    public void registerGcm() {
         if (checkPlayServices()) {
             // Start IntentService to register this application with GCM.
             Intent intent = new Intent(this, RegistrationIntentService.class);
@@ -269,8 +272,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private void registerReceiver() {
         if (!isReceiverRegistered) {
-            LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                    new IntentFilter("registrationComplete"));
+            LocalBroadcastManager.getInstance(this)
+                    .registerReceiver(mRegistrationBroadcastReceiver, new IntentFilter("registrationComplete"));
             isReceiverRegistered = true;
         }
     }
@@ -283,18 +286,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private boolean checkPlayServices() {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
         int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+
         if (resultCode != ConnectionResult.SUCCESS) {
             if (apiAvailability.isUserResolvableError(resultCode)) {
                 apiAvailability.getErrorDialog(this, resultCode, Constants.PLAY_SERVICES_RESOLUTION_REQUEST)
                         .show();
             } else {
-
                 System.out.println("DEVICE NOT SUPPORTED");
 
                 finish();
             }
+
             return false;
         }
+
         return true;
     }
 }

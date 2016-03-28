@@ -24,7 +24,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.firebase.client.Firebase;
-import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.orhanobut.logger.Logger;
@@ -40,8 +39,12 @@ public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
 
+    private PubSubHelper mPubSubHelper;
+
     public RegistrationIntentService() {
         super(TAG);
+
+        mPubSubHelper = new PubSubHelper(this);
     }
 
     @Override
@@ -61,7 +64,7 @@ public class RegistrationIntentService extends IntentService {
             // [END get_token]
             Log.i(TAG, "GCM Registration Token: " + token);
 
-            // TODO: Implement this method to send any registration to your app's servers.
+            // Send registrationId to server
             sendRegistrationToServer(token);
 
             // Subscribe to topic channels
@@ -78,6 +81,7 @@ public class RegistrationIntentService extends IntentService {
             // on a third-party server, this ensures that we'll attempt the update at a later time.
             sharedPreferences.edit().putBoolean("sentTokenToServer", false).apply();
         }
+
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent("registrationComplete");
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
@@ -111,18 +115,24 @@ public class RegistrationIntentService extends IntentService {
      * @param token GCM token
      * @throws IOException if unable to reach the GCM PubSub service
      */
-    // [START subscribe_topics]
     private void subscribeTopics(String token) throws IOException {
-        GcmPubSub pubSub = GcmPubSub.getInstance(this);
+        String userType = new TrayAppPreferences(this).getString(Constants.PREFERENCES_USER_TYPE, null);
 
         // Subscribe to topic for type of User
-        String userType = new TrayAppPreferences(this).getString(Constants.PREFERENCES_USER_TYPE, null);
-        pubSub.subscribe(token, "/topics/" + userType, null);
+        mPubSubHelper.subscribeTopic(token, "/topics/" + userType, null);
 
         for (String topic : TOPICS) {
-            pubSub.subscribe(token, "/topics/" + topic, null);
+            mPubSubHelper.subscribeTopic(token, "/topics/" + topic, null);
         }
     }
-    // [END subscribe_topics]
 
+    private void unSubscribeTopics() throws IOException {
+        InstanceID instanceID = InstanceID.getInstance(this);
+        String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+
+        PubSubHelper pubSubHelper = new PubSubHelper(this);
+
+        pubSubHelper.unsubscribeTopic(token, "/topics/medic");
+        pubSubHelper.unsubscribeTopic(token, "/topics/patient");
+    }
 }

@@ -31,6 +31,8 @@ public class WizardActivity extends AppIntro2 {
     @Override
     public void onDonePressed() {
         loadMainActivity();
+
+        this.finish();
     }
 
     @Override

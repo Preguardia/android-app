@@ -57,6 +57,8 @@ public class SlideFragment extends Fragment {
     @OnClick(R.id.wizard_button)
     public void onButtonClick() {
         ((WizardActivity) getActivity()).loadMainActivity();
+
+        getActivity().finish();
     }
 
 }

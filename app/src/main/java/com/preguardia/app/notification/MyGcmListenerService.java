@@ -29,6 +29,7 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.approve.ApproveConsultationActivity;
+import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.general.Constants;
 
 public class MyGcmListenerService extends GcmListenerService {
@@ -56,7 +57,7 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.d(TAG, "Message: " + message);
         Log.d(TAG, "ConsultationId: " + consultationId);
 
-        if (from.startsWith("/topics/")) {
+        if (from.equals("/topics/medic")) {
             // message received from some topic.
             sendMedicNotification(title, message, consultationId);
 
@@ -99,7 +100,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
     private void sendPatientNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
-        Intent intent = new Intent(this, ApproveConsultationActivity.class);
+        Intent intent = new Intent(this, ConsultationDetailsActivity.class);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
