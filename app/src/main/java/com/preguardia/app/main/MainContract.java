@@ -24,6 +24,8 @@ public interface MainContract {
         void loadNewConsultationSection();
 
         void loadHistorySection();
+
+        void registerGcm();
     }
 
     interface Presenter {

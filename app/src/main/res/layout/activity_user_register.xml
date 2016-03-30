@@ -71,10 +71,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingRight="20dp"
+                android:paddingBottom="15dp"
                 android:paddingLeft="20dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="15dp">
+                android:paddingRight="20dp"
+                android:paddingTop="20dp">
 
                 <LinearLayout
                     style="@style/UserRegisterContainer"
@@ -176,11 +176,11 @@
                             android:id="@+id/user_register_date_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
                             android:hint="@string/user_register_date"
                             android:inputType="date"
                             android:maxLines="1"
-                            android:cursorVisible="false"
-                            android:focusable="false"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -238,6 +238,7 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_medical"
                             android:inputType="textCapWords"
+                            android:maxLines="1"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -264,8 +265,27 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/user_register_phone"
                             android:inputType="phone"
+                            android:maxLines="1"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/UserRegisterContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_register_terms"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
             </LinearLayout>

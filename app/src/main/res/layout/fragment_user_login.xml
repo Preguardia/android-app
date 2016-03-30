@@ -75,6 +75,7 @@
                     android:fontFamily="sans-serif"
                     android:hint="@string/user_login_email"
                     android:inputType="textEmailAddress"
+                    android:maxLines="1"
                     android:textSize="16sp" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -103,6 +104,7 @@
                     android:fontFamily="sans-serif"
                     android:hint="@string/user_login_password"
                     android:inputType="textPassword"
+                    android:maxLines="1"
                     android:singleLine="true"
                     android:textSize="16sp" />
             </android.support.design.widget.TextInputLayout>

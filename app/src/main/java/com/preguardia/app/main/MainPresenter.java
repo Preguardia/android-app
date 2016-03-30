@@ -69,8 +69,6 @@ public class MainPresenter implements MainContract.Presenter {
 
                         // Load History Fragment
                         mainView.loadHistorySection();
-
-
                     } else if (userType.equals(Constants.FIREBASE_USER_TYPE_PATIENT)) {
                         String userMedical = user.getMedical();
 
@@ -85,6 +83,9 @@ public class MainPresenter implements MainContract.Presenter {
                         // Load New Consultation Fragment
                         mainView.loadNewConsultationSection();
                     }
+
+                    // Register in App server
+                    mainView.registerGcm();
 
                     mainView.hideLoading();
 

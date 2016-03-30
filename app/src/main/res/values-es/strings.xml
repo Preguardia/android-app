@@ -29,21 +29,14 @@
     <string name="user_login_error_message">Usuario o contraseña incorrecto</string>
 
     <string-array name="consultation_category_list">
-
         <item>- Desconocido -</item>
         <item>Pediatría</item>
         <item>Cardiología</item>
         <item>Neurología</item>
         <item>Neurología</item>
-        <item>Otra 1</item>
-        <item>Otra 2</item>
-        <item>Otra 3</item>
-        <item>Otra 4</item>
-
     </string-array>
 
     <string-array name="consultation_where_list">
-
         <item>Brazos</item>
         <item>Piernas</item>
         <item>Cabeza</item>
@@ -51,26 +44,22 @@
         <item>Pies</item>
         <item>Ojo derecho</item>
         <item>Boca</item>
-
     </string-array>
 
     <string-array name="consultation_lasttime_list">
-
         <item>- No recuerdo -</item>
         <item>Ahora</item>
         <item>Ayer</item>
         <item>Hoy</item>
         <item>La semana pasada</item>
-
     </string-array>
 
     <string-array name="consultation_details_media">
-
         <item>Foto</item>
         <item>Video</item>
         <item>Audio</item>
-
     </string-array>
+
     <string name="user_login_button">Ingresar</string>
     <string name="user_login_email">Email</string>
     <string name="user_login_error_field">Ingrese un usuario y contraseña válidos.</string>

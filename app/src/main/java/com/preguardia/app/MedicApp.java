@@ -23,12 +23,6 @@ public class MedicApp extends Application {
 
         // Start Firebase
         Firebase.setAndroidContext(this);
-
-//        // Start Batch
-//        Batch.Push.setGCMSenderId(BuildConfig.GCM_SENDER_ID);
-//        Batch.setConfig(new Config(BuildConfig.BATCH_API_KEY));
-//        Batch.Push.setNotificationsColor(ContextCompat.getColor(this, R.color.colorPrimary));
-//        Batch.Push.setSmallIconResourceId(R.mipmap.ic_launcher);
     }
 
 }
