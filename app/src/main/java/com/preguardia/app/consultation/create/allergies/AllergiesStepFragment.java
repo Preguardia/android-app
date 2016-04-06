@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.create.alergy;
+package com.preguardia.app.consultation.create.allergies;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import com.preguardia.app.R;
 /**
  * @author amouly on 4/6/16.
  */
-public class AlergyStepFragment extends AbstractStep {
+public class AllergiesStepFragment extends AbstractStep {
 
     private int i = 1;
 
@@ -31,7 +31,7 @@ public class AlergyStepFragment extends AbstractStep {
 
     @Override
     public String name() {
-        return "Tab " + getArguments().getInt("position", 0);
+        return mStepper.getString(R.string.consultation_new_step_allergies);
     }
 
     @Override

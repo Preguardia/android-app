@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.create.alergy.AlergyStepFragment;
+import com.preguardia.app.consultation.create.allergies.AllergiesStepFragment;
 import com.preguardia.app.consultation.create.description.DescriptionStepFragment;
 import com.preguardia.app.consultation.create.diseases.DiseasesStepFragment;
 import com.preguardia.app.consultation.create.medications.MedicationsStepFragment;
@@ -24,14 +24,16 @@ public class CreateStepsActivity extends TabStepper {
     protected void onCreate(Bundle savedInstanceState) {
         setErrorTimeout(1500);
         setLinear(true);
-        setTitle(R.string.drawer_consultation_new);
-        setAlternativeTab(true);
+        setTitle(getString(R.string.drawer_consultation_new));
+        setAlternativeTab(false);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addStep(createFragment(new PatientStepFragment()));
         addStep(createFragment(new DescriptionStepFragment()));
         addStep(createFragment(new TimeStepFragment()));
         addStep(createFragment(new MedicationsStepFragment()));
-        addStep(createFragment(new AlergyStepFragment()));
+        addStep(createFragment(new AllergiesStepFragment()));
         addStep(createFragment(new SymptomsStepFragment()));
         addStep(createFragment(new DiseasesStepFragment()));
 

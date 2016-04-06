@@ -1,6 +1,7 @@
 package com.preguardia.app.consultation.create.patient;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,10 @@ import android.view.ViewGroup;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,12 +20,13 @@ import butterknife.ButterKnife;
 /**
  * @author amouly on 4/6/16.
  */
-public class PatientStepFragment extends AbstractStep {
-
-    private int i = 1;
+public class PatientStepFragment extends AbstractStep implements PatientStepContract.View {
 
     @Bind(R.id.step_patient_list)
     RecyclerView recyclerView;
+
+    private PatientStepContract.Presenter presenter;
+    private PatientListAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,18 +34,29 @@ public class PatientStepFragment extends AbstractStep {
 
         ButterKnife.bind(this, view);
 
+        presenter = new PatientStepPresenter(this);
+
+        adapter = new PatientListAdapter(getActivity(), new ArrayList<PatientItem>(0));
+
+        // Config Recycler view
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
+        recyclerView.setAdapter(adapter);
+
+        presenter.loadItems();
+
         return view;
     }
 
     @Override
     public void onStepVisible() {
         super.onStepVisible();
-        // do something
     }
 
     @Override
     public String name() {
-        return "Tab " + getArguments().getInt("position", 0);
+        return mStepper.getString(R.string.consultation_new_step_patient);
     }
 
     @Override
@@ -49,7 +66,7 @@ public class PatientStepFragment extends AbstractStep {
 
     @Override
     public boolean nextIf() {
-        return i > 1;
+        return true;
     }
 
     @Override
@@ -62,5 +79,10 @@ public class PatientStepFragment extends AbstractStep {
         super.onDestroyView();
 
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void showItems(List<PatientItem> items) {
+        adapter.replaceData(items);
     }
 }

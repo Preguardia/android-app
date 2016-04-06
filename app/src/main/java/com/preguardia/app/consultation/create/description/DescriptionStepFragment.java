@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
 
-/**
- * Created by Francesco Cannizzaro on 23/12/2015.
- */
 public class DescriptionStepFragment extends AbstractStep {
 
     private int i = 1;
@@ -31,7 +28,7 @@ public class DescriptionStepFragment extends AbstractStep {
 
     @Override
     public String name() {
-        return "Tab " + getArguments().getInt("position", 0);
+        return mStepper.getString(R.string.consultation_new_step_description);
     }
 
     @Override
@@ -41,7 +38,7 @@ public class DescriptionStepFragment extends AbstractStep {
 
     @Override
     public boolean nextIf() {
-        return i > 1;
+        return true;
     }
 
     @Override

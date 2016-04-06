@@ -58,6 +58,10 @@
     <string name="menu_consultation_close">Cerrar consulta</string>
     <string name="menu_consultation_incident">Reportar incidente</string>
     <string name="user_register_terms">Acepto los términos y condiciones.</string>
+    <string name="consultation_new_step_patient">Paciente</string>
+    <string name="consultation_new_step_description">Description</string>
+    <string name="consultation_new_step_allergies">Allergies</string>
+    <string name="consultation_new_step_time">Frequency</string>
 
     <string-array name="consultation_category_list">
         <item>- Desconocido -</item>

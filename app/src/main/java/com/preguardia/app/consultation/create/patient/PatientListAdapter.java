@@ -10,6 +10,8 @@ import com.preguardia.app.R;
 
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * @author amouly on 4/6/16.
  */
@@ -24,23 +26,12 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
         this.context = context;
     }
 
-    public void addItem(PatientItem item) {
-        itemsList.add(item);
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return 1;
-    }
-
     @Override
     public PatientViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View card = inflater.inflate(R.layout.item_details_message_right, viewGroup, false);
+        View card = inflater.inflate(R.layout.item_patient_list, viewGroup, false);
         PatientViewHolder viewHolder = new PatientViewHolder(context, card);
-
 
         return viewHolder;
     }
@@ -55,5 +46,19 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
     @Override
     public int getItemCount() {
         return itemsList.size();
+    }
+
+    private void setList(List<PatientItem> items) {
+        this.itemsList = checkNotNull(items);
+    }
+
+    public void replaceData(List<PatientItem> items) {
+        setList(items);
+        notifyDataSetChanged();
+    }
+
+    public void addItem(PatientItem item) {
+        itemsList.add(item);
+        notifyDataSetChanged();
     }
 }
