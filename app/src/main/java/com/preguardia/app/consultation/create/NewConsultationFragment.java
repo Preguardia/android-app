@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.create;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -61,7 +62,7 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_consultation_new, container, false);
+        View view = inflater.inflate(R.layout.fragment_consultation_new2, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -80,17 +81,21 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
     @SuppressWarnings("unused")
     @OnClick(R.id.consultation_new_category)
     public void onCategoryClick() {
-        new MaterialDialog.Builder(getActivity())
-                .title(R.string.consultation_new_category)
-                .items(R.array.consultation_category_list)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        categoryTextView.setText(text);
-                        categoryTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-                    }
-                })
-                .show();
+//        new MaterialDialog.Builder(getActivity())
+//                .title(R.string.consultation_new_category)
+//                .items(R.array.consultation_category_list)
+//                .itemsCallback(new MaterialDialog.ListCallback() {
+//                    @Override
+//                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+//                        categoryTextView.setText(text);
+//                        categoryTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+//                    }
+//                })
+//                .show();
+
+        Intent intent = new Intent(getActivity(), CreateStepsActivity.class);
+
+        startActivity(intent);
     }
 
     @SuppressWarnings("unused")

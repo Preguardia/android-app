@@ -43,6 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".consultation.create.CreateStepsActivity" />
+
         <activity
             android:name=".main.MainActivity"
             android:label="@string/title_activity_main"

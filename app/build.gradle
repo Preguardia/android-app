@@ -105,6 +105,8 @@ dependencies {
     compile 'com.wdullaer:materialdatetimepicker:2.2.0'
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
+
+    compile 'com.github.fcannizzaro:material-stepper:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

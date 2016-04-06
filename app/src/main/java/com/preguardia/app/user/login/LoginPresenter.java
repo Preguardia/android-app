@@ -27,7 +27,6 @@ public class LoginPresenter implements LoginContract.Presenter {
         this.firebase = firebase;
         this.appPreferences = appPreferences;
         this.loginView = loginView;
-        this.loginView.setUserActionListener(this);
     }
 
     @Override
