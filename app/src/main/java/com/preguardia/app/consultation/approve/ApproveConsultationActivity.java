@@ -2,6 +2,7 @@ package com.preguardia.app.consultation.approve;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
@@ -122,7 +123,7 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showMessage(@StringRes int message) {
         new MaterialDialog.Builder(this)
                 .title(R.string.consultation_approve_title)
                 .content(message)

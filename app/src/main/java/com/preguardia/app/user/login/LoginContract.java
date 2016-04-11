@@ -18,8 +18,6 @@ public interface LoginContract {
         void openMain();
 
         void openRegister();
-
-        void setUserActionListener(Presenter listener);
     }
 
     interface Presenter {

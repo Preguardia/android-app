@@ -50,22 +50,28 @@
     <string name="consultation_new_media">Foto o video</string>
     <string name="consultation_approve_button">Take consultation</string>
     <string name="drawer_user_profile">User profile</string>
-    <string name="consultation_details_text_input">Ingrese su consulta</string>
-    <string name="consultation_new_empty_fields">Por favor complete todos los campos.</string>
-    <string name="consultation_new_success_message">Consulta creada exitosamente.</string>
-    <string name="consultation_approve_title">Tomar Consulta</string>
-    <string name="consultation_history_empty_text">No hay consultas asignadas</string>
-    <string name="menu_consultation_close">Cerrar consulta</string>
-    <string name="menu_consultation_incident">Reportar incidente</string>
-    <string name="user_register_terms">Acepto los términos y condiciones.</string>
+    <string name="consultation_details_text_input">Enter consultation</string>
+    <string name="consultation_new_empty_fields">Please fill all the fields</string>
+    <string name="consultation_new_success_message">Consultation created succesfully</string>
+    <string name="consultation_approve_title">Take Consultation</string>
+    <string name="consultation_history_empty_text">No assigned consultations</string>
+    <string name="menu_consultation_close">Close consultation</string>
+    <string name="menu_consultation_incident">Report incident</string>
+    <string name="user_register_terms">Accept terms and conditions</string>
+    <string name="consultation_new_step_patient">Patient</string>
+    <string name="consultation_new_step_description">Description</string>
+    <string name="consultation_new_step_allergies">Allergies</string>
+    <string name="consultation_new_step_time">Frequency</string>
+    <string name="consultation_new_step_medications">Medications</string>
+    <string name="consultation_new_step_diseases">Diseases</string>
+    <string name="consultation_new_step_symptoms">Symptoms</string>
+    <string name="consultation_taken_success">Consultation taken successfully</string>
+    <string name="consultation_taken_error">Error, consultation already taken</string>
+    <string name="consultation_new_medications_hint">Medicine</string>
+    <string name="consultation_new_medications_new">Add another medicine</string>
+    <string name="consultation_new_allergies_hint">Allergy</string>
+    <string name="consultation_new_allergy_new">Add another allergy</string>
 
-    <string-array name="consultation_category_list">
-        <item>- Desconocido -</item>
-        <item>Pediatría</item>
-        <item>Cardiología</item>
-        <item>Neurología</item>
-        <item>Neurología</item>
-    </string-array>
 
     <string-array name="consultation_where_list">
         <item>Brazos</item>
@@ -90,5 +96,14 @@
         <item>Video</item>
         <item>Audio</item>
     </string-array>
+
+    <string-array name="consultation_new_medications_how">
+        <item>¿Desde cuando?</item>
+        <item>Semana pasada</item>
+        <item>Mes pasado</item>
+        <item>Año pasado</item>
+        <item>Más de un año</item>
+    </string-array>
+
 
 </resources>

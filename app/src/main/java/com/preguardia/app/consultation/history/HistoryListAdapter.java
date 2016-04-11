@@ -35,7 +35,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
     public HistoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        View item = inflater.inflate(R.layout.item_history_list, parent, false);
+        View item = inflater.inflate(R.layout.list_item_history, parent, false);
 
         return new HistoryViewHolder(parent.getContext(), item);
     }

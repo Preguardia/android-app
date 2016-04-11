@@ -59,7 +59,7 @@
             android:paddingRight="15dp"
             android:clipToPadding="false"
             android:scrollbars="none"
-            tools:listitem="@layout/item_history_list" />
+            tools:listitem="@layout/list_item_history" />
 
     </LinearLayout>
 

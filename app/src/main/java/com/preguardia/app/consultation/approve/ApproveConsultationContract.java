@@ -1,5 +1,7 @@
 package com.preguardia.app.consultation.approve;
 
+import android.support.annotation.StringRes;
+
 /**
  * @author amouly on 3/17/16.
  */
@@ -13,7 +15,7 @@ public interface ApproveConsultationContract {
 
         void onTakeButtonClick();
 
-        void showMessage(String message);
+        void showMessage(@StringRes int message);
 
         void showLoading();
 
