@@ -1,26 +1,48 @@
 package com.preguardia.app.consultation.create.symptoms;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author amouly on 4/6/16.
  */
 public class SymptomsStepFragment extends AbstractStep {
 
-    private int i = 1;
+    @Bind(R.id.step_symptoms_list) RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_step_symptoms, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_step_symptoms, container, false);
+        ButterKnife.bind(this, view);
 
-        return v;
+        SymptomsAdapter adapter = new SymptomsAdapter();
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+        recyclerView.setLayoutManager(manager);
+        adapter.setLayoutManager(manager);
+
+        recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
+
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -31,7 +53,7 @@ public class SymptomsStepFragment extends AbstractStep {
 
     @Override
     public String name() {
-        return "Tab " + getArguments().getInt("position", 0);
+        return mStepper.getString(R.string.consultation_new_step_symptoms);
     }
 
     @Override
@@ -41,7 +63,7 @@ public class SymptomsStepFragment extends AbstractStep {
 
     @Override
     public boolean nextIf() {
-        return i > 1;
+        return true;
     }
 
     @Override

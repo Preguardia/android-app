@@ -30,7 +30,7 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeViewHolder> {
     public TimeViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View card = inflater.inflate(R.layout.item_patient_list, viewGroup, false);
+        View card = inflater.inflate(R.layout.list_item_patient, viewGroup, false);
         TimeViewHolder viewHolder = new TimeViewHolder(context, card);
 
         return viewHolder;

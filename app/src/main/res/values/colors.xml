@@ -16,6 +16,8 @@
 
     <color name="empty_ico_color">#cccccc</color>
 
+    <color name="list_header">#cccccc</color>
+
     <color name="grey_50">#FAFAFA</color>
     <color name="green_500">#4CAF50</color>
     <color name="blue_500">#2196F3</color>

@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:scrollbars="none"
-        tools:listitem="@layout/item_patient_list" />
+        tools:listitem="@layout/list_item_patient" />
 
 </LinearLayout>

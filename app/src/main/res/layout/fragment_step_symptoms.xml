@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,13 @@
         android:text="¿Padeces alguno de estos síntomas?"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/step_symptoms_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/list_item_symptoms_main" />
 
 </LinearLayout>

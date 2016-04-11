@@ -17,10 +17,9 @@ public class AllergiesStepFragment extends AbstractStep {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_step_alergy, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_step_alergy, container, false);
-
-        return v;
+        return view;
     }
 
     @Override
@@ -41,7 +40,7 @@ public class AllergiesStepFragment extends AbstractStep {
 
     @Override
     public boolean nextIf() {
-        return i > 1;
+        return true;
     }
 
     @Override

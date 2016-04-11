@@ -8,6 +8,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.R;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Medic;
@@ -111,7 +112,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
-                approveView.showMessage("Error, la consulta ya fue tomada.");
+                // Show take Error
+                approveView.showMessage(R.string.consultation_taken_error);
 
                 break;
 
@@ -134,7 +136,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
                         approveView.hideLoading();
-                        approveView.showMessage("Consulta tomada exitosamente.");
+                        approveView.showMessage(R.string.consultation_taken_success);
 
                         // Create Task with data
                         Map<String, String> task = new HashMap<>();

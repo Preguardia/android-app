@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @author amouly on 4/6/16.
@@ -31,6 +32,8 @@ public class TimeStepFragment extends AbstractStep implements TimeStepContract.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_time, container, false);
 
+        ButterKnife.bind(this, view);
+
         presenter = new TimeStepPresenter(this);
 
         adapter = new TimeListAdapter(getActivity(), new ArrayList<TimeItem>(0));
@@ -41,6 +44,7 @@ public class TimeStepFragment extends AbstractStep implements TimeStepContract.V
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
         recyclerView.setAdapter(adapter);
 
+        // Load list of items
         presenter.loadItems();
 
         return view;

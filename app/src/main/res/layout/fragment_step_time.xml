@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="20dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="¿Cuándo te empezaste a sentir de esta manera?"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/step_time_list"
@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:scrollbars="none"
-        tools:listitem="@layout/item_patient_list" />
+        tools:listitem="@layout/list_item_patient" />
 
 </LinearLayout>

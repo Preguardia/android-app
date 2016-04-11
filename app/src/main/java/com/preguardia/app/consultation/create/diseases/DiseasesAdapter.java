@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.create.patient;
+package com.preguardia.app.consultation.create.diseases;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,21 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
+import com.preguardia.app.consultation.create.patient.PatientItem;
+import com.preguardia.app.consultation.create.patient.PatientViewHolder;
 
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * @author amouly on 4/6/16.
+ * @author amouly on 4/11/16.
  */
-public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> {
+public class DiseasesAdapter extends RecyclerView.Adapter<PatientViewHolder> {
 
     private final Context context;
 
-    private List<PatientItem> itemsList;
+    private List<DiseaseItem> itemsList;
 
-    public PatientListAdapter(Context context, List<PatientItem> itemsList) {
+    public DiseasesAdapter(Context context, List<DiseaseItem> itemsList) {
         this.itemsList = itemsList;
         this.context = context;
     }
@@ -48,16 +50,16 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
         return itemsList.size();
     }
 
-    private void setList(List<PatientItem> items) {
+    private void setList(List<DiseaseItem> items) {
         this.itemsList = checkNotNull(items);
     }
 
-    public void replaceData(List<PatientItem> items) {
+    public void replaceData(List<DiseaseItem> items) {
         setList(items);
         notifyDataSetChanged();
     }
 
-    public void addItem(PatientItem item) {
+    public void addItem(DiseaseItem item) {
         itemsList.add(item);
         notifyDataSetChanged();
     }

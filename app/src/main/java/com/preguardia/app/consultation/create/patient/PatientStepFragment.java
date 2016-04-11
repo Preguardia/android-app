@@ -50,6 +50,13 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ButterKnife.unbind(this);
+    }
+
+    @Override
     public void onStepVisible() {
         super.onStepVisible();
     }
@@ -72,13 +79,6 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
     @Override
     public String error() {
         return "<b>You must click!</b> <small>this is the condition!</small>";
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        ButterKnife.unbind(this);
     }
 
     @Override
