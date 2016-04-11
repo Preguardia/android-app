@@ -8,18 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.firebase.client.Firebase;
 import com.preguardia.app.R;
-import com.preguardia.app.general.Constants;
 import com.preguardia.app.main.MainActivity;
 
-import net.grandcentrix.tray.TrayAppPreferences;
-
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -83,6 +75,8 @@ public class NewConsultationFragment extends Fragment implements NewConsultation
         Intent intent = new Intent(getActivity(), CreateStepsActivity.class);
 
         startActivity(intent);
+
+        getActivity().overridePendingTransition(0, 0);
     }
 
 //    @SuppressWarnings("unused")

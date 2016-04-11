@@ -44,7 +44,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".consultation.create.CreateStepsActivity" />
+        <activity
+            android:name=".consultation.create.CreateStepsActivity"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".main.MainActivity"

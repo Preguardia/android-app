@@ -1,6 +1,7 @@
 package com.preguardia.app.consultation.create;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
@@ -40,10 +41,34 @@ public class CreateStepsActivity extends TabStepper {
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private AbstractStep createFragment(AbstractStep fragment) {
         Bundle b = new Bundle();
         b.putInt("position", i++);
         fragment.setArguments(b);
         return fragment;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
     }
 }
