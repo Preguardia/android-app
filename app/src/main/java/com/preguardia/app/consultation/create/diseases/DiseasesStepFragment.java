@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.create.patient.PatientItem;
-import com.preguardia.app.consultation.create.patient.PatientListAdapter;
-import com.preguardia.app.consultation.create.patient.PatientStepContract;
-import com.preguardia.app.consultation.create.patient.PatientStepPresenter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -88,6 +84,6 @@ public class DiseasesStepFragment extends AbstractStep implements DiseasesStepCo
 
     @Override
     public void showItems(List<DiseaseItem> items) {
-
+        adapter.replaceData(items);
     }
 }
