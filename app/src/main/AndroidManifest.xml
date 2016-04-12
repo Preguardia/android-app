@@ -45,7 +45,7 @@
         </activity>
 
         <activity
-            android:name=".consultation.create.CreateStepsActivity"
+            android:name=".consultation.create.CreateConsultationActivity"
             android:theme="@style/AppTheme" />
 
         <activity

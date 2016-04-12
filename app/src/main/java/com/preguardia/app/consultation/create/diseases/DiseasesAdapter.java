@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.create.patient.PatientItem;
 import com.preguardia.app.consultation.create.patient.PatientViewHolder;
 
 import java.util.List;

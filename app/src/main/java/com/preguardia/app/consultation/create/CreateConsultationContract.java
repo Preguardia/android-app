@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * @author amouly on 3/9/16.
  */
-public interface NewConsultationContract {
+public interface CreateConsultationContract {
 
     interface View {
 

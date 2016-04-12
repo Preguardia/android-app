@@ -21,6 +21,8 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
 
     private List<PatientItem> itemsList;
 
+    private int selectedPos = 1000;
+
     public PatientListAdapter(Context context, List<PatientItem> itemsList) {
         this.itemsList = itemsList;
         this.context = context;
@@ -37,8 +39,25 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(PatientViewHolder viewHolder, int position) {
+    public void onBindViewHolder(PatientViewHolder viewHolder, final int position) {
         final String text = itemsList.get(position).getName();
+
+        if (selectedPos == position) {
+            viewHolder.itemView.setBackgroundResource(R.color.list_item_selected_bg);
+            viewHolder.showCheck();
+        } else {
+            viewHolder.itemView.setBackgroundResource(R.color.list_item_normal_bg);
+            viewHolder.hideCheck();
+        }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyItemChanged(selectedPos);
+                selectedPos = position;
+                notifyItemChanged(selectedPos);
+            }
+        });
 
         viewHolder.setName(text);
     }

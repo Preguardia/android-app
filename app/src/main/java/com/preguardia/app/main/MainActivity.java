@@ -25,7 +25,7 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.create.NewConsultationFragment;
+import com.preguardia.app.consultation.create.CreateConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.general.HelpFragment;
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         switch (id) {
             case R.id.nav_consultation_new:
 
-                fragment = NewConsultationFragment.newInstance();
+                fragment = CreateConsultationFragment.newInstance();
                 title = getString(R.string.drawer_consultation_new);
 
                 break;
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void loadNewConsultationSection() {
-        this.loadSection(NewConsultationFragment.newInstance(), getString(R.string.drawer_consultation_new));
+        this.loadSection(CreateConsultationFragment.newInstance(), getString(R.string.drawer_consultation_new));
         navigationView.setCheckedItem(R.id.nav_consultation_new);
     }
 
