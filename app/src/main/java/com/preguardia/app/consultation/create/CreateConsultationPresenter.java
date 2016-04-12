@@ -33,6 +33,7 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
     private final Firebase consultationsRef;
     @NonNull
     private final Firebase tasksRef;
+
     private final String currentUserId;
     private final String currentUserName;
     private final String patientMedical;

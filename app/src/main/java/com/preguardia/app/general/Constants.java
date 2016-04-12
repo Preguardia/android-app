@@ -19,12 +19,18 @@ public class Constants {
     public static final String PREFERENCES_USER_PATIENT_MEDICAL = "user_patient_medical";
     public static final String PREFERENCES_USER_BIRTH = "user_birth";
 
+    public static final String FIREBASE_USER_ID = "userId";
     public static final String FIREBASE_CONSULTATION_ID = "consultationId";
     public static final String FIREBASE_CONSULTATIONS = "consultations";
     public static final String FIREBASE_USERS = "users";
     public static final String FIREBASE_MESSAGES = "messages";
     public static final String FIREBASE_QUEUE = "queue";
     public static final String FIREBASE_TASKS = "tasks";
+
+    public static final String FIREBASE_TASK_TYPE = "type";
+    public static final String FIREBASE_TASK_CONTENT = "content";
+    public static final String FIREBASE_TASK_TYPE_CONSULTATION_NEW = "new-consultation";
+    public static final String FIREBASE_TASK_TYPE_MESSAGE_NEW = "message-new";
 
     public static final String FIREBASE_USER_MEDIC_ID = "medic/id";
     public static final String FIREBASE_USER_PATIENT_ID = "patient/id";

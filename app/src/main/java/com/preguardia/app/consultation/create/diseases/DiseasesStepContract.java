@@ -1,7 +1,5 @@
 package com.preguardia.app.consultation.create.diseases;
 
-import com.preguardia.app.consultation.create.patient.PatientItem;
-
 import java.util.List;
 
 /**

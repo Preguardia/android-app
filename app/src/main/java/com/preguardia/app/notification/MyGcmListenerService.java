@@ -57,13 +57,32 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.d(TAG, "Message: " + message);
         Log.d(TAG, "ConsultationId: " + consultationId);
 
-        if (from.equals("/topics/medic")) {
-            // message received from some topic.
-            sendMedicNotification(title, message, consultationId);
+        // Handle each Topic
+        switch (from) {
 
-        } else {
-            // normal downstream message.
-            sendPatientNotification(title, message, consultationId);
+            case "/topics/medic":
+
+                // message received from some topic.
+                sendMedicNotification(title, message, consultationId);
+
+                break;
+
+            case "/topics/patient":
+
+                // normal downstream message.
+                sendPatientNotification(title, message, consultationId);
+
+                break;
+
+            default:
+
+                if (type != null && type.equals(Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW)) {
+
+                    sendMessageNotification(title, message, consultationId);
+
+                }
+
+                break;
         }
     }
     // [END receive_message]
@@ -73,6 +92,32 @@ public class MyGcmListenerService extends GcmListenerService {
      *
      * @param message GCM message received.
      */
+
+    private void sendMessageNotification(String title, String message, String consultationId) {
+        // Prepare intent which is triggered if the notification is selected
+        Intent intent = new Intent(this, ConsultationDetailsActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
+
     private void sendMedicNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ApproveConsultationActivity.class);
