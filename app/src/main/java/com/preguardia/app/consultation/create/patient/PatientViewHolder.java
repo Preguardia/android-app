@@ -3,6 +3,7 @@ package com.preguardia.app.consultation.create.patient;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.preguardia.app.R;
@@ -19,6 +20,8 @@ public class PatientViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.item_patient_name)
     TextView nameTextView;
+    @Bind(R.id.item_patient_check)
+    ImageView checkImageView;
 
     public PatientViewHolder(Context context, View itemView) {
         super(itemView);
@@ -30,5 +33,13 @@ public class PatientViewHolder extends RecyclerView.ViewHolder {
 
     public void setName(String name) {
         nameTextView.setText(name);
+    }
+
+    public void showCheck() {
+        checkImageView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideCheck() {
+        checkImageView.setVisibility(View.GONE);
     }
 }

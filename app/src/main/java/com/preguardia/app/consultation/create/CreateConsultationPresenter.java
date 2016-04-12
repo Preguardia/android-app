@@ -23,24 +23,23 @@ import java.util.Map;
 /**
  * @author amouly on 3/9/16.
  */
-public class NewConsultationPresenter implements NewConsultationContract.Presenter {
+public class CreateConsultationPresenter implements CreateConsultationContract.Presenter {
 
     @NonNull
-    private final NewConsultationContract.View consultationView;
+    final TrayAppPreferences appPreferences;
+    @NonNull
+    private final CreateConsultationContract.View consultationView;
     @NonNull
     private final Firebase consultationsRef;
     @NonNull
     private final Firebase tasksRef;
-    @NonNull
-    final TrayAppPreferences appPreferences;
-
     private final String currentUserId;
     private final String currentUserName;
     private final String patientMedical;
     private String patientBirthDate;
 
-    public NewConsultationPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
-                                    @NonNull NewConsultationContract.View consultationView) {
+    public CreateConsultationPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
+                                       @NonNull CreateConsultationContract.View consultationView) {
         this.consultationsRef = firebase.child(Constants.FIREBASE_CONSULTATIONS);
         this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
 

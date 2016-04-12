@@ -4,145 +4,197 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="10dp"
+    android:weightSum="7">
 
-
-    <Button
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:text="Consulta un médico ahora"/>
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        card_view:cardBackgroundColor="@color/colorPrimary"
+        card_view:cardCornerRadius="8dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="false">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/consultation_new_top_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                card_view:cardBackgroundColor="#FFF"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="2dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                card_view:cardUseCompatPadding="false">
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif-small"
+                android:padding="12dp"
+                android:text="Consulta un médico ahora"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
 
-                <LinearLayout
-                    android:id="@+id/consultation_new_clinics_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/consultation_new_top_text"
+                android:src="@drawable/ic_insert_comment_24dp"
+                android:tint="@android:color/white" />
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:src="@drawable/bg_splash"
-                        android:scaleType="centerCrop"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Clínica" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                card_view:cardBackgroundColor="#FFF"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="2dp"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                card_view:cardUseCompatPadding="false">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:src="@drawable/bg_splash"
-                        android:scaleType="centerCrop"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="Pediatría y recién nacidos" />
-
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-        </LinearLayout>
-
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
         android:orientation="horizontal"
         android:weightSum="2">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="#FFF"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="2dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:layout_margin="5dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="2dp"
             card_view:cardUseCompatPadding="false">
-            <LinearLayout
+
+            <RelativeLayout
+                android:id="@+id/consultation_create_clinics"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:src="@drawable/bg_splash"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/btn_clinica" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Dermatología" />
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="sans-serif-small"
+                    android:padding="12dp"
+                    android:text="Clínica"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="#FFF"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="2dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:layout_margin="5dp"
+            card_view:cardCornerRadius="8dp"
+            card_view:cardElevation="2dp"
             card_view:cardUseCompatPadding="false">
-            <LinearLayout
+
+            <RelativeLayout
+                android:id="@+id/consultation_create_pediatrics"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:src="@drawable/bg_splash"
-                    android:scaleType="centerCrop"/>
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/btn_pediatria" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Nutrición" />
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="sans-serif-small"
+                    android:padding="12dp"
+                    android:text="Pediatría y recién nacidos"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="false">
+
+            <RelativeLayout
+                android:id="@+id/consultation_create_dermatology"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/btn_dermatologia" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="sans-serif-small"
+                    android:padding="12dp"
+                    android:text="Dermatología"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="false">
+
+            <RelativeLayout
+                android:id="@+id/consultation_create_nutrition"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/btn_nutricion" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="sans-serif-small"
+                    android:padding="12dp"
+                    android:text="Nutrición"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
         </android.support.v7.widget.CardView>
 
     </LinearLayout>

@@ -101,4 +101,11 @@
     <string name="menu_consultation_incident">Reportar incidente</string>
     <string name="consultation_new_allergies_hint">Alergia</string>
     <string name="consultation_new_allergy_new">Agregar otra alergia</string>
+
+    <string name="ms_prev">Anterior</string>
+    <string name="ms_next">Siguiente</string>
+    <string name="ms_end">Completar</string>
+    <string name="ms_continue">Continuar</string>
+    <string name="ms_optional">Opcional</string>
+    <string name="ms_text_step">Step $current of $total</string>
 </resources>

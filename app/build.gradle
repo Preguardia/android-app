@@ -114,7 +114,7 @@ dependencies {
 
     compile "com.google.guava:guava:$rootProject.guavaVersion"
 
-    compile 'com.github.fcannizzaro:material-stepper:1.0.2'
+    compile 'com.github.fcannizzaro:material-stepper:1.0.8'
 
     compile('com.github.afollestad:sectioned-recyclerview:0.2.2') {
         transitive = true

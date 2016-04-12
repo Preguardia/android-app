@@ -37,6 +37,12 @@ public class Constants {
     public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";
     public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";
 
+    public static final String FIREBASE_CONSULTATION_CATEGORY = "category";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_CLINICS = "clinics";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_PEDIATRICS = "pediatrics";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_DERMATOLOGY = "dermatology";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_NUTRITION = "nutrition";
+
     public static final String FIREBASE_URL = BuildConfig.UNIQUE_FIREBASE_ROOT_URL;
     public static final String FIREBASE_URL_CONSULTATIONS = FIREBASE_URL + "/" + FIREBASE_CONSULTATIONS;
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_USERS;
@@ -45,4 +51,6 @@ public class Constants {
 
     public static final String EXTRA_CONSULTATION_ID = "extra:consultation:id";
     public static final String EXTRA_USER_TYPE = "extra:user:type";
+
+    public static final String EXTRA_CONSULTATION_CREATE_CATEGORY = "extra:consultation:create:category";
 }
