@@ -27,4 +27,13 @@
             android:title="@string/drawer_terms" />
     </group>
 
+    <group
+        android:id="@+id/group_feature3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_checkout"
+            android:icon="@drawable/ic_help_24dp"
+            android:title="@string/drawer_help" />
+    </group>
+
 </menu>
