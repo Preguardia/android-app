@@ -6,6 +6,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.R;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Patient;
@@ -54,6 +55,11 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
     }
 
     @Override
+    public void completeRequest() {
+
+    }
+
+    @Override
     public void takePicture() throws IOException {
 
     }
@@ -94,9 +100,10 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
         newConsultation.setValue(consultation, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+
                 if (firebaseError != null) {
                     consultationView.hideLoading();
-                    consultationView.showErrorMessage("Error de servicio.");
+                    consultationView.showErrorMessage(R.string.consultation_create_error);
 
                     if (BuildConfig.DEBUG) {
                         Logger.e("Error creating New Consultation - " + firebaseError.getMessage());

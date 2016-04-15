@@ -66,7 +66,7 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
-                .title(R.string.drawer_consultation_history)
+                .title(R.string.consultation_approve_title)
                 .content(R.string.user_login_loading)
                 .cancelable(false)
                 .progress(true, 0);

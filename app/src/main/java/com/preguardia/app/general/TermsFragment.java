@@ -39,7 +39,7 @@ public class TermsFragment extends Fragment {
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
-                .title(R.string.drawer_consultation_history)
+                .title(R.string.drawer_terms)
                 .content(R.string.user_login_loading)
                 .cancelable(false)
                 .progress(true, 0);

@@ -2,6 +2,7 @@ package com.preguardia.app.consultation.create;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.MenuItem;
 
@@ -39,7 +40,9 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
 
         showPreviousButton();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         addStep(createFragment(new PatientStepFragment()));
         addStep(createFragment(new DescriptionStepFragment()));
@@ -96,25 +99,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     public void onComplete() {
         super.onComplete();
 
-//        String category = categoryTextView.getText().toString();
-//        String summary = summaryTextView.getText().toString();
-//        String details = detailsEditText.getText().toString();
-//
-//        presenter.saveConsultation(category, summary, details);
-
-
-        new MaterialDialog.Builder(this)
-                .title(R.string.drawer_consultation_new)
-                .content(R.string.consultation_new_success_message)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-
-                    }
-                })
-                .positiveText(R.string.user_register_success_positive)
-                .show();
+        this.showSuccess();
     }
 
     @Override
@@ -125,47 +110,32 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
 
     @Override
     public void showLoading() {
-
+        progressDialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        progressDialog.dismiss();
     }
 
     @Override
     public void showSuccess() {
-//        new MaterialDialog.Builder(getActivity())
-//                .title(R.string.drawer_consultation_new)
-//                .content(R.string.consultation_new_success_message)
-//                .onPositive(new MaterialDialog.SingleButtonCallback() {
-//                    @Override
-//                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-//                        openHistory();
-//                    }
-//                })
-//                .positiveText(R.string.user_register_success_positive)
-//                .show();
+        new MaterialDialog.Builder(this)
+                .title(R.string.drawer_consultation_new)
+                .content(R.string.consultation_new_success_message)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // Close Activity
+                        finish();
+                    }
+                })
+                .positiveText(R.string.user_register_success_positive)
+                .show();
     }
 
     @Override
-    public void showImagePreview(@NonNull String uri) {
-
-    }
-
-    @Override
-    public void showEmptyFieldError() {
-        Snackbar.make(getWindow().getCurrentFocus(), R.string.consultation_new_empty_fields, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
+    public void showErrorMessage(@StringRes int message) {
         Snackbar.make(getWindow().getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
     }
-
-    @Override
-    public void openHistory() {
-
-    }
-
 }

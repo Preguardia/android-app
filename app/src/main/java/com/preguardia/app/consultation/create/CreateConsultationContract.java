@@ -1,6 +1,6 @@
 package com.preguardia.app.consultation.create;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
 import java.io.IOException;
 
@@ -17,16 +17,12 @@ public interface CreateConsultationContract {
 
         void showSuccess();
 
-        void showEmptyFieldError();
-
-        void showImagePreview(@NonNull String uri);
-
-        void openHistory();
-
-        void showErrorMessage(String message);
+        void showErrorMessage(@StringRes int message);
     }
 
     interface Presenter {
+
+        void completeRequest();
 
         void takePicture() throws IOException;
 
