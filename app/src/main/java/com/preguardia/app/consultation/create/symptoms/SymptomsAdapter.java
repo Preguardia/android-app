@@ -32,20 +32,7 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomViewHol
 
     @Override
     public int getItemCount(int section) {
-
-        switch (section) {
-            case 0:
-                return items.get(section).size();
-
-            case 1:
-                return items.get(section).size();
-
-            case 2:
-                return items.get(section).size();
-
-            default:
-                return 0;
-        }
+        return items.get(section).size();
     }
 
     @Override
@@ -61,8 +48,6 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomViewHol
 
         holder.setName(tempItem.getName());
         holder.setChecked(tempItem.isSelected());
-
-
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

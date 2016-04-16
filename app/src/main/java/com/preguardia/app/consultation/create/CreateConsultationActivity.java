@@ -38,7 +38,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         setTitle(getString(R.string.drawer_consultation_new));
 
         showPreviousButton();
-        
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

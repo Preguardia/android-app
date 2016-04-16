@@ -43,10 +43,8 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
         final String text = itemsList.get(position).getName();
 
         if (selectedPos == position) {
-            viewHolder.itemView.setBackgroundResource(R.color.list_item_selected_bg);
             viewHolder.showCheck();
         } else {
-            viewHolder.itemView.setBackgroundResource(R.color.list_item_normal_bg);
             viewHolder.hideCheck();
         }
 

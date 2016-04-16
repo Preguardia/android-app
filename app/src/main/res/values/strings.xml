@@ -85,7 +85,7 @@
     <string name="wizard_fourth_description">Obtén respuestas inmediatas y mantente saludable!</string>
     <string name="wizard_first_description">Consulta a los mejores médicos ONLINE</string>
 
-    <string-array name="consultation_new_medications_how">
+    <string-array name="consultation_new_medications_when">
         <item>¿Desde cuando?</item>
         <item>Semana pasada</item>
         <item>Mes pasado</item>
@@ -97,12 +97,20 @@
         <item>General</item>
         <item>Cabeza/Cuello</item>
         <item>Pecho</item>
+        <item>Gastrointestinal</item>
+        <item>Genital/Urinario</item>
+        <item>Óseo/Muscular</item>
+        <item>Piel</item>
     </array>
 
     <array name="consultation_create_symptoms_list">
         <item>@array/consultation_create_symptoms_general</item>
         <item>@array/consultation_create_symptoms_head</item>
         <item>@array/consultation_create_symptoms_chest</item>
+        <item>@array/consultation_create_symptoms_intestine</item>
+        <item>@array/consultation_create_symptoms_genital</item>
+        <item>@array/consultation_create_symptoms_muscular</item>
+        <item>@array/consultation_create_symptoms_skin</item>
     </array>
 
     <string-array name="consultation_create_symptoms_general">
@@ -136,6 +144,50 @@
         <item>Dificultades para respirar</item>
         <item>Perdida de resistencia física</item>
         <item>Pasado como fumador</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_intestine">
+        <item>Náusea</item>
+        <item>Vómito</item>
+        <item>Dificultad o problemas para tragar</item>
+        <item>Acidez o reflujo</item>
+        <item>Diarrea</item>
+        <item>Constipación</item>
+        <item>Dolor abdominal</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_genital">
+        <item>Dolor renal</item>
+        <item>Dificultades para oirinar</item>
+        <item>Sangre en la orina</item>
+        <item>Aumento frecuencia de orina</item>
+        <item>Enfermedades o infecciones de transmisión sexual</item>
+        <item>Período menstrual irregular</item>
+        <item>Sangrado vaginal</item>
+        <item>Flujo vaginal</item>
+        <item>Secreción del pene</item>
+        <item>Hinchazón testicular</item>
+        <item>Dolor testicular</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_muscular">
+        <item>Dolor muscular</item>
+        <item>Movilidad reducida</item>
+        <item>Debilidad muscular</item>
+        <item>Dolor de espalda</item>
+        <item>Hematomas</item>
+        <item>Dolor de articulaciones</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_skin">
+        <item>Picazón</item>
+        <item>Sangrado</item>
+        <item>Hinchazón</item>
+        <item>Erupción cutánea</item>
+        <item>Protuberancia cutánea</item>
+        <item>Hematomas</item>
+        <item>Llagas</item>
+        <item>Picaduras</item>
     </string-array>
 
 </resources>
