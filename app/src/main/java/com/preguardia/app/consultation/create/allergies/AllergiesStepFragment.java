@@ -24,7 +24,8 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Bind(R.id.step_allergies_container)
     LinearLayout itemsContainer;
-    AllergiesStepContract.Presenter presenter;
+
+    private AllergiesStepContract.Presenter presenter;
     private List<EditText> editTextList = new ArrayList<>();
 
     @Override
@@ -58,7 +59,7 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Override
     public boolean isOptional() {
-        return true;
+        return false;
     }
 
     @Override

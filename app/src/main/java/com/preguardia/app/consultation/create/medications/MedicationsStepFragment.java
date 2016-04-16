@@ -4,39 +4,55 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * @author amouly on 4/6/16.
  */
-public class MedicationsStepFragment extends AbstractStep {
+public class MedicationsStepFragment extends AbstractStep implements MedicationsStepContract.View {
 
-    private int i = 1;
+    @Bind(R.id.step_medications_container)
+    LinearLayout itemsContainer;
+
+    private MedicationsStepContract.Presenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_step_medications, container, false);
 
-        View v = inflater.inflate(R.layout.fragment_step_medications, container, false);
+        ButterKnife.bind(this, view);
 
-        Spinner spinner = (Spinner) v.findViewById(R.id.item_medications_when);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.consultation_new_medications_how, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        presenter = new MedicationsStepPresenter();
+        presenter.attachView(this);
+        presenter.loadMedications();
 
-        return v;
+//        Spinner spinner = (Spinner) view.findViewById(R.id.item_medications_when);
+//        // Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.consultation_new_medications_how, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        spinner.setAdapter(adapter);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Override
     public void onStepVisible() {
         super.onStepVisible();
-        // do something
     }
 
     @Override
@@ -57,5 +73,17 @@ public class MedicationsStepFragment extends AbstractStep {
     @Override
     public String error() {
         return "<b>You must click!</b> <small>this is the condition!</small>";
+    }
+
+    @Override
+    public void addItemView() {
+        View view = View.inflate(getActivity(), R.layout.list_item_medications, itemsContainer);
+
+    }
+
+    @Override
+    @OnClick(R.id.step_medications_add_button)
+    public void onAddItemClick() {
+        presenter.addItemListener();
     }
 }

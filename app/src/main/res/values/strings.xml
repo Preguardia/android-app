@@ -73,6 +73,12 @@
     <string name="consultation_new_allergy_new">Add another allergy</string>
     <string name="consultation_create_error">Error al crear consulta</string>
     <string name="consultation_create_step_allergies_question">Por favor indicanos si sos alérgico…</string>
+    <string name="consultation_create_step_medications_question">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
+    <string name="consultation_create_step_description_question">Por favor, describi brevemente lo que motiva tu consulta</string>
+    <string name="consultation_create_step_diseases_question">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
+    <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
+    <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
+    <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
 
     <string-array name="consultation_new_medications_how">
         <item>¿Desde cuando?</item>

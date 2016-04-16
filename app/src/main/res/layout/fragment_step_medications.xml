@@ -14,38 +14,31 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="15dp"
-            android:text="Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?"
+            android:text="@string/consultation_create_step_medications_question"
             android:textSize="18sp" />
 
         <LinearLayout
+            android:id="@+id/step_medications_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical" />
 
-
-            <include layout="@layout/list_item_medications" />
-
-            <include layout="@layout/list_item_medications" />
-
-            <Button
-                android:id="@+id/user_login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:background="@color/colorPrimaryDark"
-                android:fontFamily="sans-serif-medium"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/consultation_new_medications_new"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:drawableLeft="@drawable/ic_add_box_24dp"
-                android:drawablePadding="10dp"
-                android:drawableTint="@android:color/white"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/step_medications_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:drawableLeft="@drawable/ic_add_box_24dp"
+            android:drawablePadding="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/consultation_new_medications_new"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
 
     </LinearLayout>
 </ScrollView>
