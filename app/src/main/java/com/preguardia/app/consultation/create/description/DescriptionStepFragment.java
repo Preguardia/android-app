@@ -24,7 +24,7 @@ public class DescriptionStepFragment extends AbstractStep {
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_description);
+        return mStepper.getString(R.string.consultation_create_step_description);
     }
 
     @Override

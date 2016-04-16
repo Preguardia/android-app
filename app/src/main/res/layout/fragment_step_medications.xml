@@ -35,7 +35,7 @@
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@string/consultation_new_medications_new"
+            android:text="@string/consultation_create_step_medication_new"
             android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textSize="14sp" />

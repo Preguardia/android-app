@@ -3,19 +3,18 @@
 
     <string name="title_activity_main" translatable="false">GraciasDoc</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
     <string name="drawer_consultation_new">New consultation</string>
     <string name="drawer_consultation_history">Consultation history</string>
     <string name="drawer_help">Help</string>
     <string name="drawer_terms">Terms and conditions</string>
+    <string name="drawer_checkout">Checkout</string>
+    <string name="drawer_user_profile">User profile</string>
 
-    <string name="consultation_new_category">Category</string>
-    <string name="consultation_new_summary_title">Consultation summary</string>
-    <string name="consultation_new_where">Where in your body?</string>
-    <string name="consultation_new_lasttime">When you noticed last time?</string>
     <string name="consultation_details_title">Consultation details</string>
+
     <string name="user_register_name">Name and Surname</string>
     <string name="user_register_patient">I\'m patient</string>
     <string name="user_register_medic">I\'m medic</string>
@@ -38,47 +37,56 @@
     <string name="user_login_welcome">Welcome</string>
     <string name="user_login_error_field">Please enter a valid email and password.</string>
     <string name="user_login_loading">Loading…</string>
+
+    <string name="user_register_terms">Accept terms and conditions</string>
     <string name="user_register_password">Password</string>
     <string name="user_register_incomplete_fields">Complete all the fields.</string>
     <string name="user_register_success_content">Register successfully. Welcome!</string>
     <string name="user_register_success_positive">OK</string>
+
     <string name="consultation_new_summary_desc">Ingrese una descripción</string>
     <string name="consultation_new_details_hint">Enter all the details that can help the medic to make a diagnostic.</string>
     <string name="consultation_new_picture_desc">Puede ingresar una foto relacionada a su consulta</string>
     <string name="history_help_title">Últimas consultas realizadas a nuestros especialistas.</string>
-    <string name="consultation_new_details">Details</string>
     <string name="consultation_new_media">Foto o video</string>
     <string name="consultation_approve_button">Take consultation</string>
-    <string name="drawer_user_profile">User profile</string>
+
     <string name="consultation_details_text_input">Enter consultation</string>
     <string name="consultation_new_empty_fields">Please fill all the fields</string>
-    <string name="consultation_new_success_message">Consultation created succesfully</string>
+    <string name="consultation_new_success_message">Consultation created successfully</string>
     <string name="consultation_approve_title">Take Consultation</string>
     <string name="consultation_history_empty_text">No assigned consultations</string>
+
     <string name="menu_consultation_close">Close consultation</string>
     <string name="menu_consultation_incident">Report incident</string>
-    <string name="user_register_terms">Accept terms and conditions</string>
-    <string name="consultation_new_step_patient">Patient</string>
-    <string name="consultation_new_step_description">Description</string>
-    <string name="consultation_new_step_allergies">Allergies</string>
-    <string name="consultation_new_step_time">Frequency</string>
-    <string name="consultation_new_step_medications">Medications</string>
-    <string name="consultation_new_step_diseases">Diseases</string>
-    <string name="consultation_new_step_symptoms">Symptoms</string>
+
     <string name="consultation_taken_success">Consultation taken successfully</string>
     <string name="consultation_taken_error">Error, consultation already taken</string>
-    <string name="consultation_new_medications_hint">Medicine</string>
-    <string name="consultation_new_medications_new">Add another medicine</string>
-    <string name="consultation_new_allergies_hint">Allergy</string>
-    <string name="consultation_new_allergy_new">Add another allergy</string>
+
+    <string name="consultation_create_step_patient">Patient</string>
+    <string name="consultation_create_step_description">Description</string>
+    <string name="consultation_create_step_allergies">Allergies</string>
+    <string name="consultation_create_step_time">Frequency</string>
+    <string name="consultation_create_step_medications">Medications</string>
+    <string name="consultation_create_step_diseases">Diseases</string>
+    <string name="consultation_create_step_symptoms">Symptoms</string>
+    <string name="consultation_create_step_medication_hint">Medicine</string>
+    <string name="consultation_create_step_medication_new">Add another medicine</string>
+    <string name="consultation_create_step_allergy_hint">Allergy</string>
+    <string name="consultation_create_step_allergy_new">Add another allergy</string>
+
     <string name="consultation_create_error">Error al crear consulta</string>
-    <string name="consultation_create_step_allergies_question">Por favor indicanos si sos alérgico…</string>
+    <string name="consultation_create_step_allergy_question">Por favor indicanos si sos alérgico…</string>
     <string name="consultation_create_step_medications_question">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
     <string name="consultation_create_step_description_question">Por favor, describi brevemente lo que motiva tu consulta</string>
     <string name="consultation_create_step_diseases_question">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
     <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
     <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
     <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
+    <string name="consultation_create_cancel_title">Desea cancelar la consulta?</string>
+    <string name="consultation_create_cancel_positive">Si</string>
+    <string name="consultation_create_cancel_negative">No</string>
+
     <string name="wizard_third_description">Envía fotos o videos de tu consulta</string>
     <string name="wizard_start">Empezar</string>
     <string name="wizard_second_description">Haz cualquier consulta relacionada a la salud</string>
@@ -189,5 +197,11 @@
         <item>Llagas</item>
         <item>Picaduras</item>
     </string-array>
+    <string name="ms_continue">Continue</string>
+    <string name="ms_end">Complete</string>
+    <string name="ms_next">Next</string>
+    <string name="ms_optional">Optional</string>
+    <string name="ms_prev">Previous</string>
+    <string name="ms_text_step">Step $current of $total</string>
 
 </resources>

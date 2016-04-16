@@ -54,7 +54,7 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_medications);
+        return mStepper.getString(R.string.consultation_create_step_medications);
     }
 
     @Override

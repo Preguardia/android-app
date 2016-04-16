@@ -62,9 +62,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        tools:text="Alberto Fernandez"
                         android:textColor="#666"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="Alberto Fernandez" />
 
                     <TextView
                         android:id="@+id/consultation_approve_patient_age"
@@ -72,18 +72,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif"
-                        tools:text="Edad: 25 años"
                         android:textColor="#666"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Edad: 25 años" />
 
                     <TextView
                         android:id="@+id/consultation_approve_patient_medical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        tools:text="Obra social: OSDE"
                         android:textColor="#666"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="Obra social: OSDE" />
 
                 </LinearLayout>
 
@@ -111,9 +111,9 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/consultation_new_category"
                         android:textColor="#666"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="Category" />
 
                     <TextView
                         android:id="@+id/consultation_approve_category_content"
@@ -149,9 +149,9 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/consultation_new_summary_title"
                         android:textColor="#666"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="Consultation summary" />
 
                     <EditText
                         android:id="@+id/editText"
@@ -185,9 +185,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@string/consultation_new_summary_title"
                             android:textColor="#666"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="Consultation summary" />
 
                         <TextView
                             android:id="@+id/consultation_approve_summary_content"
@@ -195,8 +195,8 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-normal"
                             android:maxLines="3"
-                            android:text="Resumen de consulta."
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="Resumen de consulta." />
 
                     </LinearLayout>
 
@@ -224,17 +224,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@string/consultation_new_where"
                             android:textColor="#666"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="Where in your body?" />
 
                         <TextView
                             android:id="@+id/consultation_approve_where_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-normal"
-                            android:text="Seleccione una ubicación"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="Seleccione una ubicación" />
 
                     </LinearLayout>
 
@@ -262,17 +262,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@string/consultation_new_lasttime"
                             android:textColor="#666"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="When you noticed last time?" />
 
                         <TextView
                             android:id="@+id/consultation_approve_lasttime_content"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-normal"
-                            android:text="Seleccione un período"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            tools:text="Seleccione un período" />
 
                     </LinearLayout>
 
@@ -333,9 +333,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="@string/consultation_new_details"
                         android:textColor="#666"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        tools:text="Details" />
 
                     <TextView
                         android:id="@+id/consultation_approve_details_content"

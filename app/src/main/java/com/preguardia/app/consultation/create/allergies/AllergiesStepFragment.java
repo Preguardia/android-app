@@ -61,7 +61,7 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_allergies);
+        return mStepper.getString(R.string.consultation_create_step_allergies);
     }
 
     @Override

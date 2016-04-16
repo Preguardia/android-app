@@ -64,7 +64,7 @@ public class DiseasesStepFragment extends AbstractStep implements DiseasesStepCo
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_diseases);
+        return mStepper.getString(R.string.consultation_create_step_diseases);
     }
 
     @Override

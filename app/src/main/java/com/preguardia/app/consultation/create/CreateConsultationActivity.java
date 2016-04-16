@@ -73,6 +73,29 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     }
 
     @Override
+    public void onBackPressed() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.drawer_consultation_new)
+                .content(R.string.consultation_create_cancel_title)
+                .positiveText(R.string.consultation_create_cancel_positive)
+                .negativeText(R.string.consultation_create_cancel_negative)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // Cancel Consultation
+                        finish();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
@@ -131,6 +154,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
                         finish();
                     }
                 })
+                .cancelable(false)
                 .positiveText(R.string.user_register_success_positive)
                 .show();
     }

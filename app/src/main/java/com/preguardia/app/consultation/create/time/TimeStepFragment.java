@@ -57,7 +57,7 @@ public class TimeStepFragment extends AbstractStep implements TimeStepContract.V
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_time);
+        return mStepper.getString(R.string.consultation_create_step_time);
     }
 
     @Override

@@ -63,7 +63,7 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_symptoms);
+        return mStepper.getString(R.string.consultation_create_step_symptoms);
     }
 
     @Override

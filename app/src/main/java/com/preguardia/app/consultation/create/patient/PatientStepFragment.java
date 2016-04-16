@@ -62,7 +62,7 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_patient);
+        return mStepper.getString(R.string.consultation_create_step_patient);
     }
 
     @Override
