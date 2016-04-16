@@ -72,6 +72,7 @@
     <string name="consultation_new_allergies_hint">Allergy</string>
     <string name="consultation_new_allergy_new">Add another allergy</string>
     <string name="consultation_create_error">Error al crear consulta</string>
+    <string name="consultation_create_step_allergies_question">Por favor indicanos si sos alérgico…</string>
 
     <string-array name="consultation_new_medications_how">
         <item>¿Desde cuando?</item>

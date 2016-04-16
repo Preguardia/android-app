@@ -115,6 +115,9 @@ dependencies {
         transitive = true
     }
 
+    // List adapters
+    compile "eu.davidea:flexible-adapter:4.2.0"
+
     compile "com.yqritc:recyclerview-flexibledivider:1.2.9"
 
     compile "com.squareup.picasso:picasso:2.5.2"

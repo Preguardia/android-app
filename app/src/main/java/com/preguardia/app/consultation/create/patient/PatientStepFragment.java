@@ -35,7 +35,6 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
         ButterKnife.bind(this, view);
 
         presenter = new PatientStepPresenter(this);
-
         adapter = new PatientListAdapter(getActivity(), new ArrayList<PatientItem>(0));
 
         // Config Recycler view

@@ -1,61 +1,28 @@
 package com.preguardia.app.consultation.create.symptoms;
 
-import android.support.v4.util.ArrayMap;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.preguardia.app.R;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * @author Aidan Follestad (afollestad)
  */
-public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomsAdapter.MainVH> {
+public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomViewHolder> {
 
-    List<String> headers = new ArrayList<>();
+    private List<String> headers;
+    private Map<Integer, List<SymptomsItem>> items;
 
-    Map<Integer, List<String>> items = new ArrayMap<>();
-
-
-    public SymptomsAdapter() {
-        headers.add("General");
-        headers.add("Cabeza/Cuello");
-        headers.add("Pecho");
-
-        List<String> list1 = new ArrayList<>();
-
-        list1.add("Fiebre");
-        list1.add("Perdida de peso");
-        list1.add("Dificultades para dormir");
-        list1.add("Cambios de humor");
-        list1.add("Cansancio");
-        list1.add("Viajes recientes al exterior");
-        list1.add("Hospitalizado reciente");
-
-        items.put(0, list1);
-
-        List<String> list2 = new ArrayList<>();
-
-        list2.add("Item4");
-        list2.add("Item5");
-        list2.add("Item6");
-
-        items.put(1, list2);
-
-        List<String> list3 = new ArrayList<>();
-
-        list3.add("Item7");
-        list3.add("Item8");
-        list3.add("Item9");
-
-        items.put(2, list3);
+    public SymptomsAdapter(List<String> headers, Map<Integer, List<SymptomsItem>> items) {
+        this.headers = headers;
+        this.items = items;
     }
 
     @Override
@@ -82,17 +49,29 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomsAdapte
     }
 
     @Override
-    public void onBindHeaderViewHolder(MainVH holder, int section) {
+    public void onBindHeaderViewHolder(SymptomViewHolder holder, int section) {
         String header = headers.get(section);
 
-        holder.title.setText(header);
+        holder.setName(header);
     }
 
     @Override
-    public void onBindViewHolder(MainVH holder, int section, int relativePosition, int absolutePosition) {
-        String text = items.get(section).get(relativePosition);
+    public void onBindViewHolder(final SymptomViewHolder holder, final int section, final int relativePosition, int absolutePosition) {
+        final SymptomsItem tempItem = items.get(section).get(relativePosition);
 
-        holder.title.setText(text);
+        holder.setName(tempItem.getName());
+        holder.setChecked(tempItem.isSelected());
+
+
+        holder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SymptomsItem realItem = items.get(section).get(relativePosition);
+
+                tempItem.setSelected(holder.isChecked());
+                realItem.setSelected(holder.isChecked());
+            }
+        });
     }
 
     @Override
@@ -101,7 +80,7 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomsAdapte
     }
 
     @Override
-    public MainVH onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SymptomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         int layout;
 
         switch (viewType) {
@@ -118,16 +97,13 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomsAdapte
 
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
 
-        return new MainVH(v);
+        return new SymptomViewHolder(v);
     }
 
-    public static class MainVH extends RecyclerView.ViewHolder {
+    public void replaceData(List<String> headers, Map<Integer, List<SymptomsItem>> items) {
+        this.headers = checkNotNull(headers);
+        this.items = checkNotNull(items);
 
-        final TextView title;
-
-        public MainVH(View itemView) {
-            super(itemView);
-            title = (TextView) itemView.findViewById(R.id.title);
-        }
+        notifyDataSetChanged();
     }
 }

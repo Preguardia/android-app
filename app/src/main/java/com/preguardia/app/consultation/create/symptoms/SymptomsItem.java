@@ -1,14 +1,14 @@
-package com.preguardia.app.consultation.create.patient;
+package com.preguardia.app.consultation.create.symptoms;
 
 /**
  * @author amouly on 4/6/16.
  */
-public class PatientItem {
+public class SymptomsItem {
 
     private final String name;
     private boolean selected;
 
-    public PatientItem(String name, boolean selected) {
+    public SymptomsItem(String name, boolean selected) {
         this.name = name;
         this.selected = selected;
     }
