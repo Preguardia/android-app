@@ -36,7 +36,7 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
 
         ButterKnife.bind(this, view);
 
-        presenter = new SymptomsStepPresenter();
+        presenter = new SymptomsStepPresenter(getResources());
         presenter.attachView(this);
 
         adapter = new SymptomsAdapter(new ArrayList<String>(0), new ArrayMap<Integer, List<SymptomsItem>>(0));
@@ -44,7 +44,6 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
         recyclerView.setAdapter(adapter);
-
 
         presenter.loadItems();
 
@@ -60,7 +59,6 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
     @Override
     public void onStepVisible() {
         super.onStepVisible();
-        // do something
     }
 
     @Override

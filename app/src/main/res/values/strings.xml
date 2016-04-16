@@ -93,4 +93,49 @@
         <item>Más de un año</item>
     </string-array>
 
+    <array name="consultation_create_symptoms_headers">
+        <item>General</item>
+        <item>Cabeza/Cuello</item>
+        <item>Pecho</item>
+    </array>
+
+    <array name="consultation_create_symptoms_list">
+        <item>@array/consultation_create_symptoms_general</item>
+        <item>@array/consultation_create_symptoms_head</item>
+        <item>@array/consultation_create_symptoms_chest</item>
+    </array>
+
+    <string-array name="consultation_create_symptoms_general">
+        <item>Fiebre</item>
+        <item>Perdida de peso</item>
+        <item>Dificultades para dormir</item>
+        <item>Cambios de humor</item>
+        <item>Cansancio</item>
+        <item>Viajes recientes al exterior</item>
+        <item>Hospitalizado reciente</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_head">
+        <item>Dolor de cabeza</item>
+        <item>Mareos</item>
+        <item>Problemas de visión</item>
+        <item>Sangrado de nariz</item>
+        <item>Sangrado de oreja</item>
+        <item>Congestión</item>
+        <item>Dolor de garganta</item>
+        <item>Alergia</item>
+        <item>Perdida de memoria</item>
+        <item>Caídas</item>
+    </string-array>
+
+    <string-array name="consultation_create_symptoms_chest">
+        <item>Dolor/presión en el pecho</item>
+        <item>Palpitaciones</item>
+        <item>Tos</item>
+        <item>Espasmo</item>
+        <item>Dificultades para respirar</item>
+        <item>Perdida de resistencia física</item>
+        <item>Pasado como fumador</item>
+    </string-array>
+
 </resources>

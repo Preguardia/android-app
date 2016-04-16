@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_medication_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/white"
+    android:hint="@string/consultation_new_medications_hint"
+    android:inputType="textCapWords"
+    android:padding="15dp"
+    android:textSize="16sp" />

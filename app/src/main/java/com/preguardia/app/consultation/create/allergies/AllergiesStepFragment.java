@@ -83,7 +83,7 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Override
     public void addItemView() {
-        View view = View.inflate(getActivity(), R.layout.list_item_allergies, itemsContainer);
+        View view = View.inflate(getActivity(), R.layout.list_item_allergy, itemsContainer);
         EditText input = ButterKnife.findById(view, R.id.item_allergy_input);
 
         editTextList.add(input);

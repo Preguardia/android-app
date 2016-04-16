@@ -1,8 +1,13 @@
 package com.preguardia.app.consultation.create.symptoms;
 
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.v4.util.ArrayMap;
 
+import com.preguardia.app.R;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -12,46 +17,41 @@ import java.util.Map;
 public class SymptomsStepPresenter implements SymptomsStepContract.Presenter {
 
     private SymptomsStepContract.View view;
+    private Resources resources;
 
-    public SymptomsStepPresenter() {
+    public SymptomsStepPresenter(Resources resources) {
+        this.resources = resources;
     }
 
     @Override
     public void loadItems() {
-        List<String> headers = new ArrayList<>();
+        String[] headersArray = resources.getStringArray(R.array.consultation_create_symptoms_headers);
+        List<String> headers = Arrays.asList(headersArray);
+
         Map<Integer, List<SymptomsItem>> items = new ArrayMap<>();
 
-        headers.add("General");
-        headers.add("Cabeza/Cuello");
-        headers.add("Pecho");
+        // Auxiliary array of resources
+        TypedArray ta = resources.obtainTypedArray(R.array.consultation_create_symptoms_list);
 
-        List<SymptomsItem> list1 = new ArrayList<>();
+        // Request Array of item for each Header
+        for (String head : headers) {
+            int position = headers.indexOf(head);
+            int arrayId = ta.getResourceId(position, 0);
 
-        list1.add(new SymptomsItem("Fiebre", false));
-        list1.add(new SymptomsItem("Perdida de peso", false));
-        list1.add(new SymptomsItem("Dificultades para dormir", false));
-        list1.add(new SymptomsItem("Cambios de humor", false));
-        list1.add(new SymptomsItem("Cansancio", false));
-        list1.add(new SymptomsItem("Viajes recientes al exterior", false));
-        list1.add(new SymptomsItem("Hospitalizado reciente", false));
+            List<SymptomsItem> list = new ArrayList<>();
 
-        items.put(0, list1);
+            if (arrayId > 0) {
+                String[] resArray = resources.getStringArray(arrayId);
 
-        List<SymptomsItem> list2 = new ArrayList<>();
+                for (String resItem : resArray) {
+                    list.add(new SymptomsItem(resItem, false));
+                }
+            }
 
-        list2.add(new SymptomsItem("Item4", false));
-        list2.add(new SymptomsItem("Item5", false));
-        list2.add(new SymptomsItem("Item6", false));
+            items.put(position, list);
+        }
 
-        items.put(1, list2);
-
-        List<SymptomsItem> list3 = new ArrayList<>();
-
-        list3.add(new SymptomsItem("Item7", false));
-        list3.add(new SymptomsItem("Item8", false));
-        list3.add(new SymptomsItem("Item9", false));
-
-        items.put(2, list3);
+        ta.recycle();
 
         view.showItems(headers, items);
     }

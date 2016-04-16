@@ -1,13 +1,18 @@
 package com.preguardia.app.consultation.create.medications;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author amouly on 4/6/16.
  */
 public class MedicationsStepPresenter implements MedicationsStepContract.Presenter {
 
     private MedicationsStepContract.View view;
+    private List<String> medications;
 
     public MedicationsStepPresenter() {
+        this.medications = new ArrayList<>();
     }
 
     @Override
@@ -18,7 +23,10 @@ public class MedicationsStepPresenter implements MedicationsStepContract.Present
 
     @Override
     public void addMedication(String medication, String time) {
-
+        // Check if item already inserted
+        if (!medications.contains(medication)) {
+            medications.add(medication);
+        }
     }
 
     @Override

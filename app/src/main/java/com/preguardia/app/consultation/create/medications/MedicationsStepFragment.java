@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +26,7 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
     LinearLayout itemsContainer;
 
     private MedicationsStepContract.Presenter presenter;
+    private List<EditText> editTextList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,14 +37,6 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
         presenter = new MedicationsStepPresenter();
         presenter.attachView(this);
         presenter.loadMedications();
-
-//        Spinner spinner = (Spinner) view.findViewById(R.id.item_medications_when);
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.consultation_new_medications_how, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinner.setAdapter(adapter);
 
         return view;
     }
@@ -67,6 +64,15 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public boolean nextIf() {
+        // For each EditText, store the value
+        for (EditText editText : editTextList) {
+            String inputText = editText.getText().toString();
+
+            if (!inputText.isEmpty()) {
+                presenter.addMedication(inputText, null);
+            }
+        }
+
         return true;
     }
 
@@ -77,8 +83,10 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public void addItemView() {
-        View view = View.inflate(getActivity(), R.layout.list_item_medications, itemsContainer);
+        View view = View.inflate(getActivity(), R.layout.list_item_medication, itemsContainer);
+        EditText input = ButterKnife.findById(view, R.id.item_medication_input);
 
+        editTextList.add(input);
     }
 
     @Override
