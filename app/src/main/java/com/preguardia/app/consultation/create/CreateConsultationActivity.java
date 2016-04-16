@@ -28,8 +28,7 @@ import net.grandcentrix.tray.TrayAppPreferences;
  */
 public class CreateConsultationActivity extends TabStepper implements CreateConsultationContract.View {
 
-    CreateConsultationContract.Presenter presenter;
-    private int i = 1;
+    private CreateConsultationContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     @Override
@@ -39,7 +38,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         setTitle(getString(R.string.drawer_consultation_new));
 
         showPreviousButton();
-
+        
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -57,6 +56,9 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         presenter = new CreateConsultationPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
 
         super.onCreate(savedInstanceState);
+
+        // Not kill step fragments
+        mPager.setOffscreenPageLimit(7);
     }
 
     private void setupView() {
@@ -90,7 +92,6 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
 
     private AbstractStep createFragment(AbstractStep fragment) {
         Bundle b = new Bundle();
-        b.putInt("position", i++);
         fragment.setArguments(b);
         return fragment;
     }

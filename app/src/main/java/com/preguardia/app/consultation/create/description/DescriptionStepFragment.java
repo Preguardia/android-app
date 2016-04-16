@@ -10,11 +10,8 @@ import com.preguardia.app.R;
 
 public class DescriptionStepFragment extends AbstractStep {
 
-    private int i = 1;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_step_description, container, false);
 
         return v;
@@ -23,7 +20,6 @@ public class DescriptionStepFragment extends AbstractStep {
     @Override
     public void onStepVisible() {
         super.onStepVisible();
-        // do something
     }
 
     @Override

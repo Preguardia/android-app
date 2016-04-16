@@ -29,6 +29,13 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
     private List<EditText> editTextList = new ArrayList<>();
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_allergies, container, false);
 
