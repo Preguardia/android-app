@@ -79,6 +79,11 @@
     <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
     <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
     <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
+    <string name="wizard_third_description">Envía fotos o videos de tu consulta</string>
+    <string name="wizard_start">Empezar</string>
+    <string name="wizard_second_description">Haz cualquier consulta relacionada a la salud</string>
+    <string name="wizard_fourth_description">Obtén respuestas inmediatas y mantente saludable!</string>
+    <string name="wizard_first_description">Consulta a los mejores médicos ONLINE</string>
 
     <string-array name="consultation_new_medications_how">
         <item>¿Desde cuando?</item>

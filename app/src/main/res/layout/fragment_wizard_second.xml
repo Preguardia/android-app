@@ -8,27 +8,27 @@
         android:id="@+id/wizard_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:background="@color/colorAccent"
-        android:textColor="@android:color/white"
-        android:layout_marginRight="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginBottom="105dp"
         android:layout_alignParentBottom="true"
-        android:text="Empezar" />
+        android:layout_marginBottom="105dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:background="@color/colorAccent"
+        android:text="@string/wizard_start"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white" />
 
     <TextView
         android:id="@+id/wizard_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/wizard_button"
+        android:layout_marginBottom="30dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:layout_marginBottom="30dp"
-        android:text="Haz cualquier consulta relacionada a la salud"
+        android:text="@string/wizard_second_description"
         android:textColor="#ffffff"
-        android:layout_above="@+id/wizard_button"
         android:textSize="18sp" />
 
 </RelativeLayout>

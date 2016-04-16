@@ -14,7 +14,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:background="@color/colorAccent"
-        android:text="Empezar"
+        android:text="@string/wizard_start"
         android:textAllCaps="true"
         android:textColor="@android:color/white" />
 
@@ -28,7 +28,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="Consulta a los mejores médicos ONLINE"
+        android:text="@string/wizard_first_description"
         android:textColor="#ffffff"
         android:textSize="18sp" />
 
