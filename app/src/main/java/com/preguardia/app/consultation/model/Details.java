@@ -23,7 +23,8 @@ public class Details {
     }
 
     public void setPatient(String patient) {
-        this.patient = patient;
+        this.patient = patient
+        ;
     }
 
     public String getDescription() {

@@ -29,7 +29,7 @@
                 android:layout_centerInParent="true"
                 android:fontFamily="sans-serif-small"
                 android:padding="12dp"
-                android:text="Consulta un médico ahora"
+                android:text="@string/consultation_create_home_general"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
@@ -78,7 +78,7 @@
                     android:layout_alignParentBottom="true"
                     android:fontFamily="sans-serif-small"
                     android:padding="12dp"
-                    android:text="Clínica"
+                    android:text="@string/consultation_create_home_clinics"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
@@ -112,7 +112,7 @@
                     android:layout_alignParentBottom="true"
                     android:fontFamily="sans-serif-small"
                     android:padding="12dp"
-                    android:text="Pediatría y recién nacidos"
+                    android:text="@string/consultation_create_home_pediatrics"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
@@ -155,7 +155,7 @@
                     android:layout_alignParentBottom="true"
                     android:fontFamily="sans-serif-small"
                     android:padding="12dp"
-                    android:text="Dermatología"
+                    android:text="@string/consultation_create_home_dermatology"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
 
@@ -190,7 +190,7 @@
                     android:layout_alignParentBottom="true"
                     android:fontFamily="sans-serif-small"
                     android:padding="12dp"
-                    android:text="Nutrición"
+                    android:text="@string/consultation_create_home_nutrition"
                     android:textColor="@android:color/white"
                     android:textSize="18sp" />
             </RelativeLayout>

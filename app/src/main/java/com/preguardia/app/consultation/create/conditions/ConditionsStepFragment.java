@@ -59,7 +59,7 @@ public class ConditionsStepFragment extends AbstractStep implements ConditionsSt
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_create_step_diseases);
+        return mStepper.getString(R.string.consultation_create_step_conditions);
     }
 
     @Override
