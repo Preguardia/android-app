@@ -23,6 +23,11 @@ public class AllergiesStepPresenter implements AllergiesStepContract.Presenter {
     }
 
     @Override
+    public List<String> getAllergies() {
+        return allergies;
+    }
+
+    @Override
     public void addAllergy(String allergy) {
         // Check if item already inserted
         if (!allergies.contains(allergy)) {

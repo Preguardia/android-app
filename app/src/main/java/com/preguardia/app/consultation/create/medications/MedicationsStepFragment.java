@@ -64,15 +64,6 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public boolean nextIf() {
-        // For each EditText, store the value
-        for (EditText editText : editTextList) {
-            String inputText = editText.getText().toString();
-
-            if (!inputText.isEmpty()) {
-                presenter.addMedication(inputText, null);
-            }
-        }
-
         return true;
     }
 
@@ -93,5 +84,19 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
     @OnClick(R.id.step_medications_add_button)
     public void onAddItemClick() {
         presenter.addItemListener();
+    }
+
+    @Override
+    public List<String> getData() {
+        // For each EditText, store the value
+        for (EditText editText : editTextList) {
+            String inputText = editText.getText().toString();
+
+            if (!inputText.isEmpty()) {
+                presenter.addMedication(inputText, null);
+            }
+        }
+
+        return presenter.getMedications();
     }
 }

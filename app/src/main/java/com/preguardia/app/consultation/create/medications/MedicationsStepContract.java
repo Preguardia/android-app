@@ -1,5 +1,7 @@
 package com.preguardia.app.consultation.create.medications;
 
+import java.util.List;
+
 /**
  * @author amouly on 4/6/16.
  */
@@ -10,6 +12,8 @@ public interface MedicationsStepContract {
         void addItemView();
 
         void onAddItemClick();
+
+        List<String> getData();
     }
 
     interface Presenter {
@@ -17,6 +21,8 @@ public interface MedicationsStepContract {
         void loadMedications();
 
         void addMedication(String medication, String time);
+
+        List<String> getMedications();
 
         void addItemListener();
 

@@ -13,14 +13,14 @@ import butterknife.ButterKnife;
 /**
  * @author amouly on 4/6/16.
  */
-public class DiseaseViewHolder extends RecyclerView.ViewHolder {
+public class ConditionViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.item_checkable_name)
     TextView nameTextView;
     @Bind(R.id.item_checkable_check)
     CheckBox checkBoxView;
 
-    public DiseaseViewHolder(View itemView) {
+    public ConditionViewHolder(View itemView) {
         super(itemView);
 
         ButterKnife.bind(this, itemView);

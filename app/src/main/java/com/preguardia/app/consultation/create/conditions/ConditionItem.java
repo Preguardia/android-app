@@ -3,12 +3,12 @@ package com.preguardia.app.consultation.create.conditions;
 /**
  * @author amouly on 4/11/16.
  */
-public class DiseaseItem {
+public class ConditionItem {
 
     private final String name;
     private boolean selected;
 
-    public DiseaseItem(String name, boolean selected) {
+    public ConditionItem(String name, boolean selected) {
         this.name = name;
         this.selected = selected;
     }

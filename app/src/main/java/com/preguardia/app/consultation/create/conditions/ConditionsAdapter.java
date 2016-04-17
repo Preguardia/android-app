@@ -15,36 +15,36 @@ import static com.google.common.base.Preconditions.checkNotNull;
 /**
  * @author amouly on 4/11/16.
  */
-public class DiseasesAdapter extends RecyclerView.Adapter<DiseaseViewHolder> {
+public class ConditionsAdapter extends RecyclerView.Adapter<ConditionViewHolder> {
 
     private final Context context;
 
-    private List<DiseaseItem> items;
+    private List<ConditionItem> items;
 
-    public DiseasesAdapter(Context context, List<DiseaseItem> itemsList) {
+    public ConditionsAdapter(Context context, List<ConditionItem> itemsList) {
         this.items = itemsList;
         this.context = context;
     }
 
     @Override
-    public DiseaseViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ConditionViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
         View card = inflater.inflate(R.layout.list_item_checkable, viewGroup, false);
 
-        return new DiseaseViewHolder(card);
+        return new ConditionViewHolder(card);
     }
 
     @Override
-    public void onBindViewHolder(final DiseaseViewHolder holder, final int position) {
-        final DiseaseItem tempItem = items.get(position);
+    public void onBindViewHolder(final ConditionViewHolder holder, final int position) {
+        final ConditionItem tempItem = items.get(position);
 
         holder.setName(tempItem.getName());
         holder.setChecked(tempItem.isSelected());
         holder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DiseaseItem realItem = items.get(position);
+                ConditionItem realItem = items.get(position);
 
                 tempItem.setSelected(holder.isChecked());
                 realItem.setSelected(holder.isChecked());
@@ -57,16 +57,16 @@ public class DiseasesAdapter extends RecyclerView.Adapter<DiseaseViewHolder> {
         return items.size();
     }
 
-    private void setList(List<DiseaseItem> items) {
+    private void setList(List<ConditionItem> items) {
         this.items = checkNotNull(items);
     }
 
-    public void replaceData(List<DiseaseItem> items) {
+    public void replaceData(List<ConditionItem> items) {
         setList(items);
         notifyDataSetChanged();
     }
 
-    public void addItem(DiseaseItem item) {
+    public void addItem(ConditionItem item) {
         items.add(item);
         notifyDataSetChanged();
     }

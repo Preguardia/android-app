@@ -30,6 +30,11 @@ public class MedicationsStepPresenter implements MedicationsStepContract.Present
     }
 
     @Override
+    public List<String> getMedications() {
+        return medications;
+    }
+
+    @Override
     public void addItemListener() {
         view.addItemView();
     }

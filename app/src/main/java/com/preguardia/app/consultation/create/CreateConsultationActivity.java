@@ -13,10 +13,12 @@ import com.firebase.client.Firebase;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
 import com.preguardia.app.R;
+import com.preguardia.app.consultation.create.allergies.AllergiesStepContract;
 import com.preguardia.app.consultation.create.allergies.AllergiesStepFragment;
-import com.preguardia.app.consultation.create.conditions.DiseasesStepFragment;
+import com.preguardia.app.consultation.create.conditions.ConditionsStepFragment;
 import com.preguardia.app.consultation.create.description.DescriptionStepContract;
 import com.preguardia.app.consultation.create.description.DescriptionStepFragment;
+import com.preguardia.app.consultation.create.medications.MedicationsStepContract;
 import com.preguardia.app.consultation.create.medications.MedicationsStepFragment;
 import com.preguardia.app.consultation.create.patient.PatientStepFragment;
 import com.preguardia.app.consultation.create.symptoms.SymptomsStepFragment;
@@ -25,6 +27,8 @@ import com.preguardia.app.consultation.create.time.TimeStepFragment;
 import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
+
+import java.util.List;
 
 /**
  * @author amouly on 4/6/16.
@@ -54,7 +58,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         addStep(createFragment(new MedicationsStepFragment()));
         addStep(createFragment(new AllergiesStepFragment()));
         addStep(createFragment(new SymptomsStepFragment()));
-        addStep(createFragment(new DiseasesStepFragment()));
+        addStep(createFragment(new ConditionsStepFragment()));
 
         this.setupView();
 
@@ -153,6 +157,18 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
             String selectedTime = ((TimeStepContract.View) fragment).getData();
 
             presenter.saveTime(selectedTime);
+        } else if (fragment instanceof MedicationsStepFragment) {
+            System.out.println("MEDICATIONS FRAGMENT");
+
+            List<String> selectedMedications = ((MedicationsStepContract.View) fragment).getData();
+
+            presenter.saveMedications(selectedMedications);
+        } else if (fragment instanceof AllergiesStepFragment) {
+            System.out.println("ALLERGIES FRAGMENT");
+
+            List<String> selectedAllergies = ((AllergiesStepContract.View) fragment).getData();
+
+            presenter.saveAllergies(selectedAllergies);
         }
     }
 

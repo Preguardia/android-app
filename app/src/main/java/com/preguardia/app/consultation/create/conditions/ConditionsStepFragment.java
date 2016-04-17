@@ -20,13 +20,13 @@ import butterknife.ButterKnife;
 /**
  * @author amouly on 4/6/16.
  */
-public class DiseasesStepFragment extends AbstractStep implements DiseasesStepContract.View {
+public class ConditionsStepFragment extends AbstractStep implements ConditionsStepContract.View {
 
     @Bind(R.id.step_diseases_list)
     RecyclerView recyclerView;
 
-    private DiseasesStepContract.Presenter presenter;
-    private DiseasesAdapter adapter;
+    private ConditionsStepContract.Presenter presenter;
+    private ConditionsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,10 +34,10 @@ public class DiseasesStepFragment extends AbstractStep implements DiseasesStepCo
 
         ButterKnife.bind(this, view);
 
-        presenter = new DiseasesStepPresenter(getResources());
+        presenter = new ConditionsStepPresenter(getResources());
         presenter.attachView(this);
 
-        adapter = new DiseasesAdapter(getActivity(), new ArrayList<DiseaseItem>(0));
+        adapter = new ConditionsAdapter(getActivity(), new ArrayList<ConditionItem>(0));
 
         // Config Recycler view
         recyclerView.setHasFixedSize(true);
@@ -84,7 +84,7 @@ public class DiseasesStepFragment extends AbstractStep implements DiseasesStepCo
     }
 
     @Override
-    public void showItems(List<DiseaseItem> items) {
+    public void showItems(List<ConditionItem> items) {
         adapter.replaceData(items);
     }
 }

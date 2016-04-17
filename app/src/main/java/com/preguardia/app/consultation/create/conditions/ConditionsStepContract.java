@@ -5,15 +5,15 @@ import java.util.List;
 /**
  * @author amouly on 4/6/16.
  */
-public interface DiseasesStepContract {
+public interface ConditionsStepContract {
 
     interface View {
-        void showItems(List<DiseaseItem> items);
+        void showItems(List<ConditionItem> items);
     }
 
     interface Presenter {
         void loadItems();
 
-        void attachView(DiseasesStepContract.View view);
+        void attachView(ConditionsStepContract.View view);
     }
 }
