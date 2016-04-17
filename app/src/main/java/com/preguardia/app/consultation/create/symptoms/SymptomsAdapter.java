@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.preguardia.app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -90,5 +91,22 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomViewHol
         this.items = checkNotNull(items);
 
         notifyDataSetChanged();
+    }
+
+    public List<String> getSelectedItems() {
+        List<String> selectedItems = new ArrayList<>();
+
+        for (Map.Entry<Integer, List<SymptomsItem>> entry : items.entrySet()) {
+            List<SymptomsItem> list = entry.getValue();
+
+            for (SymptomsItem symptom : list) {
+
+                if (symptom.isSelected()) {
+                    selectedItems.add(symptom.getName());
+                }
+            }
+        }
+
+        return selectedItems;
     }
 }

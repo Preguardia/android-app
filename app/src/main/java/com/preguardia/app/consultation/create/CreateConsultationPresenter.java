@@ -30,34 +30,28 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
     @NonNull
     final TrayAppPreferences appPreferences;
     @NonNull
-    private final CreateConsultationContract.View consultationView;
-    @NonNull
     private final Firebase consultationsRef;
     @NonNull
     private final Firebase tasksRef;
-
     private final String currentUserName;
-
+    private CreateConsultationContract.View view;
     private Consultation consultation;
     private Patient patient;
 
     public CreateConsultationPresenter(@NonNull Firebase firebase,
-                                       @NonNull TrayAppPreferences appPreferences,
-                                       @NonNull CreateConsultationContract.View consultationView) {
+                                       @NonNull TrayAppPreferences appPreferences) {
         this.consultationsRef = firebase.child(Constants.FIREBASE_CONSULTATIONS);
         this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
-
         this.appPreferences = appPreferences;
-        this.consultationView = consultationView;
 
         String currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
         String patientMedical = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_MEDICAL, null);
         String patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_BIRTH, null);
 
-        consultation = new Consultation();
-        consultation.setDetails(new Details());
-        patient = new Patient();
+        this.consultation = new Consultation();
+        this.consultation.setDetails(new Details());
+        this.patient = new Patient();
 
         // Set Patient data
         patient.setId(currentUserId);
@@ -73,14 +67,12 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
 
     @Override
     public void savePatient(String patient) {
-
+        consultation.getDetails().setPatient(patient);
     }
 
     @Override
     public void saveDescription(String description) {
         consultation.getDetails().setDescription(description);
-
-        System.out.println("SAVE DESCRIPTION: " + description);
     }
 
     @Override
@@ -110,17 +102,12 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
 
     @Override
     public void completeRequest() {
+        view.showLoading();
 
-    }
-
-    @Override
-    public void saveConsultation() {
         DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
 
         // Request environment attributes
         final String currentTime = fmt.print(new DateTime());
-
-        consultationView.showLoading();
 
         // Set Consultation data
         consultation.setDateCreated(currentTime);
@@ -138,16 +125,13 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
 
                 if (firebaseError != null) {
-                    consultationView.hideLoading();
-                    consultationView.showErrorMessage(R.string.consultation_create_error);
+                    view.hideLoading();
+                    view.showErrorMessage(R.string.consultation_create_error);
 
                     if (BuildConfig.DEBUG) {
                         Logger.e("Error creating New Consultation - " + firebaseError.getMessage());
                     }
                 } else {
-                    consultationView.hideLoading();
-                    consultationView.showSuccess();
-
                     // Create Task with data
                     Map<String, String> task = new HashMap<>();
                     task.put("type", "new-consultation");
@@ -158,11 +142,18 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
                     tasksRef.push().setValue(task);
 
                     if (BuildConfig.DEBUG) {
-                        Logger.d("New Consultation data saved successfully.");
+                        Logger.d("Consultation data saved successfully.");
                     }
+
+                    view.hideLoading();
+                    view.showSuccess();
                 }
             }
         });
+    }
 
+    @Override
+    public void attachView(CreateConsultationContract.View view) {
+        this.view = view;
     }
 }

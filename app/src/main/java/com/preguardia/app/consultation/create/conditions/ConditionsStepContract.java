@@ -9,6 +9,8 @@ public interface ConditionsStepContract {
 
     interface View {
         void showItems(List<ConditionItem> items);
+
+        List<String> getData();
     }
 
     interface Presenter {

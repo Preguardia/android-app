@@ -198,6 +198,15 @@
         <item>Picaduras</item>
     </string-array>
 
+    <string-array name="consultation_create_conditions">
+        <item>Cancer</item>
+        <item>Diabetes</item>
+        <item>Enfermedades cardiacas</item>
+        <item>Presión alta</item>
+        <item>Colesterol alto</item>
+        <item>Asma</item>
+    </string-array>
+
     <string name="ms_continue">Continue</string>
     <string name="ms_end">Complete</string>
     <string name="ms_next">Next</string>

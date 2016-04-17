@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.preguardia.app.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -18,7 +19,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ConditionsAdapter extends RecyclerView.Adapter<ConditionViewHolder> {
 
     private final Context context;
-
     private List<ConditionItem> items;
 
     public ConditionsAdapter(Context context, List<ConditionItem> itemsList) {
@@ -61,13 +61,20 @@ public class ConditionsAdapter extends RecyclerView.Adapter<ConditionViewHolder>
         this.items = checkNotNull(items);
     }
 
-    public void replaceData(List<ConditionItem> items) {
-        setList(items);
-        notifyDataSetChanged();
+    public List<String> getSelectedItems() {
+        List<String> conditions = new ArrayList<>();
+
+        for (ConditionItem item : items) {
+            if (item.isSelected()) {
+                conditions.add(item.getName());
+            }
+        }
+
+        return conditions;
     }
 
-    public void addItem(ConditionItem item) {
-        items.add(item);
+    public void replaceData(List<ConditionItem> items) {
+        setList(items);
         notifyDataSetChanged();
     }
 }

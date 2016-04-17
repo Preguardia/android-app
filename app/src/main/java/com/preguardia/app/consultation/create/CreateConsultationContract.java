@@ -10,7 +10,6 @@ import java.util.List;
 public interface CreateConsultationContract {
 
     interface View {
-
         void showLoading();
 
         void hideLoading();
@@ -23,7 +22,6 @@ public interface CreateConsultationContract {
     }
 
     interface Presenter {
-
         void saveCategory(String category);
 
         void savePatient(String patient);
@@ -42,6 +40,6 @@ public interface CreateConsultationContract {
 
         void completeRequest();
 
-        void saveConsultation();
+        void attachView(CreateConsultationContract.View view);
     }
 }

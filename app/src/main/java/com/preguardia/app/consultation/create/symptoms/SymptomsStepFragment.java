@@ -57,11 +57,6 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
     }
 
     @Override
-    public void onStepVisible() {
-        super.onStepVisible();
-    }
-
-    @Override
     public String name() {
         return mStepper.getString(R.string.consultation_create_step_symptoms);
     }
@@ -84,5 +79,10 @@ public class SymptomsStepFragment extends AbstractStep implements SymptomsStepCo
     @Override
     public void showItems(List<String> headers, Map<Integer, List<SymptomsItem>> items) {
         adapter.replaceData(headers, items);
+    }
+
+    @Override
+    public List<String> getData() {
+        return adapter.getSelectedItems();
     }
 }

@@ -27,19 +27,15 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     private AllergiesStepContract.Presenter presenter;
     private List<EditText> editTextList = new ArrayList<>();
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
-    }
+    private LayoutInflater layoutInflater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_allergies, container, false);
 
         ButterKnife.bind(this, view);
+
+        this.layoutInflater = inflater;
 
         presenter = new AllergiesStepPresenter();
         presenter.attachView(this);
@@ -71,8 +67,6 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Override
     public boolean nextIf() {
-
-
         return true;
     }
 
@@ -83,10 +77,10 @@ public class AllergiesStepFragment extends AbstractStep implements AllergiesStep
 
     @Override
     public void addItemView() {
-        View view = View.inflate(getActivity(), R.layout.list_item_allergy, itemsContainer);
-        EditText input = ButterKnife.findById(view, R.id.item_allergy_input);
+        EditText view = (EditText) layoutInflater.inflate(R.layout.list_item_allergy, itemsContainer, false);
 
-        editTextList.add(input);
+        itemsContainer.addView(view);
+        editTextList.add(view);
     }
 
     @Override

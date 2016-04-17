@@ -27,12 +27,15 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     private MedicationsStepContract.Presenter presenter;
     private List<EditText> editTextList = new ArrayList<>();
+    private LayoutInflater layoutInflater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step_medications, container, false);
 
         ButterKnife.bind(this, view);
+
+        this.layoutInflater = inflater;
 
         presenter = new MedicationsStepPresenter();
         presenter.attachView(this);
@@ -74,10 +77,10 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public void addItemView() {
-        View view = View.inflate(getActivity(), R.layout.list_item_medication, itemsContainer);
-        EditText input = ButterKnife.findById(view, R.id.item_medication_input);
+        EditText view = (EditText) layoutInflater.inflate(R.layout.list_item_medication, itemsContainer, false);
 
-        editTextList.add(input);
+        itemsContainer.addView(view);
+        editTextList.add(view);
     }
 
     @Override

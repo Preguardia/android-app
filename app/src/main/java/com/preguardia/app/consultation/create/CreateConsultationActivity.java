@@ -12,15 +12,18 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
+import com.orhanobut.logger.Logger;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.create.allergies.AllergiesStepContract;
 import com.preguardia.app.consultation.create.allergies.AllergiesStepFragment;
+import com.preguardia.app.consultation.create.conditions.ConditionsStepContract;
 import com.preguardia.app.consultation.create.conditions.ConditionsStepFragment;
 import com.preguardia.app.consultation.create.description.DescriptionStepContract;
 import com.preguardia.app.consultation.create.description.DescriptionStepFragment;
 import com.preguardia.app.consultation.create.medications.MedicationsStepContract;
 import com.preguardia.app.consultation.create.medications.MedicationsStepFragment;
 import com.preguardia.app.consultation.create.patient.PatientStepFragment;
+import com.preguardia.app.consultation.create.symptoms.SymptomsStepContract;
 import com.preguardia.app.consultation.create.symptoms.SymptomsStepFragment;
 import com.preguardia.app.consultation.create.time.TimeStepContract;
 import com.preguardia.app.consultation.create.time.TimeStepFragment;
@@ -40,12 +43,10 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Configure Stepper
         setErrorTimeout(1500);
         setLinear(true);
         setTitle(getString(R.string.drawer_consultation_new));
-
-        String category = getExtras().getString(Constants.EXTRA_CONSULTATION_CREATE_CATEGORY);
-
         showPreviousButton();
 
         if (getSupportActionBar() != null) {
@@ -63,10 +64,18 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         this.setupView();
 
         // Create and init presenter
-        presenter = new CreateConsultationPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
-        presenter.saveCategory(category);
+        presenter = new CreateConsultationPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this));
+        presenter.attachView(this);
 
         super.onCreate(savedInstanceState);
+
+        // Retrieve sent Category
+        String category = getIntent().getExtras().getString(Constants.EXTRA_CONSULTATION_CREATE_CATEGORY);
+
+        Logger.i("Selected category: " + category);
+
+        // Save sent Category
+        presenter.saveCategory(category);
 
         // Not kill step fragments
         mPager.setOffscreenPageLimit(7);
@@ -169,6 +178,12 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
             List<String> selectedAllergies = ((AllergiesStepContract.View) fragment).getData();
 
             presenter.saveAllergies(selectedAllergies);
+        } else if (fragment instanceof SymptomsStepFragment) {
+            System.out.println("SYMPTOMS FRAGMENT");
+
+            List<String> selectedSymptoms = ((SymptomsStepContract.View) fragment).getData();
+
+            presenter.saveSymptoms(selectedSymptoms);
         }
     }
 
@@ -176,7 +191,21 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     public void onComplete() {
         super.onComplete();
 
-        this.showSuccess();
+        // Get current Fragment
+        int pos = mPager.getCurrentItem();
+        Fragment fragment = mPagerAdapter.getItem(pos);
+
+        if (fragment instanceof ConditionsStepFragment) {
+            System.out.println("CONDITIONS FRAGMENT");
+
+            List<String> selectedConditions = ((ConditionsStepContract.View) fragment).getData();
+
+            presenter.saveConditions(selectedConditions);
+        }
+
+        System.out.println("ON COMPLETE!");
+
+        presenter.completeRequest();
     }
 
     @Override

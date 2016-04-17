@@ -10,6 +10,8 @@ public interface SymptomsStepContract {
 
     interface View {
         void showItems(List<String> headers, Map<Integer, List<SymptomsItem>> items);
+
+        List<String> getData();
     }
 
     interface Presenter {

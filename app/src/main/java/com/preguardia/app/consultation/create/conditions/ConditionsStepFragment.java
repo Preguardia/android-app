@@ -58,12 +58,6 @@ public class ConditionsStepFragment extends AbstractStep implements ConditionsSt
     }
 
     @Override
-    public void onStepVisible() {
-        super.onStepVisible();
-        // do something
-    }
-
-    @Override
     public String name() {
         return mStepper.getString(R.string.consultation_create_step_diseases);
     }
@@ -86,5 +80,10 @@ public class ConditionsStepFragment extends AbstractStep implements ConditionsSt
     @Override
     public void showItems(List<ConditionItem> items) {
         adapter.replaceData(items);
+    }
+
+    @Override
+    public List<String> getData() {
+        return adapter.getSelectedItems();
     }
 }
