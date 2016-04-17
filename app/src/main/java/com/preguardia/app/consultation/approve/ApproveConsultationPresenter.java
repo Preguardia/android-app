@@ -90,7 +90,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 String ageFormatted = age.getYears() + " años";
 
                 if ((patientName != null) && (patientMedical != null)) {
-                    view.showPatientInfo(patientName, ageFormatted, patientMedical, null);
+                    view.showPatientInfo(patientName, ageFormatted, patientMedical, "http://media.graciasdoc.com/pictures/user_placeholder.png");
                 }
 
                 view.showCategory(consultation.getCategory());

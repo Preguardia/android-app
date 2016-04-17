@@ -76,12 +76,12 @@
     <string name="consultation_create_step_allergy_new">Add another allergy</string>
 
     <string name="consultation_create_error">Error creating Consultation</string>
-    <string name="consultation_create_step_allergy_question">Por favor indicanos si sos alérgico…</string>
-    <string name="consultation_create_step_medications_question">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
-    <string name="consultation_create_step_description_question">Por favor, describi brevemente lo que motiva tu consulta</string>
-    <string name="consultation_create_step_conditions_question">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
-    <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
-    <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
+    <string name="consultation_create_step_allergy_question" translatable="false">Por favor indicanos si sos alérgico…</string>
+    <string name="consultation_create_step_medications_question" translatable="false">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
+    <string name="consultation_create_step_description_question" translatable="false">Por favor, describi brevemente lo que motiva tu consulta</string>
+    <string name="consultation_create_step_conditions_question" translatable="false">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
+    <string name="consultation_create_step_patient_question" translatable="false">¿Quién es el paciente?</string>
+    <string name="consultation_create_step_symptoms_question" translatable="false">¿Padeces alguno de estos síntomas?</string>
     <string name="consultation_create_cancel_title">Do you want to cancel?</string>
     <string name="consultation_create_cancel_positive">Yes</string>
     <string name="consultation_create_cancel_negative">No</string>
@@ -212,8 +212,8 @@
     <string name="ms_optional">Optional</string>
     <string name="ms_prev">Previous</string>
     <string name="ms_text_step">Step $current of $total</string>
-    <string name="consultation_create_step_patient_error">Debe seleccionar una opción</string>
-    <string name="consultation_create_step_description_error">Debe ingresar una descripción</string>
+    <string name="consultation_create_step_patient_error" translatable="false">Debe seleccionar una opción</string>
+    <string name="consultation_create_step_description_error" translatable="false">Debe ingresar una descripción</string>
     <string name="consultation_create_home_clinics">Clinics</string>
     <string name="consultation_create_home_pediatrics">Pediatrics</string>
     <string name="consultation_create_home_dermatology">Dermatology</string>
@@ -221,5 +221,7 @@
     <string name="consultation_create_home_general">Ask a medic now</string>
     <string name="consultation_create_step_category">Category</string>
     <string name="consultation_new_details">Detao;s</string>
+    <string name="consultation_create_step_time_error">Select one option.</string>
+    <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
 
 </resources>
