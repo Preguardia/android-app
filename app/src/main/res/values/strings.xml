@@ -197,11 +197,15 @@
         <item>Llagas</item>
         <item>Picaduras</item>
     </string-array>
+
     <string name="ms_continue">Continue</string>
     <string name="ms_end">Complete</string>
     <string name="ms_next">Next</string>
     <string name="ms_optional">Optional</string>
     <string name="ms_prev">Previous</string>
     <string name="ms_text_step">Step $current of $total</string>
+    <string name="consultation_create_step_time_error">Debe seleccionar una opción.</string>
+    <string name="consultation_create_step_patient_error">Debe seleccionar una opción</string>
+    <string name="consultation_create_step_description_error">Debe ingresar una descripción</string>
 
 </resources>

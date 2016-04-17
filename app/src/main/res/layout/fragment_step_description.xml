@@ -18,7 +18,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/consultation_new_details"
+            android:id="@+id/step_description_input"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/grey_50"

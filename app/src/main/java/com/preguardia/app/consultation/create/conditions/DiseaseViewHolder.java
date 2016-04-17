@@ -1,6 +1,5 @@
-package com.preguardia.app.consultation.create.symptoms;
+package com.preguardia.app.consultation.create.conditions;
 
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
@@ -14,15 +13,14 @@ import butterknife.ButterKnife;
 /**
  * @author amouly on 4/6/16.
  */
-public class SymptomViewHolder extends RecyclerView.ViewHolder {
+public class DiseaseViewHolder extends RecyclerView.ViewHolder {
 
     @Bind(R.id.item_checkable_name)
     TextView nameTextView;
     @Bind(R.id.item_checkable_check)
-    @Nullable
     CheckBox checkBoxView;
 
-    public SymptomViewHolder(View itemView) {
+    public DiseaseViewHolder(View itemView) {
         super(itemView);
 
         ButterKnife.bind(this, itemView);
@@ -33,18 +31,14 @@ public class SymptomViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setOnClickListener(View.OnClickListener onClickListener) {
-        if (checkBoxView != null) {
-            checkBoxView.setOnClickListener(onClickListener);
-        }
+        checkBoxView.setOnClickListener(onClickListener);
     }
 
     public boolean isChecked() {
-        return checkBoxView != null && checkBoxView.isChecked();
+        return checkBoxView.isChecked();
     }
 
     public void setChecked(boolean checked) {
-        if (checkBoxView != null) {
-            checkBoxView.setChecked(checked);
-        }
+        checkBoxView.setChecked(checked);
     }
 }

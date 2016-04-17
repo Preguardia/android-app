@@ -47,7 +47,7 @@
     <string name="history_help_title">Últimas consultas realizadas a nuestros especialistas.</string>
     <string name="consultation_create_step_allergies">Alergias</string>
     <string name="consultation_create_step_description">Descripción</string>
-    <string name="consultation_create_step_diseases">Enfermedades</string>
+    <string name="consultation_create_step_diseases">Condiciones</string>
     <string name="consultation_create_step_medications">Medicaciones</string>
     <string name="consultation_create_step_patient">Paciente</string>
     <string name="consultation_create_step_symptoms">Síntomas</string>

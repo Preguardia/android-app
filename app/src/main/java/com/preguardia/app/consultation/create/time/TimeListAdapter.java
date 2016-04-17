@@ -18,8 +18,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class TimeListAdapter extends RecyclerView.Adapter<TimeViewHolder> {
 
     private final Context context;
-
     private List<TimeItem> itemsList;
+    private int selectedPos = 1000;
 
     public TimeListAdapter(Context context, List<TimeItem> itemsList) {
         this.itemsList = itemsList;
@@ -30,15 +30,29 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeViewHolder> {
     public TimeViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View card = inflater.inflate(R.layout.list_item_patient, viewGroup, false);
-        TimeViewHolder viewHolder = new TimeViewHolder(context, card);
+        View card = inflater.inflate(R.layout.list_item_selectable, viewGroup, false);
 
-        return viewHolder;
+        return new TimeViewHolder(card);
     }
 
     @Override
-    public void onBindViewHolder(TimeViewHolder viewHolder, int position) {
+    public void onBindViewHolder(TimeViewHolder viewHolder, final int position) {
         final String text = itemsList.get(position).getName();
+
+        if (selectedPos == position) {
+            viewHolder.showCheck();
+        } else {
+            viewHolder.hideCheck();
+        }
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                notifyItemChanged(selectedPos);
+                selectedPos = position;
+                notifyItemChanged(selectedPos);
+            }
+        });
 
         viewHolder.setName(text);
     }
@@ -48,17 +62,20 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeViewHolder> {
         return itemsList.size();
     }
 
+    public boolean hasItemSelected() {
+        return selectedPos != 1000;
+    }
+
+    public TimeItem getSelectedItem() {
+        return itemsList.get(selectedPos);
+    }
+
     private void setList(List<TimeItem> items) {
         this.itemsList = checkNotNull(items);
     }
 
     public void replaceData(List<TimeItem> items) {
         setList(items);
-        notifyDataSetChanged();
-    }
-
-    public void addItem(TimeItem item) {
-        itemsList.add(item);
         notifyDataSetChanged();
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -13,11 +14,13 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.github.fcannizzaro.materialstepper.style.TabStepper;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.create.allergies.AllergiesStepFragment;
+import com.preguardia.app.consultation.create.conditions.DiseasesStepFragment;
+import com.preguardia.app.consultation.create.description.DescriptionStepContract;
 import com.preguardia.app.consultation.create.description.DescriptionStepFragment;
-import com.preguardia.app.consultation.create.diseases.DiseasesStepFragment;
 import com.preguardia.app.consultation.create.medications.MedicationsStepFragment;
 import com.preguardia.app.consultation.create.patient.PatientStepFragment;
 import com.preguardia.app.consultation.create.symptoms.SymptomsStepFragment;
+import com.preguardia.app.consultation.create.time.TimeStepContract;
 import com.preguardia.app.consultation.create.time.TimeStepFragment;
 import com.preguardia.app.general.Constants;
 
@@ -37,6 +40,8 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
         setLinear(true);
         setTitle(getString(R.string.drawer_consultation_new));
 
+        String category = getExtras().getString(Constants.EXTRA_CONSULTATION_CREATE_CATEGORY);
+
         showPreviousButton();
 
         if (getSupportActionBar() != null) {
@@ -53,7 +58,9 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
 
         this.setupView();
 
+        // Create and init presenter
         presenter = new CreateConsultationPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
+        presenter.saveCategory(category);
 
         super.onCreate(savedInstanceState);
 
@@ -120,6 +127,36 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     }
 
     @Override
+    public void onNext() {
+        super.onNext();
+
+        // Get current Fragment
+        int pos = mPager.getCurrentItem();
+        Fragment fragment = mPagerAdapter.getItem(pos);
+
+        // Request content for each Fragment
+        if (fragment instanceof PatientStepFragment) {
+            System.out.println("PATIENT FRAGMENT");
+
+            String selectedPatient = ((PatientStepFragment) fragment).getData();
+
+            presenter.savePatient(selectedPatient);
+        } else if (fragment instanceof DescriptionStepFragment) {
+            System.out.println("DETAILS FRAGMENT");
+
+            String inputText = ((DescriptionStepContract.View) fragment).getData();
+
+            presenter.saveDescription(inputText);
+        } else if (fragment instanceof TimeStepFragment) {
+            System.out.println("TIME FRAGMENT");
+
+            String selectedTime = ((TimeStepContract.View) fragment).getData();
+
+            presenter.saveTime(selectedTime);
+        }
+    }
+
+    @Override
     public void onComplete() {
         super.onComplete();
 
@@ -162,5 +199,10 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     @Override
     public void showErrorMessage(@StringRes int message) {
         Snackbar.make(getWindow().getCurrentFocus(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public CreateConsultationContract.Presenter getPresenter() {
+        return presenter;
     }
 }

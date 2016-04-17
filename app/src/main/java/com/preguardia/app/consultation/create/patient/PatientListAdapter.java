@@ -18,9 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> {
 
     private final Context context;
-
     private List<PatientItem> itemsList;
-
     private int selectedPos = 1000;
 
     public PatientListAdapter(Context context, List<PatientItem> itemsList) {
@@ -32,10 +30,9 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
     public PatientViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
 
-        View card = inflater.inflate(R.layout.list_item_patient, viewGroup, false);
-        PatientViewHolder viewHolder = new PatientViewHolder(context, card);
+        View card = inflater.inflate(R.layout.list_item_selectable, viewGroup, false);
 
-        return viewHolder;
+        return new PatientViewHolder(card);
     }
 
     @Override
@@ -65,6 +62,14 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
         return itemsList.size();
     }
 
+    public boolean hasItemSelected() {
+        return selectedPos != 1000;
+    }
+
+    public PatientItem getSelectedItem() {
+        return itemsList.get(selectedPos);
+    }
+
     private void setList(List<PatientItem> items) {
         this.itemsList = checkNotNull(items);
     }
@@ -74,8 +79,5 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientViewHolder> 
         notifyDataSetChanged();
     }
 
-    public void addItem(PatientItem item) {
-        itemsList.add(item);
-        notifyDataSetChanged();
-    }
+
 }

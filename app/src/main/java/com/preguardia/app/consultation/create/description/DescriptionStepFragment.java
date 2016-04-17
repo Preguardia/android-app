@@ -4,17 +4,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
 
-public class DescriptionStepFragment extends AbstractStep {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class DescriptionStepFragment extends AbstractStep implements DescriptionStepContract.View {
+
+    @Bind(R.id.step_description_input)
+    EditText descriptionInput;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_step_description, container, false);
+        View view = inflater.inflate(R.layout.fragment_step_description, container, false);
 
-        return v;
+        ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        ButterKnife.unbind(this);
     }
 
     @Override
@@ -34,11 +50,18 @@ public class DescriptionStepFragment extends AbstractStep {
 
     @Override
     public boolean nextIf() {
-        return true;
+        return !descriptionInput.getText().toString().isEmpty();
     }
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return mStepper.getString(R.string.consultation_create_step_description_error);
+    }
+
+    @Override
+    public String getData() {
+        String text = descriptionInput.getText().toString();
+
+        return text;
     }
 }

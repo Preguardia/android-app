@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.create.diseases;
+package com.preguardia.app.consultation.create.conditions;
 
 import java.util.List;
 
@@ -13,5 +13,7 @@ public interface DiseasesStepContract {
 
     interface Presenter {
         void loadItems();
+
+        void attachView(DiseasesStepContract.View view);
     }
 }

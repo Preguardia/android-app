@@ -11,7 +11,7 @@
     android:paddingTop="10dp">
 
     <TextView
-        android:id="@+id/item_symptom_name"
+        android:id="@+id/item_checkable_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
@@ -20,13 +20,5 @@
         android:textSize="14sp"
         tools:ignore="UnusedAttribute"
         tools:text="Test title" />
-
-    <CheckBox
-        android:id="@+id/item_symptom_check"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" />
 
 </LinearLayout>

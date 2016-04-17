@@ -9,6 +9,8 @@ public interface TimeStepContract {
 
     interface View {
         void showItems(List<TimeItem> items);
+
+        String getData();
     }
 
     interface Presenter {

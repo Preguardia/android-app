@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.create.diseases;
+package com.preguardia.app.consultation.create.conditions;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +34,8 @@ public class DiseasesStepFragment extends AbstractStep implements DiseasesStepCo
 
         ButterKnife.bind(this, view);
 
-        presenter = new DiseasesStepPresenter(this);
+        presenter = new DiseasesStepPresenter(getResources());
+        presenter.attachView(this);
 
         adapter = new DiseasesAdapter(getActivity(), new ArrayList<DiseaseItem>(0));
 

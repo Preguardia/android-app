@@ -72,16 +72,21 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
 
     @Override
     public boolean nextIf() {
-        return true;
+        return adapter.hasItemSelected();
     }
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return mStepper.getString(R.string.consultation_create_step_patient_error);
     }
 
     @Override
     public void showItems(List<PatientItem> items) {
         adapter.replaceData(items);
+    }
+
+    @Override
+    public String getData() {
+        return adapter.getSelectedItem().getName();
     }
 }

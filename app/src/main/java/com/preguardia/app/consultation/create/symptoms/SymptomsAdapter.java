@@ -73,7 +73,7 @@ public class SymptomsAdapter extends SectionedRecyclerViewAdapter<SymptomViewHol
                 layout = R.layout.list_item_symptoms_header;
                 break;
             case VIEW_TYPE_ITEM:
-                layout = R.layout.list_item_symptoms_main;
+                layout = R.layout.list_item_checkable;
                 break;
             default:
                 layout = R.layout.list_item_main_bold;

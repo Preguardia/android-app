@@ -92,7 +92,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                     approveView.showPatientInfo(patientName, ageFormatted, patientMedical, null);
                 }
 
-                approveView.showConsultationInfo(consultation.getCategory(), consultation.getSummary(), consultation.getDetails());
+                approveView.showConsultationInfo(consultation.getCategory(), consultation.getSummary(), null);
                 approveView.hideLoading();
             }
 
