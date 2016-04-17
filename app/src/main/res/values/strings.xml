@@ -204,6 +204,12 @@
         <item>Presión alta</item>
         <item>Colesterol alto</item>
         <item>Asma</item>
+        <item>Depresión</item>
+        <item>Artritis</item>
+        <item>Tiroides</item>
+        <item>Embarazo</item>
+        <item>ACV</item>
+        <item>Otro</item>
     </string-array>
 
     <string name="ms_continue">Continue</string>
