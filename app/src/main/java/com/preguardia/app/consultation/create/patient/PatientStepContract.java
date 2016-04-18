@@ -9,6 +9,8 @@ public interface PatientStepContract {
 
     interface View {
         void showItems(List<PatientItem> items);
+
+        String getData();
     }
 
     interface Presenter {

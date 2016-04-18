@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_allergy_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/white"
+    android:hint="@string/consultation_create_step_allergy_hint"
+    android:inputType="textCapSentences"
+    android:padding="15dp"
+    android:textSize="16sp" />
+

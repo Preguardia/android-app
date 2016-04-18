@@ -18,9 +18,9 @@ public class PatientStepPresenter implements PatientStepContract.Presenter {
     public void loadItems() {
         List<PatientItem> items = new ArrayList<>();
 
-        items.add(new PatientItem("Yo"));
-        items.add(new PatientItem("Mi hijo/a"));
-        items.add(new PatientItem("Otra persona"));
+        items.add(new PatientItem("Yo", false));
+        items.add(new PatientItem("Mi hijo/a", false));
+        items.add(new PatientItem("Otra persona", false));
 
         view.showItems(items);
     }

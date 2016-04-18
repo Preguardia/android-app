@@ -57,7 +57,7 @@ public class TimeStepFragment extends AbstractStep implements TimeStepContract.V
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_time);
+        return mStepper.getString(R.string.consultation_create_step_time);
     }
 
     @Override
@@ -67,16 +67,23 @@ public class TimeStepFragment extends AbstractStep implements TimeStepContract.V
 
     @Override
     public boolean nextIf() {
-        return true;
+        return adapter.hasItemSelected();
     }
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return mStepper.getString(R.string.consultation_create_step_time_error);
     }
 
     @Override
     public void showItems(List<TimeItem> items) {
         adapter.replaceData(items);
+    }
+
+    @Override
+    public String getData() {
+        String selected = adapter.getSelectedItem().getName();
+
+        return selected;
     }
 }

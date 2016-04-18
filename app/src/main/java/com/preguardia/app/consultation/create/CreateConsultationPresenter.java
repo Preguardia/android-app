@@ -6,7 +6,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.R;
 import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.consultation.model.Details;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Patient;
 
@@ -16,8 +18,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,61 +30,88 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
     @NonNull
     final TrayAppPreferences appPreferences;
     @NonNull
-    private final CreateConsultationContract.View consultationView;
-    @NonNull
     private final Firebase consultationsRef;
     @NonNull
     private final Firebase tasksRef;
-
-    private final String currentUserId;
     private final String currentUserName;
-    private final String patientMedical;
-    private String patientBirthDate;
+    private CreateConsultationContract.View view;
+    private Consultation consultation;
+    private Patient patient;
 
-    public CreateConsultationPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
-                                       @NonNull CreateConsultationContract.View consultationView) {
+    public CreateConsultationPresenter(@NonNull Firebase firebase,
+                                       @NonNull TrayAppPreferences appPreferences) {
         this.consultationsRef = firebase.child(Constants.FIREBASE_CONSULTATIONS);
         this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
-
         this.appPreferences = appPreferences;
-        this.consultationView = consultationView;
 
-        currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
+        String currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
-        patientMedical = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_MEDICAL, null);
-        patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_BIRTH, null);
-    }
+        String patientMedical = appPreferences.getString(Constants.PREFERENCES_USER_PATIENT_MEDICAL, null);
+        String patientBirthDate = appPreferences.getString(Constants.PREFERENCES_USER_BIRTH, null);
 
-    @Override
-    public void takePicture() throws IOException {
-
-    }
-
-    @Override
-    public void saveConsultation(String category, String summary, String details) {
-        DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
-
-        // Request environment attributes
-        final String currentTime = fmt.print(new DateTime());
-
-        consultationView.showLoading();
-
-        // Create a Pending Consultation
-        final Consultation consultation = new Consultation();
-        final Patient patient = new Patient();
+        this.consultation = new Consultation();
+        this.consultation.setDetails(new Details());
+        this.patient = new Patient();
 
         // Set Patient data
         patient.setId(currentUserId);
         patient.setName(currentUserName);
         patient.setMedical(patientMedical);
         patient.setBirthDate(patientBirthDate);
+    }
+
+    @Override
+    public void saveCategory(String category) {
+        consultation.setCategory(category);
+    }
+
+    @Override
+    public void savePatient(String patient) {
+        consultation.getDetails().setPatient(patient);
+    }
+
+    @Override
+    public void saveDescription(String description) {
+        consultation.getDetails().setDescription(description);
+    }
+
+    @Override
+    public void saveTime(String time) {
+        consultation.getDetails().setTime(time);
+    }
+
+    @Override
+    public void saveMedications(List<String> medications) {
+        consultation.getDetails().setMedications(medications);
+    }
+
+    @Override
+    public void saveAllergies(List<String> allergies) {
+        consultation.getDetails().setAllergies(allergies);
+    }
+
+    @Override
+    public void saveSymptoms(List<String> symptoms) {
+        consultation.getDetails().setSymptoms(symptoms);
+    }
+
+    @Override
+    public void saveConditions(List<String> conditions) {
+        consultation.getDetails().setConditions(conditions);
+    }
+
+    @Override
+    public void completeRequest() {
+        view.showLoading();
+
+        DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
+
+        // Request environment attributes
+        final String currentTime = fmt.print(new DateTime());
 
         // Set Consultation data
         consultation.setDateCreated(currentTime);
         consultation.setStatus(Constants.FIREBASE_CONSULTATION_STATUS_PENDING);
-        consultation.setSummary(summary);
-        consultation.setCategory(category);
-        consultation.setDetails(details);
         consultation.setPatient(patient);
 
         Firebase newConsultation = consultationsRef.push();
@@ -94,17 +123,15 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
         newConsultation.setValue(consultation, new Firebase.CompletionListener() {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+
                 if (firebaseError != null) {
-                    consultationView.hideLoading();
-                    consultationView.showErrorMessage("Error de servicio.");
+                    view.hideLoading();
+                    view.showErrorMessage(R.string.consultation_create_error);
 
                     if (BuildConfig.DEBUG) {
                         Logger.e("Error creating New Consultation - " + firebaseError.getMessage());
                     }
                 } else {
-                    consultationView.hideLoading();
-                    consultationView.showSuccess();
-
                     // Create Task with data
                     Map<String, String> task = new HashMap<>();
                     task.put("type", "new-consultation");
@@ -115,11 +142,18 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
                     tasksRef.push().setValue(task);
 
                     if (BuildConfig.DEBUG) {
-                        Logger.d("New Consultation data saved successfully.");
+                        Logger.d("Consultation data saved successfully.");
                     }
+
+                    view.hideLoading();
+                    view.showSuccess();
                 }
             }
         });
+    }
 
+    @Override
+    public void attachView(CreateConsultationContract.View view) {
+        this.view = view;
     }
 }

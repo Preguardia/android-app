@@ -35,7 +35,6 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
         ButterKnife.bind(this, view);
 
         presenter = new PatientStepPresenter(this);
-
         adapter = new PatientListAdapter(getActivity(), new ArrayList<PatientItem>(0));
 
         // Config Recycler view
@@ -63,7 +62,7 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
 
     @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_patient);
+        return mStepper.getString(R.string.consultation_create_step_patient);
     }
 
     @Override
@@ -73,16 +72,21 @@ public class PatientStepFragment extends AbstractStep implements PatientStepCont
 
     @Override
     public boolean nextIf() {
-        return true;
+        return adapter.hasItemSelected();
     }
 
     @Override
     public String error() {
-        return "<b>You must click!</b> <small>this is the condition!</small>";
+        return mStepper.getString(R.string.consultation_create_step_patient_error);
     }
 
     @Override
     public void showItems(List<PatientItem> items) {
         adapter.replaceData(items);
+    }
+
+    @Override
+    public String getData() {
+        return adapter.getSelectedItem().getName();
     }
 }

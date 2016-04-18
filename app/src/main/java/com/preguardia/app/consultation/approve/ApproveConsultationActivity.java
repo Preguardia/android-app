@@ -38,12 +38,22 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
     @Bind(R.id.consultation_approve_patient_picture)
     ImageView patientImageView;
 
-    @Bind(R.id.consultation_approve_category_content)
+    @Bind(R.id.consultation_approve_category)
     TextView categoryTextView;
-    @Bind(R.id.consultation_approve_summary_content)
-    TextView summaryTextView;
-    @Bind(R.id.consultation_approve_details_content)
-    TextView detailsTextView;
+    @Bind(R.id.consultation_approve_patient)
+    TextView patientTextView;
+    @Bind(R.id.consultation_approve_description)
+    TextView descriptionTextView;
+    @Bind(R.id.consultation_approve_frequency)
+    TextView frequencyTextView;
+    @Bind(R.id.consultation_approve_medications)
+    TextView medicationsTextView;
+    @Bind(R.id.consultation_approve_allergies)
+    TextView allergiesTextView;
+    @Bind(R.id.consultation_approve_symptoms)
+    TextView symptomsTextView;
+    @Bind(R.id.consultation_approve_conditions)
+    TextView conditionsTextView;
 
     private ApproveConsultationContract.Presenter presenter;
     private MaterialDialog progressDialog;
@@ -66,7 +76,7 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
-                .title(R.string.drawer_consultation_history)
+                .title(R.string.consultation_approve_title)
                 .content(R.string.user_login_loading)
                 .cancelable(false)
                 .progress(true, 0);
@@ -110,10 +120,43 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
     }
 
     @Override
-    public void showConsultationInfo(String category, String summary, String details) {
+    public void showCategory(String category) {
         categoryTextView.setText(category);
-        summaryTextView.setText(summary);
-        detailsTextView.setText(details);
+    }
+
+    @Override
+    public void showPatient(String patient) {
+        patientTextView.setText(patient);
+    }
+
+    @Override
+    public void showDescription(String description) {
+        descriptionTextView.setText(description);
+    }
+
+    @Override
+    public void showFrequency(String frequency) {
+        frequencyTextView.setText(frequency);
+    }
+
+    @Override
+    public void showMedications(String medications) {
+        medicationsTextView.setText(medications);
+    }
+
+    @Override
+    public void showAllergies(String allergies) {
+        allergiesTextView.setText(allergies);
+    }
+
+    @Override
+    public void showSymptoms(String symptoms) {
+        symptomsTextView.setText(symptoms);
+    }
+
+    @Override
+    public void showConditions(String conditions) {
+        conditionsTextView.setText(conditions);
     }
 
     @Override

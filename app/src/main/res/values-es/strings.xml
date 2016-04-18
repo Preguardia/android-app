@@ -4,14 +4,10 @@
     <string name="drawer_consultation_history">Historial de consultas</string>
     <string name="drawer_help">Ayuda</string>
     <string name="drawer_terms">Términos y condiciones</string>
-    <string name="navigation_drawer_close">Cerrar menu</string>
-    <string name="navigation_drawer_open">Abrir menu</string>
+    <string name="drawer_close">Cerrar menu</string>
+    <string name="drawer_open">Abrir menu</string>
 
-    <string name="consultation_new_category">Categoría</string>
-    <string name="consultation_new_summary_title">Resumen de la consulta</string>
-    <string name="consultation_new_lasttime">¿Cuando lo notó por ultima vez?</string>
     <string name="consultation_details_title">Detalles de consulta</string>
-    <string name="consultation_new_where">¿Donde en su cuerpo?</string>
 
     <string name="user_register_name">Nombre y Apellido</string>
     <string name="user_register_patient">Soy Paciente</string>
@@ -23,43 +19,15 @@
     <string name="user_register_phone">Teléfono</string>
     <string name="user_register_plate">Matrícula</string>
     <string name="user_register_button">Registrarme</string>
+    <string name="user_register_password">Contraseña</string>
+    <string name="user_register_title">Registro</string>
+    <string name="user_register_incomplete_fields">Complete todos los campos.</string>
+    <string name="user_register_success_content">Registro exitoso. Bienvenido!</string>
+    <string name="user_register_success_positive">Aceptar</string>
 
     <string name="user_login_title">Login</string>
     <string name="user_login_error_positive">OK</string>
     <string name="user_login_error_message">Usuario o contraseña incorrecto</string>
-
-    <string-array name="consultation_category_list">
-        <item>- Desconocido -</item>
-        <item>Pediatría</item>
-        <item>Cardiología</item>
-        <item>Neurología</item>
-        <item>Neurología</item>
-    </string-array>
-
-    <string-array name="consultation_where_list">
-        <item>Brazos</item>
-        <item>Piernas</item>
-        <item>Cabeza</item>
-        <item>Pecho</item>
-        <item>Pies</item>
-        <item>Ojo derecho</item>
-        <item>Boca</item>
-    </string-array>
-
-    <string-array name="consultation_lasttime_list">
-        <item>- No recuerdo -</item>
-        <item>Ahora</item>
-        <item>Ayer</item>
-        <item>Hoy</item>
-        <item>La semana pasada</item>
-    </string-array>
-
-    <string-array name="consultation_details_media">
-        <item>Foto</item>
-        <item>Video</item>
-        <item>Audio</item>
-    </string-array>
-
     <string name="user_login_button">Ingresar</string>
     <string name="user_login_email">Email</string>
     <string name="user_login_error_field">Ingrese un usuario y contraseña válidos.</string>
@@ -67,12 +35,9 @@
     <string name="user_login_password">Contraseña</string>
     <string name="user_login_register">No estoy registrado</string>
     <string name="user_login_welcome">Bienvenido</string>
-    <string name="user_register_password">Contraseña</string>
-    <string name="user_register_title">Registro</string>
-    <string name="user_register_incomplete_fields">Complete todos los campos.</string>
-    <string name="user_register_success_content">Registro exitoso. Bienvenido!</string>
-    <string name="user_register_success_positive">Aceptar</string>
+
     <string name="consultation_approve_button">Aceptar consulta</string>
+
     <string name="consultation_new_details">Detalles</string>
     <string name="consultation_new_details_hint">Ingrese todos los detalles que usted crea que puedan ayudar a su diagnóstico</string>
     <string name="consultation_new_media">Foto o video</string>
@@ -80,13 +45,13 @@
     <string name="consultation_new_summary_desc">Ingrese una descripción</string>
     <string name="drawer_user_profile">Perfil de usuario</string>
     <string name="history_help_title">Últimas consultas realizadas a nuestros especialistas.</string>
-    <string name="consultation_new_step_allergies">Alergias</string>
-    <string name="consultation_new_step_description">Descripción</string>
-    <string name="consultation_new_step_diseases">Enfermedades</string>
-    <string name="consultation_new_step_medications">Medicaciones</string>
-    <string name="consultation_new_step_patient">Paciente</string>
-    <string name="consultation_new_step_symptoms">Síntomas</string>
-    <string name="consultation_new_step_time">Frecuencia</string>
+    <string name="consultation_create_step_allergies">Alergias</string>
+    <string name="consultation_create_step_description">Descripción</string>
+    <string name="consultation_create_step_conditions">Condiciones</string>
+    <string name="consultation_create_step_medications">Medicaciones</string>
+    <string name="consultation_create_step_patient">Paciente</string>
+    <string name="consultation_create_step_symptoms">Síntomas</string>
+    <string name="consultation_create_step_time">Frecuencia</string>
     <string name="consultation_new_success_message">Consulta creada exitosamente</string>
     <string name="consultation_taken_error">Error, la consulta ya fue tomada</string>
     <string name="consultation_taken_success">Consulta tomada exitosamente</string>
@@ -95,17 +60,35 @@
     <string name="consultation_approve_title">Tomar Consulta</string>
     <string name="consultation_details_text_input">Ingrese su consulta</string>
     <string name="consultation_new_empty_fields">Por favor complete todos los campos</string>
-    <string name="consultation_new_medications_hint">Medicamento</string>
-    <string name="consultation_new_medications_new">Agregar otra medicación</string>
+    <string name="consultation_create_step_medication_hint">Medicamento</string>
+    <string name="consultation_create_step_medication_new">Agregar otra medicación</string>
     <string name="menu_consultation_close">Cerrar consulta</string>
     <string name="menu_consultation_incident">Reportar incidente</string>
-    <string name="consultation_new_allergies_hint">Alergia</string>
-    <string name="consultation_new_allergy_new">Agregar otra alergia</string>
+    <string name="consultation_create_step_allergy_hint">Alergia</string>
+    <string name="consultation_create_step_allergy_new">Agregar otra alergia</string>
 
     <string name="ms_prev">Anterior</string>
     <string name="ms_next">Siguiente</string>
     <string name="ms_end">Completar</string>
     <string name="ms_continue">Continuar</string>
     <string name="ms_optional">Opcional</string>
-    <string name="ms_text_step">Step $current of $total</string>
+    <string name="ms_text_step">Paso $current de $total</string>
+    <string name="consultation_create_home_dermatology">Dermatología</string>
+    <string name="consultation_create_home_general">Consulta un médico ahora</string>
+    <string name="consultation_create_home_nutrition">Nutrición</string>
+    <string name="consultation_create_home_pediatrics">Pediatría y recién nacidos</string>
+    <string name="consultation_create_home_clinics">Clínica</string>
+    <string name="consultation_create_error">Error al crear consulta</string>
+    <string name="consultation_create_cancel_title">Desea cancelar la consulta?</string>
+    <string name="consultation_create_cancel_positive">Si</string>
+    <string name="consultation_create_cancel_negative">No</string>
+    <string name="wizard_start">Empezar</string>
+    <string name="wizard_third_description">Envía fotos o videos de tu consulta</string>
+    <string name="wizard_second_description">Haz cualquier consulta relacionada a la salud</string>
+    <string name="wizard_fourth_description">Obtén respuestas inmediatas y mantente saludable!</string>
+    <string name="wizard_first_description">Consulta a los mejores médicos ONLINE</string>
+    <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
+    <string name="consultation_create_step_time_error">Debe seleccionar una opción.</string>
+    <string name="drawer_checkout">Checkout</string>
+    <string name="consultation_create_step_category">Categoría</string>
 </resources>

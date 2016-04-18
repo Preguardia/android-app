@@ -26,6 +26,8 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
     ImageView userImageView;
     @Bind(R.id.item_history_summary)
     TextView summaryTextView;
+    @Bind(R.id.item_history_date)
+    TextView dateTextView;
     @Bind(R.id.item_history_state_ico)
     ImageView stateIcoImageView;
 
@@ -54,6 +56,10 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
 
     public void setSummaryText(String text) {
         summaryTextView.setText(text);
+    }
+
+    public void setDateText(String date) {
+        dateTextView.setText(date);
     }
 
     public void setStateIcoImageView(@DrawableRes int drawable) {

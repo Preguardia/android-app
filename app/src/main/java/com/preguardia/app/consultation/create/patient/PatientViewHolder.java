@@ -1,6 +1,5 @@
 package com.preguardia.app.consultation.create.patient;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,17 +15,13 @@ import butterknife.ButterKnife;
  */
 public class PatientViewHolder extends RecyclerView.ViewHolder {
 
-    private final Context context;
-
-    @Bind(R.id.item_patient_name)
+    @Bind(R.id.item_selectable_name)
     TextView nameTextView;
-    @Bind(R.id.item_patient_check)
+    @Bind(R.id.item_selectable_check)
     ImageView checkImageView;
 
-    public PatientViewHolder(Context context, View itemView) {
+    public PatientViewHolder(View itemView) {
         super(itemView);
-
-        this.context = context;
 
         ButterKnife.bind(this, itemView);
     }

@@ -1,8 +1,8 @@
 package com.preguardia.app.consultation.create;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
-import java.io.IOException;
+import java.util.List;
 
 /**
  * @author amouly on 3/9/16.
@@ -10,26 +10,36 @@ import java.io.IOException;
 public interface CreateConsultationContract {
 
     interface View {
-
         void showLoading();
 
         void hideLoading();
 
         void showSuccess();
 
-        void showEmptyFieldError();
+        void showErrorMessage(@StringRes int message);
 
-        void showImagePreview(@NonNull String uri);
-
-        void openHistory();
-
-        void showErrorMessage(String message);
+        CreateConsultationContract.Presenter getPresenter();
     }
 
     interface Presenter {
+        void saveCategory(String category);
 
-        void takePicture() throws IOException;
+        void savePatient(String patient);
 
-        void saveConsultation(String category, String summary, String details);
+        void saveDescription(String description);
+
+        void saveTime(String time);
+
+        void saveMedications(List<String> medications);
+
+        void saveAllergies(List<String> allergies);
+
+        void saveSymptoms(List<String> symptoms);
+
+        void saveConditions(List<String> conditions);
+
+        void completeRequest();
+
+        void attachView(CreateConsultationContract.View view);
     }
 }

@@ -1,12 +1,15 @@
 package com.preguardia.app.main;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -25,6 +28,7 @@ import com.firebase.client.Firebase;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.preguardia.app.R;
+import com.preguardia.app.checkout.CustomTabActivityHelper;
 import com.preguardia.app.consultation.create.CreateConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void configDrawer() {
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
@@ -177,6 +181,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
                 fragment = TermsFragment.newInstance();
                 title = getString(R.string.drawer_terms);
+
+                break;
+
+            case R.id.nav_checkout:
+
+                fragment = TermsFragment.newInstance();
+                title = getString(R.string.drawer_terms);
+
+                Uri uri = Uri.parse("http://graciasdoc.com/mp.php");
+
+                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+                CustomTabActivityHelper.openCustomTab(this, customTabsIntent, uri,
+                        new CustomTabActivityHelper.CustomTabFallback() {
+                            @Override
+                            public void openUri(Activity activity, Uri uri) {
+                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                startActivity(intent);
+                            }
+                        });
 
                 break;
         }

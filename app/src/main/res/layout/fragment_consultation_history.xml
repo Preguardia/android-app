@@ -22,12 +22,12 @@
             android:top="@+id/consultation_history_empty_text" />
 
         <TextView
-            android:layout_below="@+id/consultation_history_empty_ico"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/consultation_history_empty_text" />
+            android:layout_below="@+id/consultation_history_empty_ico"
+            android:layout_centerInParent="true"
+            android:text="@string/consultation_history_empty_text"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
@@ -55,8 +55,6 @@
             android:id="@+id/consultation_history_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:clipToPadding="false"
             android:scrollbars="none"
             tools:listitem="@layout/list_item_history" />

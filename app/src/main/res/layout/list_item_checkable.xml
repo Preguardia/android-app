@@ -8,21 +8,19 @@
     android:padding="15dp">
 
     <TextView
-        android:id="@+id/item_patient_name"
+        android:id="@+id/item_checkable_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textSize="16sp"
         tools:text="test" />
 
-    <ImageView
-        android:id="@+id/item_patient_check"
+    <CheckBox
+        android:id="@+id/item_checkable_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_check_black_24dp"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:visibility="visible" />
 
 </RelativeLayout>

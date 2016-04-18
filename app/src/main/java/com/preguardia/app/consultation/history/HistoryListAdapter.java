@@ -11,6 +11,10 @@ import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Medic;
 import com.preguardia.app.user.model.Patient;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.ISODateTimeFormat;
+
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -20,10 +24,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
 
+    private final String userType;
     private List<Consultation> historyList;
     private HistoryContract.ConsultationItemListener itemListener;
-
-    private final String userType;
 
     public HistoryListAdapter(List<Consultation> itemsList, String userType, HistoryContract.ConsultationItemListener clickListener) {
         this.historyList = itemsList;
@@ -43,6 +46,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
         final Consultation consultation = historyList.get(position);
+
+        DateTime dateTime = ISODateTimeFormat.dateTime().parseDateTime(consultation.getDateCreated());
+        String dateFormatted = dateTime.toString(DateTimeFormat.forPattern("MMM dd"));
 
         switch (consultation.getStatus()) {
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
@@ -86,7 +92,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
         // TODO: replace with dynamic image
         holder.setUserImageView("http://media.graciasdoc.com/pictures/user_placeholder.png");
-        holder.setSummaryText(consultation.getSummary());
+        holder.setSummaryText(consultation.getDetails().getDescription());
+        holder.setDateText(dateFormatted);
     }
 
     public void addItem(Consultation item) {

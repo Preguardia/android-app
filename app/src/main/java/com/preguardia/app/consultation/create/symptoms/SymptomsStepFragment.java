@@ -1,6 +1,7 @@
 package com.preguardia.app.consultation.create.symptoms;
 
 import android.os.Bundle;
+import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,15 +12,23 @@ import com.github.fcannizzaro.materialstepper.AbstractStep;
 import com.preguardia.app.R;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * @author amouly on 4/6/16.
  */
-public class SymptomsStepFragment extends AbstractStep {
+public class SymptomsStepFragment extends AbstractStep implements SymptomsStepContract.View {
 
-    @Bind(R.id.step_symptoms_list) RecyclerView recyclerView;
+    @Bind(R.id.step_symptoms_list)
+    RecyclerView recyclerView;
+
+    private SymptomsStepContract.Presenter presenter;
+    private SymptomsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,13 +36,16 @@ public class SymptomsStepFragment extends AbstractStep {
 
         ButterKnife.bind(this, view);
 
-        SymptomsAdapter adapter = new SymptomsAdapter();
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(manager);
+        presenter = new SymptomsStepPresenter(getResources());
+        presenter.attachView(this);
 
+        adapter = new SymptomsAdapter(new ArrayList<String>(0), new ArrayMap<Integer, List<SymptomsItem>>(0));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
-
         recyclerView.setAdapter(adapter);
+
+        presenter.loadItems();
 
         return view;
     }
@@ -45,14 +57,8 @@ public class SymptomsStepFragment extends AbstractStep {
     }
 
     @Override
-    public void onStepVisible() {
-        super.onStepVisible();
-        // do something
-    }
-
-    @Override
     public String name() {
-        return mStepper.getString(R.string.consultation_new_step_symptoms);
+        return mStepper.getString(R.string.consultation_create_step_symptoms);
     }
 
     @Override
@@ -68,5 +74,15 @@ public class SymptomsStepFragment extends AbstractStep {
     @Override
     public String error() {
         return "<b>You must click!</b> <small>this is the condition!</small>";
+    }
+
+    @Override
+    public void showItems(List<String> headers, Map<Integer, List<SymptomsItem>> items) {
+        adapter.replaceData(headers, items);
+    }
+
+    @Override
+    public List<String> getData() {
+        return adapter.getSelectedItems();
     }
 }

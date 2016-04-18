@@ -11,7 +11,21 @@ public interface ApproveConsultationContract {
 
         void showPatientInfo(String name, String age, String medical, String pictureUrl);
 
-        void showConsultationInfo(String category, String summary, String details);
+        void showCategory(String category);
+
+        void showPatient(String patient);
+
+        void showDescription(String description);
+
+        void showFrequency(String frequency);
+
+        void showMedications(String medications);
+
+        void showAllergies(String allergies);
+
+        void showSymptoms(String symptoms);
+
+        void showConditions(String conditions);
 
         void onTakeButtonClick();
 

@@ -3,8 +3,6 @@ package com.preguardia.app.consultation.model;
 import com.preguardia.app.user.model.Medic;
 import com.preguardia.app.user.model.Patient;
 
-import java.util.List;
-
 /**
  * @author amouly on 3/1/16.
  */
@@ -16,11 +14,10 @@ public class Consultation {
     private String dateUpdated;
     private String summary;
     private String category;
-    private String details;
     private String status;
     private Patient patient;
+    private Details details;
     private Medic medic;
-    private List<Question> questions;
 
     public Consultation() {
     }
@@ -33,12 +30,12 @@ public class Consultation {
         this.patient = patient;
     }
 
-    public void setMedic(Medic medic) {
-        this.medic = medic;
-    }
-
     public Medic getMedic() {
         return medic;
+    }
+
+    public void setMedic(Medic medic) {
+        this.medic = medic;
     }
 
     public String getId() {
@@ -65,14 +62,6 @@ public class Consultation {
         this.category = category;
     }
 
-    public String getDetails() {
-        return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
-
     public String getDateCreated() {
         return dateCreated;
     }
@@ -97,11 +86,11 @@ public class Consultation {
         this.dateUpdated = dateUpdated;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
+    public Details getDetails() {
+        return details;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setDetails(Details details) {
+        this.details = details;
     }
 }

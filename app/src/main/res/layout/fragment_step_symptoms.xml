@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="20dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="¿Padeces alguno de estos síntomas?"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/consultation_create_step_symptoms_question"
         android:textSize="18sp" />
 
     <android.support.v7.widget.RecyclerView
@@ -19,6 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
-        tools:listitem="@layout/list_item_symptoms_main" />
+        tools:listitem="@layout/list_item_checkable" />
 
 </LinearLayout>

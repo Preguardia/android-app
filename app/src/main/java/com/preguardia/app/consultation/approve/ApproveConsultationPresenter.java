@@ -6,6 +6,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.common.base.Joiner;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class ApproveConsultationPresenter implements ApproveConsultationContract.Presenter {
 
     @NonNull
-    private final ApproveConsultationContract.View approveView;
+    private final ApproveConsultationContract.View view;
     @NonNull
     private final Firebase consultationRef;
     @NonNull
@@ -46,10 +47,10 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
     public ApproveConsultationPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
-                                        @NonNull ApproveConsultationContract.View approveView,
+                                        @NonNull ApproveConsultationContract.View view,
                                         @NonNull String consultationId) {
         this.appPreferences = appPreferences;
-        this.approveView = approveView;
+        this.view = view;
         this.consultationId = consultationId;
 
         this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
@@ -67,7 +68,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             Logger.d("Load consultation for approve - ID: " + consultationId);
         }
 
-        approveView.showLoading();
+        view.showLoading();
 
         // Listen changes on selected Consultation
         consultationListener = consultationRef.addValueEventListener(new ValueEventListener() {
@@ -89,11 +90,25 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 String ageFormatted = age.getYears() + " años";
 
                 if ((patientName != null) && (patientMedical != null)) {
-                    approveView.showPatientInfo(patientName, ageFormatted, patientMedical, null);
+                    view.showPatientInfo(patientName, ageFormatted, patientMedical, "http://media.graciasdoc.com/pictures/user_placeholder.png");
                 }
 
-                approveView.showConsultationInfo(consultation.getCategory(), consultation.getSummary(), consultation.getDetails());
-                approveView.hideLoading();
+                view.showCategory(consultation.getCategory());
+                view.showPatient(consultation.getDetails().getPatient());
+                view.showDescription(consultation.getDetails().getDescription());
+                view.showFrequency(consultation.getDetails().getTime());
+
+                String medications = Joiner.on(", ").skipNulls().join(consultation.getDetails().getMedications());
+                String allergies = Joiner.on(", ").skipNulls().join(consultation.getDetails().getAllergies());
+                String symptoms = Joiner.on(", ").skipNulls().join(consultation.getDetails().getSymptoms());
+                String conditions = Joiner.on(", ").skipNulls().join(consultation.getDetails().getConditions());
+
+                view.showMedications(medications);
+                view.showAllergies(allergies);
+                view.showSymptoms(symptoms);
+                view.showConditions(conditions);
+
+                view.hideLoading();
             }
 
             @Override
@@ -113,12 +128,12 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
                 // Show take Error
-                approveView.showMessage(R.string.consultation_taken_error);
+                view.showMessage(R.string.consultation_taken_error);
 
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
-                approveView.showLoading();
+                view.showLoading();
 
                 final Medic medic = new Medic();
                 medic.setId(currentUserId);
@@ -135,8 +150,8 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
                     @Override
                     public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                        approveView.hideLoading();
-                        approveView.showMessage(R.string.consultation_taken_success);
+                        view.hideLoading();
+                        view.showMessage(R.string.consultation_taken_success);
 
                         // Create Task with data
                         Map<String, String> task = new HashMap<>();
