@@ -155,7 +155,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
                         // Create Task with data
                         Map<String, String> task = new HashMap<>();
-                        task.put("type", "consultation-approved");
+                        task.put("type", Constants.FIREBASE_TASK_TYPE_CONSULTATION_APPROVED);
                         task.put("content", "Su consulta fue tomada por " + currentUserName);
                         task.put("patientId", consultation.getPatient().getId());
                         task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);

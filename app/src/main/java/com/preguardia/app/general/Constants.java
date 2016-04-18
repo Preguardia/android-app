@@ -31,6 +31,7 @@ public class Constants {
     public static final String FIREBASE_TASK_CONTENT = "content";
     public static final String FIREBASE_TASK_TYPE_CONSULTATION_NEW = "new-consultation";
     public static final String FIREBASE_TASK_TYPE_MESSAGE_NEW = "message-new";
+    public static final String FIREBASE_TASK_TYPE_CONSULTATION_APPROVED = "consultation-approved";
 
     public static final String FIREBASE_USER_MEDIC_ID = "medic/id";
     public static final String FIREBASE_USER_PATIENT_ID = "patient/id";

@@ -35,6 +35,9 @@ import com.preguardia.app.general.Constants;
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
+    private static final int MEDIC_REQUEST_CODE = 20;
+    private static final int PATIENT_REQUEST_CODE = 30;
+    private static final int GENERAL_NEW_MESSAGE_REQUEST_CODE = 10;
 
     /**
      * Called when message is received.
@@ -76,31 +79,29 @@ public class MyGcmListenerService extends GcmListenerService {
 
             default:
 
-                if (type != null && type.equals(Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW)) {
+                // Handle particular Notifications
+                if (type != null) {
+                    switch (type) {
+                        case Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW:
 
-                    sendMessageNotification(title, message, consultationId);
+                            sendNewMessageNotification(title, message, consultationId);
 
+                            break;
+                    }
                 }
 
                 break;
         }
     }
-    // [END receive_message]
 
-    /**
-     * Create and show a simple notification containing the received GCM message.
-     *
-     * @param message GCM message received.
-     */
-
-    private void sendMessageNotification(String title, String message, String consultationId) {
+    private void showConsultationApprovedNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ConsultationDetailsActivity.class);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -112,10 +113,33 @@ public class MyGcmListenerService extends GcmListenerService {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(4, notificationBuilder.build());
+    }
+
+    private void sendNewMessageNotification(String title, String message, String consultationId) {
+        // Prepare intent which is triggered if the notification is selected
+        Intent intent = new Intent(this, ConsultationDetailsActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, GENERAL_NEW_MESSAGE_REQUEST_CODE, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(1, notificationBuilder.build());
     }
 
     private void sendMedicNotification(String title, String message, String consultationId) {
@@ -125,7 +149,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, MEDIC_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -137,10 +161,9 @@ public class MyGcmListenerService extends GcmListenerService {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(2, notificationBuilder.build());
     }
 
     private void sendPatientNotification(String title, String message, String consultationId) {
@@ -150,7 +173,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -162,9 +185,8 @@ public class MyGcmListenerService extends GcmListenerService {
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(3, notificationBuilder.build());
     }
 }

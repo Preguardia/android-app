@@ -91,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         progressDialog = progressBuilder.build();
 
         patientButton.setPressed(true);
+        patientButton.setActivated(true);
     }
 
     @SuppressWarnings("unused")
