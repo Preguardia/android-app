@@ -1,5 +1,7 @@
 package com.preguardia.app.consultation.model;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -43,6 +45,7 @@ public class Details {
         this.time = time;
     }
 
+    @Nullable
     public List<String> getMedications() {
         return medications;
     }
@@ -51,6 +54,7 @@ public class Details {
         this.medications = medications;
     }
 
+    @Nullable
     public List<String> getAllergies() {
         return allergies;
     }
@@ -59,6 +63,7 @@ public class Details {
         this.allergies = allergies;
     }
 
+    @Nullable
     public List<String> getSymptoms() {
         return symptoms;
     }
@@ -67,6 +72,7 @@ public class Details {
         this.symptoms = symptoms;
     }
 
+    @Nullable
     public List<String> getConditions() {
         return conditions;
     }
