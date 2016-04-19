@@ -50,6 +50,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
         DateTime dateTime = ISODateTimeFormat.dateTime().parseDateTime(consultation.getDateCreated());
         String dateFormatted = dateTime.toString(DateTimeFormat.forPattern("MMM dd"));
 
+        final Patient patient = consultation.getPatient();
+        final Medic medic = consultation.getMedic();
+
         switch (consultation.getStatus()) {
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
 
@@ -61,14 +64,15 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
-                if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-                    final Patient patient = consultation.getPatient();
+                switch (userType) {
+                    case Constants.FIREBASE_USER_TYPE_MEDIC:
+                        holder.setUserName(patient.getName());
 
-                    holder.setUserName(patient.getName());
-                } else {
-                    final Medic medic = consultation.getMedic();
+                        break;
 
-                    holder.setUserName(medic.getName());
+                    case Constants.FIREBASE_USER_TYPE_PATIENT:
+                        holder.setUserName(medic.getName());
+                        break;
                 }
 
                 holder.setStateIcoImageView(R.drawable.ic_check_black_24dp);
@@ -82,9 +86,19 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
-                final Medic medic = consultation.getMedic();
 
-                holder.setUserName(medic.getName());
+                switch (userType) {
+                    case Constants.FIREBASE_USER_TYPE_MEDIC:
+                        holder.setUserName(patient.getName());
+
+                        break;
+
+                    case Constants.FIREBASE_USER_TYPE_PATIENT:
+                        holder.setUserName(medic.getName());
+
+                        break;
+                }
+
                 holder.setStateIcoImageView(R.drawable.ic_close_24dp);
 
                 break;

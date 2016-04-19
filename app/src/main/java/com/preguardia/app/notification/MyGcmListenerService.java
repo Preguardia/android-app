@@ -35,9 +35,6 @@ import com.preguardia.app.general.Constants;
 public class MyGcmListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGcmListenerService";
-    private static final int MEDIC_REQUEST_CODE = 20;
-    private static final int PATIENT_REQUEST_CODE = 30;
-    private static final int GENERAL_NEW_MESSAGE_REQUEST_CODE = 10;
 
     /**
      * Called when message is received.
@@ -113,7 +110,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.PATIENT_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -137,7 +134,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.PATIENT_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -161,7 +158,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, GENERAL_NEW_MESSAGE_REQUEST_CODE, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.GENERAL_NEW_MESSAGE_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -175,7 +172,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(1, notificationBuilder.build());
+        notificationManager.notify(Constants.NOTIFICATION_NEW_MESSAGE_ID, notificationBuilder.build());
     }
 
     private void showMedicNotification(String title, String message, String consultationId) {
@@ -185,7 +182,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, MEDIC_REQUEST_CODE, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.MEDIC_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -209,7 +206,7 @@ public class MyGcmListenerService extends GcmListenerService {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, Constants.PATIENT_REQUEST_CODE, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

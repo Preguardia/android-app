@@ -1,5 +1,6 @@
 package com.preguardia.app.consultation.details;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -102,6 +103,14 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         super.onStop();
 
         presenter.stopListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_NEW_MESSAGE_ID);
     }
 
     @SuppressWarnings("unused")

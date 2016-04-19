@@ -64,4 +64,9 @@ public class Constants {
     public static final String EXTRA_USER_TYPE = "extra:user:type";
 
     public static final String EXTRA_CONSULTATION_CREATE_CATEGORY = "extra:consultation:create:category";
+
+    public static final int MEDIC_REQUEST_CODE = 20;
+    public static final int PATIENT_REQUEST_CODE = 30;
+    public static final int GENERAL_NEW_MESSAGE_REQUEST_CODE = 10;
+    public static final int NOTIFICATION_NEW_MESSAGE_ID = 1;
 }
