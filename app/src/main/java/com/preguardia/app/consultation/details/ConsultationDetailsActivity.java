@@ -109,8 +109,7 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     protected void onResume() {
         super.onResume();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(Constants.NOTIFICATION_NEW_MESSAGE_ID);
+        this.dismissNewMessageNotification();
     }
 
     @SuppressWarnings("unused")
@@ -232,6 +231,11 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         finish();
     }
 
+    @Override
+    public void dismissNewMessageNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(Constants.NOTIFICATION_NEW_MESSAGE_ID);
+    }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {

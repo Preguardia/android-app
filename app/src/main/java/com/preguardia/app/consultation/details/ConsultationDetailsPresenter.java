@@ -60,6 +60,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
         this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
         this.currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
 
+        view.showLoading();
+
         // Listen to changes on Consultation
         consultationRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -93,6 +95,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                             break;
                     }
                 }
+
+                view.hideLoading();
             }
 
             @Override

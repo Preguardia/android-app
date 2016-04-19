@@ -40,6 +40,8 @@ public interface ConsultationDetailsContract {
         void onCloseConsultationClick();
 
         void onClose();
+
+        void dismissNewMessageNotification();
     }
 
     interface Presenter {
