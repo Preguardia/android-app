@@ -93,6 +93,12 @@ public class MyGcmListenerService extends GcmListenerService {
                             showConsultationApprovedNotification(title, message, consultationId);
 
                             break;
+
+                        case Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED:
+
+                            showConsultationClosedNotification(title, message, consultationId);
+
+                            break;
                     }
                 }
 
@@ -122,6 +128,30 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(4, notificationBuilder.build());
+    }
+
+    private void showConsultationClosedNotification(String title, String message, String consultationId) {
+        // Prepare intent which is triggered if the notification is selected
+        Intent intent = new Intent(this, ConsultationDetailsActivity.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra(Constants.EXTRA_CONSULTATION_ID, consultationId);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, PATIENT_REQUEST_CODE, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_stat_logo)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(5, notificationBuilder.build());
     }
 
     private void showMessageNewNotification(String title, String message, String consultationId) {

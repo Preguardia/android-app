@@ -32,6 +32,14 @@ public interface ConsultationDetailsContract {
         void showUserDesc(String desc);
 
         void addItem(GenericMessage item);
+
+        void showMedicActions();
+
+        void showPatientActions();
+
+        void onCloseConsultationClick();
+
+        void onClose();
     }
 
     interface Presenter {
@@ -43,6 +51,8 @@ public interface ConsultationDetailsContract {
         void sendPicture();
 
         void loadItems();
+
+        void closeConsultation();
 
         void stopListener();
     }

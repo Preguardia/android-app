@@ -34,7 +34,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     private final Firebase messagesRef;
     @NonNull
     private final Firebase tasksRef;
-
     @NonNull
     private final TrayAppPreferences appPreferences;
 
@@ -48,10 +47,10 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
     public ConsultationDetailsPresenter(@NonNull Firebase firebase,
                                         @NonNull TrayAppPreferences appPreferences,
-                                        @NonNull ConsultationDetailsContract.View view,
+                                        @NonNull ConsultationDetailsContract.View detailsView,
                                         @NonNull String consultationId) {
         this.appPreferences = appPreferences;
-        this.view = view;
+        this.view = detailsView;
         this.consultationId = consultationId;
 
         this.messagesRef = firebase.child(Constants.FIREBASE_MESSAGES).child(this.consultationId);
@@ -66,24 +65,30 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Consultation consultation = dataSnapshot.getValue(Consultation.class);
+
                 Patient patient = consultation.getPatient();
                 Medic medic = consultation.getMedic();
 
                 patientId = patient.getId();
                 medicId = medic.getId();
 
+                // Handle each type of User
                 if (currentUserType != null) {
-                    // Handle each type of User
+
                     switch (currentUserType) {
                         case Constants.FIREBASE_USER_TYPE_MEDIC:
-                            ConsultationDetailsPresenter.this.view.showUserName(patient.getName());
-                            ConsultationDetailsPresenter.this.view.showUserDesc(patient.getMedical());
+                            // Show specific for Medic
+                            view.showUserName(patient.getName());
+                            view.showUserDesc(patient.getMedical());
+                            view.showMedicActions();
 
                             break;
 
                         case Constants.FIREBASE_USER_TYPE_PATIENT:
-                            ConsultationDetailsPresenter.this.view.showUserName(medic.getName());
-                            ConsultationDetailsPresenter.this.view.showUserDesc(medic.getPlate());
+                            // Show specific for Patient
+                            view.showUserName(medic.getName());
+                            view.showUserDesc(medic.getPlate());
+                            view.showPatientActions();
 
                             break;
                     }
@@ -192,6 +197,39 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
             }
         });
+    }
+
+    @Override
+    public void closeConsultation() {
+        view.showLoading();
+
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_CLOSED);
+
+        // Update Consultation status
+        consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                // Create Task with data
+                Map<String, String> task = new HashMap<>();
+                task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED);
+                task.put(Constants.FIREBASE_PATIENT_ID, patientId);
+                task.put(Constants.FIREBASE_MEDIC_ID, medicId);
+                task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+
+                // Push task to be processed
+                tasksRef.push().setValue(task);
+
+                view.hideLoading();
+                view.onClose();
+
+                if (BuildConfig.DEBUG) {
+                    Logger.d("Consultation Closed data saved successfully.");
+                }
+            }
+        });
+
+
     }
 
     @Override

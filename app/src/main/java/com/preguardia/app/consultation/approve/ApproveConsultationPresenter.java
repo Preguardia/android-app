@@ -184,7 +184,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                         tasksRef.push().setValue(task);
 
                         if (BuildConfig.DEBUG) {
-                            Logger.d("New Consultation data saved successfully.");
+                            Logger.d("Consultation Approved data saved successfully.");
                         }
                     }
                 });

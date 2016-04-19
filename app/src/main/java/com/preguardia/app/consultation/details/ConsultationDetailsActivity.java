@@ -2,15 +2,17 @@ package com.preguardia.app.consultation.details;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
@@ -28,7 +30,8 @@ import butterknife.OnClick;
 /**
  * @author amouly on 2/27/16.
  */
-public class ConsultationDetailsActivity extends AppCompatActivity implements ConsultationDetailsContract.View {
+public class ConsultationDetailsActivity extends AppCompatActivity implements ConsultationDetailsContract.View,
+        Toolbar.OnMenuItemClickListener {
 
     @Bind(R.id.consultation_details_toolbar)
     Toolbar toolbar;
@@ -52,15 +55,18 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
 
         setContentView(R.layout.activity_consultation_details);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+
+        // Configure Toolbar
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         // Get the requested Consultation ID
         String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(R.string.consultation_details_title);
-        }
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
@@ -104,21 +110,6 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         String message = inputView.getText().toString();
 
         presenter.sendMessage(message);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_consultation_details_medic, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            finish();
-        }
-        return true;
     }
 
     @Override
@@ -189,6 +180,59 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         if (recyclerView != null) {
             recyclerView.scrollToPosition(position);
             mAdapter.notifyItemInserted(position);
+        }
+    }
+
+    @Override
+    public void showMedicActions() {
+        toolbar.inflateMenu(R.menu.menu_consultation_details_medic);
+        toolbar.setOnMenuItemClickListener(this);
+    }
+
+    @Override
+    public void showPatientActions() {
+        toolbar.inflateMenu(R.menu.menu_consultation_details_patient);
+        toolbar.setOnMenuItemClickListener(this);
+    }
+
+    @Override
+    public void onCloseConsultationClick() {
+        new MaterialDialog.Builder(this)
+                .title(R.string.consultation_details_title)
+                .content(R.string.consultation_details_dialog_content)
+                .positiveText(R.string.consultation_details_dialog_positive)
+                .negativeText(R.string.consultation_details_dialog_negative)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // Cancel Consultation
+                        presenter.closeConsultation();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void onClose() {
+        finish();
+    }
+
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.consultation_details_close:
+                this.onCloseConsultationClick();
+                return true;
+
+            default:
+                return false;
         }
     }
 }

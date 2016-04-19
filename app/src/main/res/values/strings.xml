@@ -229,5 +229,8 @@
     <string name="consultation_new_details">Detao;s</string>
     <string name="consultation_create_step_time_error">Select one option.</string>
     <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
+    <string name="consultation_details_dialog_content">Está seguro que desea cerrar la consulta?</string>
+    <string name="consultation_details_dialog_positive">Si</string>
+    <string name="consultation_details_dialog_negative">No</string>
 
 </resources>

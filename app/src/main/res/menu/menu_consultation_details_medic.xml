@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/consultation_details_close"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_close_24dp"
-        android:title="@string/menu_consultation_close" />
+        android:icon="@drawable/ic_close_white_24dp"
+        android:title="@string/menu_consultation_close"
+        app:showAsAction="ifRoom" />
 
     <item
-        app:showAsAction="never"
-        android:title="@string/menu_consultation_incident" />
+        android:title="@string/menu_consultation_incident"
+        app:showAsAction="never" />
 
 </menu>

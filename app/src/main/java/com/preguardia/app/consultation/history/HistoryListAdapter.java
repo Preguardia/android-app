@@ -71,7 +71,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                     holder.setUserName(medic.getName());
                 }
 
-                holder.setStateIcoImageView(R.drawable.ic_chevron_right_24dp);
+                holder.setStateIcoImageView(R.drawable.ic_check_black_24dp);
                 holder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
