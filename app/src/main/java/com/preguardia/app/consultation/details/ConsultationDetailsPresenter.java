@@ -27,7 +27,7 @@ import java.util.Map;
 public class ConsultationDetailsPresenter implements ConsultationDetailsContract.Presenter {
 
     @NonNull
-    private final ConsultationDetailsContract.View detailsView;
+    private final ConsultationDetailsContract.View view;
     @NonNull
     private final Firebase consultationRef;
     @NonNull
@@ -51,7 +51,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                         @NonNull ConsultationDetailsContract.View view,
                                         @NonNull String consultationId) {
         this.appPreferences = appPreferences;
-        this.detailsView = view;
+        this.view = view;
         this.consultationId = consultationId;
 
         this.messagesRef = firebase.child(Constants.FIREBASE_MESSAGES).child(this.consultationId);
@@ -72,12 +72,21 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                 patientId = patient.getId();
                 medicId = medic.getId();
 
-                if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-                    detailsView.showUserName(patient.getName());
-                    detailsView.showUserDesc(patient.getMedical());
-                } else {
-                    detailsView.showUserName(medic.getName());
-                    detailsView.showUserDesc(medic.getPlate());
+                if (currentUserType != null) {
+                    // Handle each type of User
+                    switch (currentUserType) {
+                        case Constants.FIREBASE_USER_TYPE_MEDIC:
+                            ConsultationDetailsPresenter.this.view.showUserName(patient.getName());
+                            ConsultationDetailsPresenter.this.view.showUserDesc(patient.getMedical());
+
+                            break;
+
+                        case Constants.FIREBASE_USER_TYPE_PATIENT:
+                            ConsultationDetailsPresenter.this.view.showUserName(medic.getName());
+                            ConsultationDetailsPresenter.this.view.showUserDesc(medic.getPlate());
+
+                            break;
+                    }
                 }
             }
 
@@ -97,8 +106,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             messagesRef.push().setValue(genericMessage);
 
             // Clear input view and hide keyboard
-            detailsView.clearInput();
-            detailsView.toggleKeyboard();
+            view.clearInput();
+            view.toggleKeyboard();
 
             // Create Task with data
             Map<String, String> task = new HashMap<>();
@@ -144,7 +153,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             Logger.d("Load Consultation Messages - ID: " + consultationId);
         }
 
-        detailsView.configureAdapter(currentUserType);
+        view.configureAdapter(currentUserType);
 
         // Handle new messages from Firebase
         messagesListener = messagesRef.addChildEventListener(new ChildEventListener() {
@@ -155,8 +164,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                 final GenericMessage model = snapshot.getValue(GenericMessage.class);
 
                 // Add item to Messages list
-                detailsView.addItem(model);
-                //detailsView.hideLoading();
+                view.addItem(model);
+                //view.hideLoading();
 
                 if (BuildConfig.DEBUG) {
                     Logger.d("New message received: " + snapshot.getValue().toString());

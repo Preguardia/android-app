@@ -66,14 +66,14 @@ public class MyGcmListenerService extends GcmListenerService {
             case "/topics/medic":
 
                 // message received from some topic.
-                sendMedicNotification(title, message, consultationId);
+                showMedicNotification(title, message, consultationId);
 
                 break;
 
             case "/topics/patient":
 
                 // normal downstream message.
-                sendPatientNotification(title, message, consultationId);
+                showPatientNotification(title, message, consultationId);
 
                 break;
 
@@ -84,7 +84,13 @@ public class MyGcmListenerService extends GcmListenerService {
                     switch (type) {
                         case Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW:
 
-                            sendNewMessageNotification(title, message, consultationId);
+                            showMessageNewNotification(title, message, consultationId);
+
+                            break;
+
+                        case Constants.FIREBASE_TASK_TYPE_CONSULTATION_APPROVED:
+
+                            showConsultationApprovedNotification(title, message, consultationId);
 
                             break;
                     }
@@ -106,7 +112,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -118,7 +124,7 @@ public class MyGcmListenerService extends GcmListenerService {
         notificationManager.notify(4, notificationBuilder.build());
     }
 
-    private void sendNewMessageNotification(String title, String message, String consultationId) {
+    private void showMessageNewNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ConsultationDetailsActivity.class);
 
@@ -130,7 +136,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -142,7 +148,7 @@ public class MyGcmListenerService extends GcmListenerService {
         notificationManager.notify(1, notificationBuilder.build());
     }
 
-    private void sendMedicNotification(String title, String message, String consultationId) {
+    private void showMedicNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ApproveConsultationActivity.class);
 
@@ -154,7 +160,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -166,7 +172,7 @@ public class MyGcmListenerService extends GcmListenerService {
         notificationManager.notify(2, notificationBuilder.build());
     }
 
-    private void sendPatientNotification(String title, String message, String consultationId) {
+    private void showPatientNotification(String title, String message, String consultationId) {
         // Prepare intent which is triggered if the notification is selected
         Intent intent = new Intent(this, ConsultationDetailsActivity.class);
 
@@ -178,7 +184,7 @@ public class MyGcmListenerService extends GcmListenerService {
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_logo)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)

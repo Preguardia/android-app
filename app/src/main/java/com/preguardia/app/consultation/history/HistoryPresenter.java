@@ -23,11 +23,9 @@ import java.util.Map;
 public class HistoryPresenter implements HistoryContract.Presenter {
 
     @NonNull
-    private final HistoryContract.View historyView;
+    private final HistoryContract.View view;
     @NonNull
     private final Firebase consultationsRef;
-    @NonNull
-    private final TrayAppPreferences appPreferences;
 
     private final String currentUserId;
     private final String currentUserType;
@@ -37,26 +35,33 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                             @NonNull TrayAppPreferences appPreferences,
                             @NonNull HistoryContract.View view) {
         this.consultationsRef = firebase;
-        this.appPreferences = appPreferences;
-        this.historyView = view;
+        this.view = view;
 
         // Request User Profile
         this.currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
+
+        this.view.configAdapter(currentUserType);
     }
 
     @Override
     public void loadItems() {
-        historyView.showLoading();
+        view.showLoading();
 
-        String orderBy;
+        String orderBy = null;
 
-        historyView.configAdapter(currentUserType);
+        switch (currentUserType) {
+            case Constants.FIREBASE_USER_TYPE_MEDIC:
 
-        if (currentUserType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-            orderBy = Constants.FIREBASE_USER_MEDIC_ID;
-        } else {
-            orderBy = Constants.FIREBASE_USER_PATIENT_ID;
+                orderBy = Constants.FIREBASE_USER_MEDIC_ID;
+
+                break;
+
+            case Constants.FIREBASE_USER_TYPE_PATIENT:
+
+                orderBy = Constants.FIREBASE_USER_PATIENT_ID;
+
+                break;
         }
 
         // Show Consultations for current user
@@ -87,17 +92,17 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                                 items.add(consultation);
                             }
 
-                            historyView.showItemList(items);
-                            historyView.hideEmpty();
-                            historyView.showResults();
+                            view.showItemList(items);
+                            view.hideEmpty();
+                            view.showResults();
                         } else {
                             Logger.d("Consultations no results");
 
-                            historyView.hideResults();
-                            historyView.showEmpty();
+                            view.hideResults();
+                            view.showEmpty();
                         }
 
-                        historyView.hideLoading();
+                        view.hideLoading();
                     }
 
                     @Override

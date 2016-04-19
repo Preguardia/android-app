@@ -134,7 +134,7 @@ public class CreateConsultationPresenter implements CreateConsultationContract.P
                 } else {
                     // Create Task with data
                     Map<String, String> task = new HashMap<>();
-                    task.put("type", "new-consultation");
+                    task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_NEW);
                     task.put("content", "Consulta enviada por " + currentUserName);
                     task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
 
