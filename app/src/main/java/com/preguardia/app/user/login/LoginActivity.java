@@ -47,7 +47,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         progressDialog = progressBuilder.build();
 
-        presenter = new LoginPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
+        presenter = new LoginPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this));
+        presenter.attachView(this);
     }
 
     @SuppressWarnings("unused")

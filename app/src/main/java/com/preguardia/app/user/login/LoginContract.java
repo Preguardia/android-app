@@ -25,5 +25,7 @@ public interface LoginContract {
         void loginUser(String email, String password);
 
         void registerUser();
+
+        void attachView(LoginContract.View view);
     }
 }

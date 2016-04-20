@@ -1,8 +1,5 @@
 package com.preguardia.app.data.model;
 
-import com.preguardia.app.user.model.Medic;
-import com.preguardia.app.user.model.Patient;
-
 /**
  * @author amouly on 3/1/16.
  */

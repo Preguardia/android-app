@@ -8,8 +8,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.data.model.User;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.User;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 

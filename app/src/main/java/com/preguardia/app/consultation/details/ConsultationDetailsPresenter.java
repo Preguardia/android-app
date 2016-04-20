@@ -11,9 +11,9 @@ import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.data.model.GenericMessage;
+import com.preguardia.app.data.model.Medic;
+import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.Medic;
-import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -232,8 +232,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                 }
             }
         });
-
-
     }
 
     @Override

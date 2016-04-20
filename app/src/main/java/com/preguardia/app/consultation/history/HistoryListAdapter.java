@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 import com.preguardia.app.R;
 import com.preguardia.app.data.model.Consultation;
+import com.preguardia.app.data.model.Medic;
+import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.Medic;
-import com.preguardia.app.user.model.Patient;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;

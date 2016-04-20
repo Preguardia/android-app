@@ -9,8 +9,8 @@ import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
 import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.data.model.Details;
+import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 

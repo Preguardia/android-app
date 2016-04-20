@@ -1,4 +1,4 @@
-package com.preguardia.app.user.model;
+package com.preguardia.app.data.model;
 
 /**
  * @author amouly on 3/26/16.
