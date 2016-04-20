@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
+import com.preguardia.app.MedicApp;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.consultation.model.Consultation;
@@ -24,6 +25,8 @@ import net.grandcentrix.tray.TrayAppPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,9 +43,18 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     RelativeLayout emptyView;
     @Bind(R.id.consultation_history_results)
     LinearLayout resultsView;
-
+    @Inject
+    HistoryPresenter presenter;
+    /**
+     * Listener for clicks on notes in the RecyclerView.
+     */
+    HistoryContract.ConsultationItemListener mItemListener = new HistoryContract.ConsultationItemListener() {
+        @Override
+        public void onConsultationClick(@Nullable String consultationId) {
+            openDetails(consultationId);
+        }
+    };
     private HistoryListAdapter mAdapter;
-    private HistoryContract.Presenter presenter;
     private MaterialDialog progressDialog;
 
     public static HistoryFragment newInstance() {
@@ -55,6 +67,13 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
         ButterKnife.bind(this, view);
 
+        this.initDependencyInjector();
+        this.setupView();
+
+        return view;
+    }
+
+    private void setupView() {
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
                 .title(R.string.drawer_consultation_history)
@@ -72,8 +91,15 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
+    }
 
-        return view;
+    private void initDependencyInjector() {
+        MedicApp application = (MedicApp) getActivity().getApplication();
+        DaggerHistoryComponent.builder()
+                .applicationComponent(application.component())
+                .historyModule(new HistoryModule(getContext()))
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -151,14 +177,4 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     public void hideResults() {
         resultsView.setVisibility(View.GONE);
     }
-
-    /**
-     * Listener for clicks on notes in the RecyclerView.
-     */
-    HistoryContract.ConsultationItemListener mItemListener = new HistoryContract.ConsultationItemListener() {
-        @Override
-        public void onConsultationClick(@Nullable String consultationId) {
-            openDetails(consultationId);
-        }
-    };
 }

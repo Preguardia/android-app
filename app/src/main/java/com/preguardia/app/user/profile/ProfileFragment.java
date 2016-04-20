@@ -30,9 +30,7 @@ public class ProfileFragment extends Fragment {
     private TrayAppPreferences appPreferences;
 
     public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-
-        return fragment;
+        return new ProfileFragment();
     }
 
     @Override

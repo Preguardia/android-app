@@ -17,19 +17,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * @author amouly on 3/10/16.
  */
 public class HistoryPresenter implements HistoryContract.Presenter {
 
     @NonNull
-    private final HistoryContract.View view;
+    private HistoryContract.View view;
     @NonNull
-    private final Firebase consultationsRef;
+    private Firebase consultationsRef;
 
-    private final String currentUserId;
-    private final String currentUserType;
+    private String currentUserId;
+    private String currentUserType;
     private ValueEventListener consultationsListener;
+
+    @Inject
+    public HistoryPresenter(GetConsultationsUseCase getConsultationsUseCase) {
+    }
 
     public HistoryPresenter(@NonNull Firebase firebase,
                             @NonNull TrayAppPreferences appPreferences,
