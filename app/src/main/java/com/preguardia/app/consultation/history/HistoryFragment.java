@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.preguardia.app.MedicApp;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 

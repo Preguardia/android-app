@@ -1,6 +1,6 @@
 package com.preguardia.app.consultation.details;
 
-import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.data.model.GenericMessage;
 
 import java.io.IOException;
 

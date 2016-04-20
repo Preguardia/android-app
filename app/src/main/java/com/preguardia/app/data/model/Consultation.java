@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.model;
+package com.preguardia.app.data.model;
 
 import com.preguardia.app.user.model.Medic;
 import com.preguardia.app.user.model.Patient;

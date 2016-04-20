@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.view.MessageLeftViewHolder;
 import com.preguardia.app.consultation.details.view.MessageRightViewHolder;
-import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
 import java.util.List;

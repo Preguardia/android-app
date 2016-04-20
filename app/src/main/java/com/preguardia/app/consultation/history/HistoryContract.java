@@ -2,7 +2,7 @@ package com.preguardia.app.consultation.history;
 
 import android.support.annotation.Nullable;
 
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
 
 import java.util.List;
 

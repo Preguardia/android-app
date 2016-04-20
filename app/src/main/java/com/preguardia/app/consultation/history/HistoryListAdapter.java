@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Medic;
 import com.preguardia.app.user.model.Patient;

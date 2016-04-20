@@ -7,8 +7,8 @@ import com.firebase.client.FirebaseError;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
-import com.preguardia.app.consultation.model.Details;
+import com.preguardia.app.data.model.Consultation;
+import com.preguardia.app.data.model.Details;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.model.Patient;
 

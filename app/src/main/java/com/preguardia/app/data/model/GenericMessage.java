@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.model;
+package com.preguardia.app.data.model;
 
 /**
  * @author amouly on 2/29/16.
@@ -23,12 +23,12 @@ public class GenericMessage {
         return type;
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public void setContent(String content) {

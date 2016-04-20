@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.model;
+package com.preguardia.app.data.model;
 
 import android.support.annotation.Nullable;
 

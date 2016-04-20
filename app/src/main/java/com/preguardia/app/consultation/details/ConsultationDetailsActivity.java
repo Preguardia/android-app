@@ -17,7 +17,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;

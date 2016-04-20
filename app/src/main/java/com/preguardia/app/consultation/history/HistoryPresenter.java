@@ -7,7 +7,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.general.Constants;
 
 import net.grandcentrix.tray.TrayAppPreferences;
