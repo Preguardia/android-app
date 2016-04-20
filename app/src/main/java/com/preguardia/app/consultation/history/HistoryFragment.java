@@ -13,15 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.firebase.client.Firebase;
 import com.preguardia.app.MedicApp;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.details.ConsultationDetailsActivity;
 import com.preguardia.app.consultation.model.Consultation;
 import com.preguardia.app.general.Constants;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
-
-import net.grandcentrix.tray.TrayAppPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +70,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     }
 
     private void setupView() {
+        presenter.attachView(this);
+
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(getActivity())
                 .title(R.string.drawer_consultation_history)
@@ -82,9 +80,6 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
                 .progress(true, 0);
 
         progressDialog = progressBuilder.build();
-
-        presenter = new HistoryPresenter(new Firebase(Constants.FIREBASE_URL_CONSULTATIONS),
-                new TrayAppPreferences(getContext()), this);
 
         // Config Recycler view
         recyclerView.setHasFixedSize(true);

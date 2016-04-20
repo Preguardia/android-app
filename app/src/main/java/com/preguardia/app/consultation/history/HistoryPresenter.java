@@ -3,7 +3,6 @@ package com.preguardia.app.consultation.history;
 import android.support.annotation.NonNull;
 
 import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
@@ -25,34 +24,28 @@ import javax.inject.Inject;
 public class HistoryPresenter implements HistoryContract.Presenter {
 
     @NonNull
-    private HistoryContract.View view;
-    @NonNull
-    private Firebase consultationsRef;
+    private GetConsultationsUseCase getConsultationsUseCase;
 
+    private HistoryContract.View view;
     private String currentUserId;
     private String currentUserType;
     private ValueEventListener consultationsListener;
 
     @Inject
-    public HistoryPresenter(GetConsultationsUseCase getConsultationsUseCase) {
-    }
-
-    public HistoryPresenter(@NonNull Firebase firebase,
-                            @NonNull TrayAppPreferences appPreferences,
-                            @NonNull HistoryContract.View view) {
-        this.consultationsRef = firebase;
-        this.view = view;
+    public HistoryPresenter(@NonNull GetConsultationsUseCase getConsultationsUseCase,
+                            @NonNull TrayAppPreferences appPreferences) {
+        this.getConsultationsUseCase = getConsultationsUseCase;
 
         // Request User Profile
         this.currentUserId = appPreferences.getString(Constants.PREFERENCES_USER_UID, null);
         this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
-
-        this.view.configAdapter(currentUserType);
     }
 
     @Override
     public void loadItems() {
         view.showLoading();
+
+        this.view.configAdapter(currentUserType);
 
         String orderBy = null;
 
@@ -70,55 +63,57 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                 break;
         }
 
-        // Show Consultations for current user
-        consultationsListener = consultationsRef
-                .orderByChild(orderBy)
-                .equalTo(currentUserId)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        GenericTypeIndicator<Map<String, Consultation>> mapType = new GenericTypeIndicator<Map<String, Consultation>>() {
-                        };
+        consultationsListener = getConsultationsUseCase.execute(orderBy, currentUserId, new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                GenericTypeIndicator<Map<String, Consultation>> mapType = new GenericTypeIndicator<Map<String, Consultation>>() {
+                };
 
-                        Map<String, Consultation> consultations = snapshot.getValue(mapType);
+                Map<String, Consultation> consultations = snapshot.getValue(mapType);
 
-                        // Check empty list
-                        if (consultations != null) {
-                            Logger.d("Consultations loaded - Size: " + consultations.size());
+                // Check empty list
+                if (consultations != null) {
+                    Logger.d("Consultations loaded - Size: " + consultations.size());
 
-                            List<Consultation> items = new ArrayList<>();
+                    List<Consultation> items = new ArrayList<>();
 
-                            for (String key : consultations.keySet()) {
-                                Consultation consultation = consultations.get(key);
+                    for (String key : consultations.keySet()) {
+                        Consultation consultation = consultations.get(key);
 
-                                // Set ID based on key
-                                consultation.setId(key);
+                        // Set ID based on key
+                        consultation.setId(key);
 
-                                // Show item on list
-                                items.add(consultation);
-                            }
-
-                            view.showItemList(items);
-                            view.hideEmpty();
-                            view.showResults();
-                        } else {
-                            Logger.d("Consultations no results");
-
-                            view.hideResults();
-                            view.showEmpty();
-                        }
-
-                        view.hideLoading();
+                        // Show item on list
+                        items.add(consultation);
                     }
 
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-                    }
-                });
+                    view.showItemList(items);
+                    view.hideEmpty();
+                    view.showResults();
+                } else {
+                    Logger.d("Consultations no results");
+
+                    view.hideResults();
+                    view.showEmpty();
+                }
+
+                view.hideLoading();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
     }
 
     @Override
     public void stopListener() {
-        consultationsRef.removeEventListener(consultationsListener);
+        // Stop listener for Consultation changes
+        getConsultationsUseCase.stop(consultationsListener);
+    }
+
+    @Override
+    public void attachView(HistoryContract.View view) {
+        this.view = view;
     }
 }

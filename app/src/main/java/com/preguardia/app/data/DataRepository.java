@@ -23,4 +23,9 @@ public class DataRepository implements Repository {
                 .equalTo(equalTo)
                 .addValueEventListener(valueEventListener);
     }
+
+    @Override
+    public void removeEventListener(ValueEventListener eventListener) {
+        firebaseRef.removeEventListener(eventListener);
+    }
 }

@@ -38,6 +38,8 @@ public interface HistoryContract {
         void loadItems();
 
         void stopListener();
+
+        void attachView(HistoryContract.View view);
     }
 
     interface ConsultationItemListener {

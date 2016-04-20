@@ -9,5 +9,5 @@ public interface Repository {
 
     ValueEventListener getConsultations(String orderBy, String equalTo, ValueEventListener valueEventListener);
 
-
+    void removeEventListener(ValueEventListener eventListener);
 }
