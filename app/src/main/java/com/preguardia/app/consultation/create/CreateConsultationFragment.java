@@ -33,6 +33,12 @@ public class CreateConsultationFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.consultation_create_undefined)
+    public void onUndefinedClick() {
+        openStepsActivity(Constants.FIREBASE_CONSULTATION_CATEGORY_UNDEFINED);
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.consultation_create_clinics)
     public void onClinicsClick() {
         openStepsActivity(Constants.FIREBASE_CONSULTATION_CATEGORY_CLINICS);

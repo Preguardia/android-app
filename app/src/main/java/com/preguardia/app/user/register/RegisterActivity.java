@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     TextInputLayout emailInputView;
     @Bind(R.id.user_register_password)
     TextInputLayout passwordInputView;
+    @Bind(R.id.user_register_password2)
+    TextInputLayout password2InputView;
     @Bind(R.id.user_register_date)
     TextInputLayout dateInputView;
     @Bind(R.id.user_register_medical)
@@ -76,7 +79,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Init the Presenter
         presenter = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
@@ -131,6 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String name = nameInputView.getEditText().getText().toString();
         String email = emailInputView.getEditText().getText().toString();
         String password = passwordInputView.getEditText().getText().toString();
+        String password2 = password2InputView.getEditText().getText().toString();
         String birthDate = dateInputView.getEditText().getText().toString();
         String medical = medicalInputView.getEditText().getText().toString();
         String plate = plateInputView.getEditText().getText().toString();
@@ -144,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         this.toggleKeyboard();
 
-        presenter.registerUser(type, name, email, password, birthDate, medical, plate, phone);
+        presenter.registerUser(type, name, email, password, password2, birthDate, medical, plate, phone);
     }
 
     @Override
@@ -164,8 +171,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void showError() {
-        Snackbar.make(toolbar, getString(R.string.user_register_incomplete_fields), Snackbar.LENGTH_LONG)
+    public void showError(@StringRes int stringRes) {
+        Snackbar.make(toolbar, stringRes, Snackbar.LENGTH_LONG)
                 .show();
     }
 

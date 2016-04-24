@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:elevation="3dp"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:weightSum="2">
 
                 <Button
@@ -153,6 +154,34 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif"
                             android:hint="@string/user_register_password"
+                            android:inputType="textPassword"
+                            android:textSize="16sp" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/UserRegisterContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        style="@style/UserRegisterIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/user_register_password"
+                        android:tint="@color/user_register_icon"
+                        app:srcCompat="@drawable/ic_lock_24dp" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/user_register_password2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:hint="@string/user_register_password2"
                             android:inputType="textPassword"
                             android:textSize="16sp" />
                     </android.support.design.widget.TextInputLayout>

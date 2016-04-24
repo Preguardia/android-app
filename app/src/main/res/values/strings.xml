@@ -235,5 +235,8 @@
     <string name="consultation_history_name_pending">Pendiente de aprobación</string>
     <string name="consultation_details_close_input_hint">La consulta fue cerrada</string>
     <string name="consultation_details_message_send">Enviar mensaje</string>
+    <string name="user_register_password2">Repeat password</string>
+    <string name="user_register_password_not_match">Password does not match</string>
+    <string name="user_register_service_error">Service error</string>
 
 </resources>

@@ -18,6 +18,7 @@
         app:cardUseCompatPadding="false">
 
         <RelativeLayout
+            android:id="@+id/consultation_create_undefined"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

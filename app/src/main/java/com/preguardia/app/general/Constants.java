@@ -49,6 +49,7 @@ public class Constants {
     public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";
 
     public static final String FIREBASE_CONSULTATION_CATEGORY = "category";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_UNDEFINED = "Indefinido";
     public static final String FIREBASE_CONSULTATION_CATEGORY_CLINICS = "Clínica";
     public static final String FIREBASE_CONSULTATION_CATEGORY_PEDIATRICS = "Pediatría y recién nacidos";
     public static final String FIREBASE_CONSULTATION_CATEGORY_DERMATOLOGY = "Dermatología";
