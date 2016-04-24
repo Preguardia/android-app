@@ -6,6 +6,9 @@ import com.firebase.client.ValueEventListener;
 import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author amouly on 3/7/16.
  */
@@ -14,11 +17,13 @@ public class DataRepository implements Repository {
     private final Firebase firebaseRef;
     private final Firebase consultationsRef;
     private final Firebase messagesRef;
+    private final Firebase queueRef;
 
     public DataRepository(Firebase firebaseRef) {
         this.firebaseRef = firebaseRef;
         this.consultationsRef = firebaseRef.child(Constants.FIREBASE_CONSULTATIONS);
         this.messagesRef = firebaseRef.child(Constants.FIREBASE_MESSAGES);
+        this.queueRef = firebaseRef.child(Constants.FIREBASE_QUEUE);
     }
 
     @Override
@@ -59,5 +64,19 @@ public class DataRepository implements Repository {
                 .child(consultationId)
                 .push()
                 .setValue(genericMessage);
+    }
+
+    @Override
+    public void createNewMessageTask(String consultationId, String userId, String content) {
+        // Create Task with data
+        Map<String, String> task = new HashMap<>();
+        task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW);
+        task.put(Constants.FIREBASE_TASK_CONTENT, content);
+        task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+        task.put(Constants.FIREBASE_USER_ID, userId);
+
+        // Push task to be processed
+        queueRef.child(Constants.FIREBASE_TASKS)
+                .push().setValue(task);
     }
 }

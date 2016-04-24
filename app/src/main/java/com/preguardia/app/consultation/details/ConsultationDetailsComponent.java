@@ -17,4 +17,8 @@ public interface ConsultationDetailsComponent {
     GetConsultationByIdUseCase getConsultationByIdUseCase();
 
     GetMessagesByIdUseCase getMessagesByIdUseCase();
+
+    SendMessageUseCase sendMessageUseCase();
+
+    CreateNewMessageTaskUseCase createNewMessageTaskUseCase();
 }

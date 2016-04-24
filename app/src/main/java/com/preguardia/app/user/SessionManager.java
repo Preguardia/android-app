@@ -38,6 +38,14 @@ public class SessionManager {
         appPreferences.put(Constants.PREFERENCES_USER_TOKEN, userToken);
     }
 
+    public String getUserName() {
+        return appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
+    }
+
+    public void setUserName(String userName) {
+        appPreferences.put(Constants.PREFERENCES_USER_NAME, userName);
+    }
+
     public String getUserType() {
         return appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
     }

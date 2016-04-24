@@ -14,7 +14,7 @@ public class SendMessageUseCase {
         this.repository = repository;
     }
 
-    public void sendMessage(String consultationId, GenericMessage genericMessage) {
+    public void execute(String consultationId, GenericMessage genericMessage) {
         repository.sendMessage(consultationId, genericMessage);
     }
 }

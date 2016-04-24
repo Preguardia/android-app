@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
@@ -14,8 +13,7 @@ import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.data.model.Medic;
 import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-
-import net.grandcentrix.tray.TrayAppPreferences;
+import com.preguardia.app.user.SessionManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,16 +33,16 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     @NonNull
     private final SendMessageUseCase sendMessageUseCase;
     @NonNull
-    private final TrayAppPreferences appPreferences;
+    private final CreateNewMessageTaskUseCase createNewMessageTaskUseCase;
+    @NonNull
+    private final SessionManager sessionManager;
     private final String currentUserName;
     private final String currentUserType;
     private ConsultationDetailsContract.View view;
-    @NonNull
-    private Firebase tasksRef;
-    private String consultationId;
     private ChildEventListener messagesListener;
     private ValueEventListener consultationListener;
 
+    private String consultationId;
     private String medicId;
     private String patientId;
 
@@ -52,17 +50,16 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     public ConsultationDetailsPresenter(@NonNull GetConsultationByIdUseCase getConsultationByIdUseCase,
                                         @NonNull GetMessagesByIdUseCase getMessagesByIdUseCase,
                                         @NonNull SendMessageUseCase sendMessageUseCase,
-                                        @NonNull TrayAppPreferences appPreferences) {
+                                        @NonNull CreateNewMessageTaskUseCase createNewMessageTaskUseCase,
+                                        @NonNull SessionManager sessionManager) {
         this.getConsultationByIdUseCase = getConsultationByIdUseCase;
         this.getMessagesByIdUseCase = getMessagesByIdUseCase;
         this.sendMessageUseCase = sendMessageUseCase;
+        this.createNewMessageTaskUseCase = createNewMessageTaskUseCase;
+        this.sessionManager = sessionManager;
 
-        this.appPreferences = appPreferences;
-
-        //this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
-
-        this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
-        this.currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
+        this.currentUserType = sessionManager.getUserType();
+        this.currentUserName = sessionManager.getUserName();
     }
 
     @Override
@@ -87,29 +84,53 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                 medicId = medic.getId();
 
                 // Handle each type of User
-                if (currentUserType != null) {
-                    switch (currentUserType) {
-                        case Constants.FIREBASE_USER_TYPE_MEDIC:
-                            // Show specific for Medic
-                            view.showUserName(patient.getName());
-                            view.showUserDesc(patient.getMedical());
-                            view.showMedicActions();
+                switch (currentUserType) {
+                    case Constants.FIREBASE_USER_TYPE_MEDIC:
+                        // Show specific for Medic
+                        view.showUserName(patient.getName());
+                        view.showUserDesc(patient.getMedical());
 
-                            break;
+                        switch (consultation.getStatus()) {
+                            case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
 
-                        case Constants.FIREBASE_USER_TYPE_PATIENT:
-                            // Show specific for Patient
-                            view.showUserName(medic.getName());
-                            view.showUserDesc(medic.getPlate());
-                            view.showPatientActions();
+                                view.invalidateMessageInput();
+                                view.invalidateActions();
 
-                            break;
-                    }
-                }
+                                break;
 
-                if (consultation.getStatus().equals(Constants.FIREBASE_CONSULTATION_STATUS_CLOSED)) {
-                    view.invalidateMessageInput();
-                    view.invalidateActions();
+                            case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
+                                view.showMedicActions();
+
+                                break;
+                        }
+
+                        break;
+
+                    case Constants.FIREBASE_USER_TYPE_PATIENT:
+                        // Show specific for Patient
+                        view.showUserName(medic.getName());
+                        view.showUserDesc(medic.getPlate());
+
+                        switch (consultation.getStatus()) {
+                            case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
+
+                                view.invalidateMessageInput();
+                                view.invalidateActions();
+
+                                break;
+
+                            case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
+                                view.showPatientActions();
+
+                                break;
+                        }
+
+                        break;
+
+                    default:
+                        Logger.e("UserType is not set");
+
+                        break;
                 }
 
                 view.hideLoading();
@@ -128,37 +149,28 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             GenericMessage genericMessage = new GenericMessage(message, "text", currentUserType);
 
             // Push message to Firebase with generated ID
-            sendMessageUseCase.sendMessage(consultationId, genericMessage);
+            sendMessageUseCase.execute(consultationId, genericMessage);
 
             // Clear input view
             view.clearInput();
-
-            // Create Task with data
-            Map<String, String> task = new HashMap<>();
-            task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_MESSAGE_NEW);
-            task.put(Constants.FIREBASE_TASK_CONTENT, "Mensaje enviado por: " + currentUserName);
-            task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
 
             // Handle each type of User
             switch (currentUserType) {
                 case Constants.FIREBASE_USER_TYPE_MEDIC:
                     // Send notification to Patient
-                    task.put(Constants.FIREBASE_USER_ID, patientId);
+                    createNewMessageTaskUseCase.execute(consultationId, patientId, "Mensaje enviado por: " + currentUserName);
 
                     break;
 
                 case Constants.FIREBASE_USER_TYPE_PATIENT:
                     // Send notification to Medic
-                    task.put(Constants.FIREBASE_USER_ID, medicId);
+                    createNewMessageTaskUseCase.execute(consultationId, medicId, "Mensaje enviado por: " + currentUserName);
 
                     break;
             }
 
-            // Push task to be processed
-            tasksRef.push().setValue(task);
-
             if (BuildConfig.DEBUG) {
-                Logger.d("New Consultation data saved successfully.");
+                Logger.d("New Message sent successfully");
             }
         }
     }

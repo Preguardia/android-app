@@ -31,4 +31,16 @@ public class ConsultationDetailsModule {
     GetMessagesByIdUseCase provideGetMessagesByIdUseCase(Repository repository) {
         return new GetMessagesByIdUseCase(repository);
     }
+
+    @Provides
+    @ActivityScope
+    SendMessageUseCase provideSendMessageUseCase(Repository repository) {
+        return new SendMessageUseCase(repository);
+    }
+
+    @Provides
+    @ActivityScope
+    CreateNewMessageTaskUseCase provideCreateNewMessageTaskUseCase(Repository repository) {
+        return new CreateNewMessageTaskUseCase(repository);
+    }
 }

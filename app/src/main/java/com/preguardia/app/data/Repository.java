@@ -20,4 +20,6 @@ public interface Repository {
     void removeMessagesChildListener(ChildEventListener childEventListener);
 
     void sendMessage(String consultationId, GenericMessage genericMessage);
+
+    void createNewMessageTask(String consultationId, String userId, String content);
 }
