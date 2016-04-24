@@ -60,8 +60,9 @@
                 style="@style/UserRegisterIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_person_24dp"
-                android:tint="@color/user_register_icon" />
+                android:contentDescription="@string/user_login_email"
+                android:tint="@color/user_register_icon"
+                app:srcCompat="@drawable/ic_person_24dp" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/user_login_email"
@@ -89,8 +90,9 @@
                 style="@style/UserRegisterIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_lock_24dp"
-                android:tint="@color/user_register_icon" />
+                android:contentDescription="@string/user_login_password"
+                android:tint="@color/user_register_icon"
+                app:srcCompat="@drawable/ic_lock_24dp" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/user_login_password"
