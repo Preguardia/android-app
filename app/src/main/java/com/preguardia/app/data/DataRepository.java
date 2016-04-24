@@ -35,10 +35,20 @@ public class DataRepository implements Repository {
     }
 
     @Override
-    public ValueEventListener getConsultationById(String id, ValueEventListener valueEventListener) {
+    public ValueEventListener getConsultationById(String consultationId, ValueEventListener valueEventListener) {
         return consultationsRef
-                .child(id)
+                .child(consultationId)
                 .addValueEventListener(valueEventListener);
+    }
+
+    @Override
+    public void closeConsultationById(String consultationId, Firebase.CompletionListener completionListener) {
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_CLOSED);
+
+        consultationsRef
+                .child(consultationId)
+                .updateChildren(attributes, completionListener);
     }
 
     @Override
@@ -77,6 +87,22 @@ public class DataRepository implements Repository {
 
         // Push task to be processed
         queueRef.child(Constants.FIREBASE_TASKS)
-                .push().setValue(task);
+                .push()
+                .setValue(task);
+    }
+
+    @Override
+    public void createConsultationClosedTask(String consultationId, String medicId, String patientId) {
+        // Create Task with data
+        Map<String, String> task = new HashMap<>();
+        task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED);
+        task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+        task.put(Constants.FIREBASE_MEDIC_ID, medicId);
+        task.put(Constants.FIREBASE_PATIENT_ID, patientId);
+
+        // Push task to be processed
+        queueRef.child(Constants.FIREBASE_TASKS)
+                .push()
+                .setValue(task);
     }
 }

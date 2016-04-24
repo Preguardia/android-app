@@ -1,4 +1,4 @@
-package com.preguardia.app.consultation.details;
+package com.preguardia.app.consultation.details.domain;
 
 import com.preguardia.app.data.Repository;
 

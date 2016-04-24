@@ -4,10 +4,17 @@ import android.support.annotation.NonNull;
 
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.consultation.details.domain.CloseConsultationUseCase;
+import com.preguardia.app.consultation.details.domain.CreateConsultationClosedTaskUseCase;
+import com.preguardia.app.consultation.details.domain.CreateNewMessageTaskUseCase;
+import com.preguardia.app.consultation.details.domain.GetConsultationByIdUseCase;
+import com.preguardia.app.consultation.details.domain.GetMessagesByIdUseCase;
+import com.preguardia.app.consultation.details.domain.SendMessageUseCase;
 import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.data.model.Medic;
@@ -16,8 +23,6 @@ import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.SessionManager;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,6 +40,10 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     @NonNull
     private final CreateNewMessageTaskUseCase createNewMessageTaskUseCase;
     @NonNull
+    private final CloseConsultationUseCase closeConsultationUseCase;
+    @NonNull
+    private final CreateConsultationClosedTaskUseCase createConsultationClosedTaskUseCase;
+    @NonNull
     private final SessionManager sessionManager;
     private final String currentUserName;
     private final String currentUserType;
@@ -51,11 +60,15 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                         @NonNull GetMessagesByIdUseCase getMessagesByIdUseCase,
                                         @NonNull SendMessageUseCase sendMessageUseCase,
                                         @NonNull CreateNewMessageTaskUseCase createNewMessageTaskUseCase,
+                                        @NonNull CloseConsultationUseCase closeConsultationUseCase,
+                                        @NonNull CreateConsultationClosedTaskUseCase createConsultationClosedTaskUseCase,
                                         @NonNull SessionManager sessionManager) {
         this.getConsultationByIdUseCase = getConsultationByIdUseCase;
         this.getMessagesByIdUseCase = getMessagesByIdUseCase;
         this.sendMessageUseCase = sendMessageUseCase;
         this.createNewMessageTaskUseCase = createNewMessageTaskUseCase;
+        this.closeConsultationUseCase = closeConsultationUseCase;
+        this.createConsultationClosedTaskUseCase = createConsultationClosedTaskUseCase;
         this.sessionManager = sessionManager;
 
         this.currentUserType = sessionManager.getUserType();
@@ -226,31 +239,24 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     public void closeConsultation() {
         view.showLoading();
 
-        Map<String, Object> attributes = new HashMap<>();
-        attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_CLOSED);
+        this.stopConsultationListener();
 
         // Update Consultation status
-//        consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
-//            @Override
-//            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-//                // Create Task with data
-//                Map<String, String> task = new HashMap<>();
-//                task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED);
-//                task.put(Constants.FIREBASE_PATIENT_ID, patientId);
-//                task.put(Constants.FIREBASE_MEDIC_ID, medicId);
-//                task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
-//
-//                // Push task to be processed
-//                tasksRef.push().setValue(task);
-//
-//                view.hideLoading();
-//                view.onClose();
-//
-//                if (BuildConfig.DEBUG) {
-//                    Logger.d("Consultation Closed data saved successfully.");
-//                }
-//            }
-//        });
+        closeConsultationUseCase.execute(consultationId, new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                // Create Task
+                createConsultationClosedTaskUseCase.execute(consultationId, medicId, patientId);
+
+                // Update View
+                view.hideLoading();
+                view.onClose();
+
+                if (BuildConfig.DEBUG) {
+                    Logger.d("Consultation Closed data saved successfully.");
+                }
+            }
+        });
     }
 
     @Override

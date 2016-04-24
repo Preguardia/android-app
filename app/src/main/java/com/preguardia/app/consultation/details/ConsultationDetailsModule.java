@@ -2,6 +2,12 @@ package com.preguardia.app.consultation.details;
 
 import android.content.Context;
 
+import com.preguardia.app.consultation.details.domain.CloseConsultationUseCase;
+import com.preguardia.app.consultation.details.domain.CreateConsultationClosedTaskUseCase;
+import com.preguardia.app.consultation.details.domain.CreateNewMessageTaskUseCase;
+import com.preguardia.app.consultation.details.domain.GetConsultationByIdUseCase;
+import com.preguardia.app.consultation.details.domain.GetMessagesByIdUseCase;
+import com.preguardia.app.consultation.details.domain.SendMessageUseCase;
 import com.preguardia.app.data.Repository;
 import com.preguardia.app.injection.ActivityScope;
 
@@ -42,5 +48,17 @@ public class ConsultationDetailsModule {
     @ActivityScope
     CreateNewMessageTaskUseCase provideCreateNewMessageTaskUseCase(Repository repository) {
         return new CreateNewMessageTaskUseCase(repository);
+    }
+
+    @Provides
+    @ActivityScope
+    CloseConsultationUseCase provideCloseConsultationUseCase(Repository repository) {
+        return new CloseConsultationUseCase(repository);
+    }
+
+    @Provides
+    @ActivityScope
+    CreateConsultationClosedTaskUseCase provideCreateConsultationClosedTaskUseCase(Repository repository) {
+        return new CreateConsultationClosedTaskUseCase(repository);
     }
 }
