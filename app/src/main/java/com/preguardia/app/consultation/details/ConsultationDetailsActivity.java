@@ -11,18 +11,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.firebase.client.Firebase;
+import com.preguardia.app.MedicApp;
 import com.preguardia.app.R;
 import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
-import net.grandcentrix.tray.TrayAppPreferences;
-
 import java.util.ArrayList;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,15 +41,14 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     RecyclerView recyclerView;
     @Bind(R.id.consultation_details_bottom_input)
     TextView inputView;
+    @Bind(R.id.consultation_details_bottom_action)
+    ImageButton actionButton;
 
-    @Bind(R.id.consultation_details_user_name)
-    TextView userNameView;
-    @Bind(R.id.consultation_details_user_desc)
-    TextView userDescView;
+    @Inject
+    ConsultationDetailsPresenter presenter;
 
-    private MessagesListAdapter mAdapter;
+    private MessagesListAdapter adapter;
     private MaterialDialog progressDialog;
-    private ConsultationDetailsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,14 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         setContentView(R.layout.activity_consultation_details);
         ButterKnife.bind(this);
 
+        // Get the requested Consultation ID
+        String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
+
+        this.initDependencyInjector();
+        this.setupView(sentConsultation);
+    }
+
+    private void setupView(String consultationId) {
         // Configure Toolbar
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -65,9 +73,6 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
                 onBackPressed();
             }
         });
-
-        // Get the requested Consultation ID
-        String sentConsultation = getIntent().getStringExtra(Constants.EXTRA_CONSULTATION_ID);
 
         // Init Progress dialog
         MaterialDialog.Builder progressBuilder = new MaterialDialog.Builder(this)
@@ -78,11 +83,9 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
 
         progressDialog = progressBuilder.build();
 
-        // Create presenter with sent ID
-        presenter = new ConsultationDetailsPresenter(new Firebase(Constants.FIREBASE_URL),
-                new TrayAppPreferences(this),
-                this,
-                sentConsultation);
+        // Init Presenter
+        presenter.attachView(this);
+        presenter.init(consultationId);
 
         // Config Recycler view
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -90,19 +93,28 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
         recyclerView.setLayoutManager(layoutManager);
     }
 
+    private void initDependencyInjector() {
+        MedicApp application = (MedicApp) getApplication();
+        DaggerConsultationDetailsComponent.builder()
+                .applicationComponent(application.component())
+                .consultationDetailsModule(new ConsultationDetailsModule(this))
+                .build()
+                .inject(this);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
 
-        // Load first items and attach
-        presenter.loadItems();
+        presenter.loadConsultation();
+        presenter.loadMessages();
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        presenter.stopListener();
+        presenter.stopMessagesListener();
     }
 
     @Override
@@ -129,8 +141,8 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     @Override
     public void configureAdapter(String userType) {
         // Create adapter with empty list
-        mAdapter = new MessagesListAdapter(this, userType, new ArrayList<GenericMessage>(0));
-        recyclerView.setAdapter(mAdapter);
+        adapter = new MessagesListAdapter(this, userType, new ArrayList<GenericMessage>(0));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -171,23 +183,23 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
 
     @Override
     public void showUserName(String name) {
-        userNameView.setText(name);
+        toolbar.setTitle(name);
     }
 
     @Override
     public void showUserDesc(String desc) {
-        userDescView.setText(desc);
+        toolbar.setSubtitle(desc);
     }
 
     @Override
     public void addItem(GenericMessage item) {
-        mAdapter.addItem(item);
+        adapter.addItem(item);
 
-        int position = mAdapter.getItemCount() - 1;
+        int position = adapter.getItemCount() - 1;
 
         if (recyclerView != null) {
             recyclerView.scrollToPosition(position);
-            mAdapter.notifyItemInserted(position);
+            adapter.notifyItemInserted(position);
         }
     }
 
@@ -227,6 +239,11 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     }
 
     @Override
+    public void onAttachFileClick() {
+
+    }
+
+    @Override
     public void onClose() {
         finish();
     }
@@ -238,10 +255,27 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     }
 
     @Override
+    public void invalidateMessageInput() {
+        inputView.setFocusable(false);
+        inputView.setHint(R.string.consultation_details_close_input_hint);
+    }
+
+    @Override
+    public void invalidateActions() {
+        actionButton.setVisibility(View.GONE);
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.consultation_details_close:
                 this.onCloseConsultationClick();
+
+                return true;
+
+            case R.id.consultation_details_attach:
+                this.onAttachFileClick();
+
                 return true;
 
             default:

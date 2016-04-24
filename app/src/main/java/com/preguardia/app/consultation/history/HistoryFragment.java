@@ -120,7 +120,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
 
     @Override
     public void configAdapter(String userType) {
-        mAdapter = new HistoryListAdapter(new ArrayList<Consultation>(0), userType, mItemListener);
+        mAdapter = new HistoryListAdapter(getContext(), new ArrayList<Consultation>(0), userType, mItemListener);
         recyclerView.setAdapter(mAdapter);
     }
 

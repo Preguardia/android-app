@@ -232,5 +232,8 @@
     <string name="consultation_details_dialog_content">Está seguro que desea cerrar la consulta?</string>
     <string name="consultation_details_dialog_positive">Si</string>
     <string name="consultation_details_dialog_negative">No</string>
+    <string name="consultation_history_name_pending">Pendiente de aprobación</string>
+    <string name="consultation_details_close_input_hint">La consulta fue cerrada</string>
+    <string name="consultation_details_message_send">Enviar mensaje</string>
 
 </resources>

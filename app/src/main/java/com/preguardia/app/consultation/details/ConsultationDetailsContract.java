@@ -39,12 +39,22 @@ public interface ConsultationDetailsContract {
 
         void onCloseConsultationClick();
 
+        void onAttachFileClick();
+
         void onClose();
 
         void dismissNewMessageNotification();
+
+        void invalidateMessageInput();
+
+        void invalidateActions();
     }
 
     interface Presenter {
+
+        void init(String consultationId);
+
+        void loadConsultation();
 
         void takePicture() throws IOException;
 
@@ -52,10 +62,14 @@ public interface ConsultationDetailsContract {
 
         void sendPicture();
 
-        void loadItems();
+        void loadMessages();
 
         void closeConsultation();
 
-        void stopListener();
+        void stopConsultationListener();
+
+        void stopMessagesListener();
+
+        void attachView(ConsultationDetailsContract.View view);
     }
 }

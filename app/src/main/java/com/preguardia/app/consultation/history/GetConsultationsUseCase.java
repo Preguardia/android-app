@@ -15,10 +15,10 @@ public class GetConsultationsUseCase {
     }
 
     public ValueEventListener execute(String orderBy, String equalTo, ValueEventListener valueEventListener) {
-        return repository.getConsultations(orderBy, equalTo, valueEventListener);
+        return repository.getConsultationsByUser(orderBy, equalTo, valueEventListener);
     }
 
     public void stop(ValueEventListener valueEventListener) {
-        repository.removeEventListener(valueEventListener);
+        repository.removeConsultationsEventListener(valueEventListener);
     }
 }

@@ -21,49 +21,61 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 /**
  * @author amouly on 3/11/16.
  */
 public class ConsultationDetailsPresenter implements ConsultationDetailsContract.Presenter {
 
     @NonNull
-    private final ConsultationDetailsContract.View view;
+    private final GetConsultationByIdUseCase getConsultationByIdUseCase;
     @NonNull
-    private final Firebase consultationRef;
+    private final GetMessagesByIdUseCase getMessagesByIdUseCase;
     @NonNull
-    private final Firebase messagesRef;
-    @NonNull
-    private final Firebase tasksRef;
+    private final SendMessageUseCase sendMessageUseCase;
     @NonNull
     private final TrayAppPreferences appPreferences;
-
     private final String currentUserName;
-    private final String consultationId;
     private final String currentUserType;
+    private ConsultationDetailsContract.View view;
+    @NonNull
+    private Firebase tasksRef;
+    private String consultationId;
     private ChildEventListener messagesListener;
+    private ValueEventListener consultationListener;
 
     private String medicId;
     private String patientId;
 
-    public ConsultationDetailsPresenter(@NonNull Firebase firebase,
-                                        @NonNull TrayAppPreferences appPreferences,
-                                        @NonNull ConsultationDetailsContract.View detailsView,
-                                        @NonNull String consultationId) {
-        this.appPreferences = appPreferences;
-        this.view = detailsView;
-        this.consultationId = consultationId;
+    @Inject
+    public ConsultationDetailsPresenter(@NonNull GetConsultationByIdUseCase getConsultationByIdUseCase,
+                                        @NonNull GetMessagesByIdUseCase getMessagesByIdUseCase,
+                                        @NonNull SendMessageUseCase sendMessageUseCase,
+                                        @NonNull TrayAppPreferences appPreferences) {
+        this.getConsultationByIdUseCase = getConsultationByIdUseCase;
+        this.getMessagesByIdUseCase = getMessagesByIdUseCase;
+        this.sendMessageUseCase = sendMessageUseCase;
 
-        this.messagesRef = firebase.child(Constants.FIREBASE_MESSAGES).child(this.consultationId);
-        this.consultationRef = firebase.child(Constants.FIREBASE_CONSULTATIONS).child(this.consultationId);
-        this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
+        this.appPreferences = appPreferences;
+
+        //this.tasksRef = firebase.child(Constants.FIREBASE_QUEUE).child(Constants.FIREBASE_TASKS);
 
         this.currentUserType = appPreferences.getString(Constants.PREFERENCES_USER_TYPE, null);
         this.currentUserName = appPreferences.getString(Constants.PREFERENCES_USER_NAME, null);
+    }
 
+    @Override
+    public void init(String consultationId) {
+        this.consultationId = consultationId;
+    }
+
+    @Override
+    public void loadConsultation() {
         view.showLoading();
 
         // Listen to changes on Consultation
-        consultationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        consultationListener = getConsultationByIdUseCase.execute(consultationId, new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Consultation consultation = dataSnapshot.getValue(Consultation.class);
@@ -76,7 +88,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
                 // Handle each type of User
                 if (currentUserType != null) {
-
                     switch (currentUserType) {
                         case Constants.FIREBASE_USER_TYPE_MEDIC:
                             // Show specific for Medic
@@ -96,6 +107,11 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                     }
                 }
 
+                if (consultation.getStatus().equals(Constants.FIREBASE_CONSULTATION_STATUS_CLOSED)) {
+                    view.invalidateMessageInput();
+                    view.invalidateActions();
+                }
+
                 view.hideLoading();
             }
 
@@ -112,11 +128,10 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             GenericMessage genericMessage = new GenericMessage(message, "text", currentUserType);
 
             // Push message to Firebase with generated ID
-            messagesRef.push().setValue(genericMessage);
+            sendMessageUseCase.sendMessage(consultationId, genericMessage);
 
-            // Clear input view and hide keyboard
+            // Clear input view
             view.clearInput();
-            view.toggleKeyboard();
 
             // Create Task with data
             Map<String, String> task = new HashMap<>();
@@ -127,14 +142,12 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
             // Handle each type of User
             switch (currentUserType) {
                 case Constants.FIREBASE_USER_TYPE_MEDIC:
-
                     // Send notification to Patient
                     task.put(Constants.FIREBASE_USER_ID, patientId);
 
                     break;
 
                 case Constants.FIREBASE_USER_TYPE_PATIENT:
-
                     // Send notification to Medic
                     task.put(Constants.FIREBASE_USER_ID, medicId);
 
@@ -156,16 +169,11 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     }
 
     @Override
-    public void loadItems() {
-
-        if (BuildConfig.DEBUG) {
-            Logger.d("Load Consultation Messages - ID: " + consultationId);
-        }
-
+    public void loadMessages() {
         view.configureAdapter(currentUserType);
 
-        // Handle new messages from Firebase
-        messagesListener = messagesRef.addChildEventListener(new ChildEventListener() {
+        // Listen to Messages for specific Consultation
+        messagesListener = getMessagesByIdUseCase.execute(consultationId, new ChildEventListener() {
             // Retrieve new posts as they are added to the database
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
@@ -174,11 +182,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
                 // Add item to Messages list
                 view.addItem(model);
-                //view.hideLoading();
-
-                if (BuildConfig.DEBUG) {
-                    Logger.d("New message received: " + snapshot.getValue().toString());
-                }
             }
 
             @Override
@@ -201,6 +204,10 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
             }
         });
+
+        if (BuildConfig.DEBUG) {
+            Logger.d("Load Consultation Messages - ID: " + consultationId);
+        }
     }
 
     @Override
@@ -211,32 +218,42 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
         attributes.put(Constants.FIREBASE_CONSULTATION_STATUS, Constants.FIREBASE_CONSULTATION_STATUS_CLOSED);
 
         // Update Consultation status
-        consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
-            @Override
-            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                // Create Task with data
-                Map<String, String> task = new HashMap<>();
-                task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED);
-                task.put(Constants.FIREBASE_PATIENT_ID, patientId);
-                task.put(Constants.FIREBASE_MEDIC_ID, medicId);
-                task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
-
-                // Push task to be processed
-                tasksRef.push().setValue(task);
-
-                view.hideLoading();
-                view.onClose();
-
-                if (BuildConfig.DEBUG) {
-                    Logger.d("Consultation Closed data saved successfully.");
-                }
-            }
-        });
+//        consultationRef.updateChildren(attributes, new Firebase.CompletionListener() {
+//            @Override
+//            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+//                // Create Task with data
+//                Map<String, String> task = new HashMap<>();
+//                task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_CLOSED);
+//                task.put(Constants.FIREBASE_PATIENT_ID, patientId);
+//                task.put(Constants.FIREBASE_MEDIC_ID, medicId);
+//                task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
+//
+//                // Push task to be processed
+//                tasksRef.push().setValue(task);
+//
+//                view.hideLoading();
+//                view.onClose();
+//
+//                if (BuildConfig.DEBUG) {
+//                    Logger.d("Consultation Closed data saved successfully.");
+//                }
+//            }
+//        });
     }
 
     @Override
-    public void stopListener() {
-        messagesRef.removeEventListener(messagesListener);
+    public void stopConsultationListener() {
+        getConsultationByIdUseCase.stop(consultationListener);
+    }
+
+    @Override
+    public void stopMessagesListener() {
+        getMessagesByIdUseCase.stop(messagesListener);
+    }
+
+    @Override
+    public void attachView(ConsultationDetailsContract.View view) {
+        this.view = view;
     }
 
     @Override
