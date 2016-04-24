@@ -2,6 +2,7 @@ package com.preguardia.app.user.register;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -67,6 +69,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     LinearLayout plateContainerView;
     @Bind(R.id.user_register_medical_container)
     LinearLayout medicalContainerView;
+    @Bind(R.id.user_register_terms)
+    CheckBox termsCheckBox;
 
     private RegisterContract.Presenter presenter;
     private MaterialDialog progressDialog;
@@ -131,6 +135,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.user_register_terms_text)
+    public void onTermsClick() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.general_terms_url)));
+        startActivity(browserIntent);
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.register_medic_button)
     public void onRegisterClick() {
         String type = null;
@@ -142,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         String medical = medicalInputView.getEditText().getText().toString();
         String plate = plateInputView.getEditText().getText().toString();
         String phone = phoneInputView.getEditText().getText().toString();
+        boolean terms = termsCheckBox.isChecked();
 
         if (medicButton.isActivated()) {
             type = Constants.FIREBASE_USER_TYPE_MEDIC;
@@ -151,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         this.toggleKeyboard();
 
-        presenter.registerUser(type, name, email, password, password2, birthDate, medical, plate, phone);
+        presenter.registerUser(type, name, email, password, password2, birthDate, medical, plate, phone, terms);
     }
 
     @Override

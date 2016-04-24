@@ -91,4 +91,22 @@
     <string name="consultation_create_step_time_error">Debe seleccionar una opción.</string>
     <string name="drawer_checkout">Checkout</string>
     <string name="consultation_create_step_category">Categoría</string>
+    <string name="user_register_terms_uncheck">Terminos y Condiciones son obligatorios</string>
+    <string name="user_register_service_error">Error de servicio</string>
+    <string name="user_register_password_not_match">La contraseña no coincide</string>
+    <string name="user_register_password2">Repetir contraseña</string>
+    <string name="consultation_details_dialog_negative">No</string>
+    <string name="consultation_details_dialog_positive">Si</string>
+    <string name="consultation_details_message_send">Enviar mensaje</string>
+    <string name="consultation_history_name_pending">Pendiente de aprobación</string>
+    <string name="consultation_details_dialog_content">Está seguro que desea cerrar la consulta?</string>
+    <string name="consultation_details_close_input_hint">La consulta fue cerrada.</string>
+    <string name="consultation_create_step_medications_question">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
+    <string name="consultation_create_step_patient_error">Debe seleccionar una opción</string>
+    <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
+    <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
+    <string name="consultation_create_step_description_error">Debe ingresar una descripción</string>
+    <string name="consultation_create_step_description_question">Por favor, describi brevemente lo que motiva tu consulta</string>
+    <string name="consultation_create_step_conditions_question">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
+    <string name="consultation_create_step_allergy_question">Por favor indicanos si sos alérgico…</string>
 </resources>

@@ -68,7 +68,7 @@ public class TermsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        webView.loadUrl("http://graciasdoc.com/tyc.html");
+        webView.loadUrl(getString(R.string.general_terms_url));
         progressDialog.show();
     }
 

@@ -118,7 +118,7 @@ public class CreateConsultationActivity extends TabStepper implements CreateCons
     @Override
     protected void onStart() {
         super.onStart();
-        overridePendingTransition(0, 0);
+        //overridePendingTransition(0, 0);
     }
 
     @Override

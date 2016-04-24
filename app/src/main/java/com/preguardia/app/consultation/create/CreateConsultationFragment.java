@@ -67,7 +67,6 @@ public class CreateConsultationFragment extends Fragment {
         intent.putExtra(Constants.EXTRA_CONSULTATION_CREATE_CATEGORY, category);
 
         startActivity(intent);
-        getActivity().overridePendingTransition(0, 0);
     }
 
     @Override

@@ -40,64 +40,71 @@ public class RegisterPresenter implements RegisterContract.Presenter {
     @Override
     public void registerUser(final String type, final String name, final String email, final String password,
                              final String password2, final String birthDate, final String medical,
-                             final String plate, final String phone) {
+                             final String plate, final String phone, final boolean terms) {
 
-        if (password.equals(password2)) {
-            if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !birthDate.isEmpty()) {
-                view.showProgress();
+        // Check data
+        if (terms) {
+            if (password.equals(password2)) {
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !birthDate.isEmpty()) {
+                    view.showProgress();
 
-                // Send data to Firebase
-                firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
-                    @Override
-                    public void onSuccess(Map<String, Object> result) {
-                        final Object uuid = result.get("uid");
+                    // Send data to Firebase
+                    firebase.createUser(email, password, new Firebase.ValueResultHandler<Map<String, Object>>() {
+                        @Override
+                        public void onSuccess(Map<String, Object> result) {
+                            final Object uuid = result.get("uid");
 
-                        Logger.d("Successfully created user UID: " + result.get("uid"));
+                            Logger.d("Successfully created user UID: " + result.get("uid"));
 
-                        // Authentication just completed successfully
-                        Map<String, String> map = new HashMap<>();
+                            // Authentication just completed successfully
+                            Map<String, String> map = new HashMap<>();
 
-                        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-                        DateTime dateTime = formatter.parseDateTime(birthDate);
-                        String formattedDate = dateTime.toDateTimeISO().toString();
+                            DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+                            DateTime dateTime = formatter.parseDateTime(birthDate);
+                            String formattedDate = dateTime.toDateTimeISO().toString();
 
-                        // Save user attributes
-                        map.put("name", name);
-                        map.put("birthDate", formattedDate);
-                        map.put("type", type);
-                        map.put("medical", medical);
-                        map.put("plate", plate);
-                        map.put("phone", phone);
-                        // TODO: Change with user picture
-                        map.put("picture", "http://media.graciasdoc.com/pictures/user_placeholder.png");
+                            // Save user attributes
+                            map.put("name", name);
+                            map.put("birthDate", formattedDate);
+                            map.put("type", type);
+                            map.put("medical", medical);
+                            map.put("plate", plate);
+                            map.put("phone", phone);
+                            // TODO: Change with user picture
+                            map.put("picture", "http://media.graciasdoc.com/pictures/user_placeholder.png");
 
-                        // Send to Firebase
-                        firebase.child(Constants.FIREBASE_USERS)
-                                .child(uuid.toString())
-                                .setValue(map);
+                            // Send to Firebase
+                            firebase.child(Constants.FIREBASE_USERS)
+                                    .child(uuid.toString())
+                                    .setValue(map);
 
-                        view.hideProgress();
-                        view.showSuccess();
-                    }
+                            view.hideProgress();
+                            view.showSuccess();
+                        }
 
-                    @Override
-                    public void onError(FirebaseError firebaseError) {
-                        // There was an error
-                        Logger.e("Firebase register error: " + firebaseError.getMessage());
+                        @Override
+                        public void onError(FirebaseError firebaseError) {
+                            // There was an error
+                            Logger.e("Firebase register error: " + firebaseError.getMessage());
 
-                        view.hideProgress();
-                        view.showError(R.string.user_register_service_error);
-                    }
-                });
+                            view.hideProgress();
+                            view.showError(R.string.user_register_service_error);
+                        }
+                    });
+                } else {
+                    Logger.d("Empty field");
+
+                    view.showError(R.string.user_register_incomplete_fields);
+                }
             } else {
-                Logger.d("Empty field");
+                Logger.d("Password doesn't match");
 
-                view.showError(R.string.user_register_incomplete_fields);
+                view.showError(R.string.user_register_password_not_match);
             }
         } else {
-            Logger.d("Password doesn't match");
+            Logger.d("Terms of Conditions not accepted");
 
-            view.showError(R.string.user_register_password_not_match);
+            view.showError(R.string.user_register_terms_uncheck);
         }
     }
 }

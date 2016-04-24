@@ -27,7 +27,7 @@ public interface RegisterContract {
     interface Presenter {
 
         void registerUser(String type, String name, String email, String password, String password2, String birthDate,
-                          String medical, String plate, String phone);
+                          String medical, String plate, String phone, boolean terms);
     }
 
 }
