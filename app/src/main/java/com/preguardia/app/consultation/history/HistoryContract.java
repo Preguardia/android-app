@@ -32,6 +32,8 @@ public interface HistoryContract {
         void hideEmpty();
 
         void hideResults();
+
+        void showPendingMessage();
     }
 
     interface Presenter {

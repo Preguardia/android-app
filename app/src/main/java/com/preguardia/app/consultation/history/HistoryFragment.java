@@ -2,6 +2,7 @@ package com.preguardia.app.consultation.history;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.preguardia.app.MedicApp;
 import com.preguardia.app.R;
@@ -48,7 +50,12 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     HistoryContract.ConsultationItemListener mItemListener = new HistoryContract.ConsultationItemListener() {
         @Override
         public void onConsultationClick(@Nullable String consultationId) {
-            openDetails(consultationId);
+            // If null, it' pending
+            if (consultationId != null) {
+                openDetails(consultationId);
+            } else {
+                showPendingMessage();
+            }
         }
     };
     private HistoryListAdapter mAdapter;
@@ -172,5 +179,22 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
     @Override
     public void hideResults() {
         resultsView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showPendingMessage() {
+        new MaterialDialog.Builder(getActivity())
+                .title(R.string.drawer_consultation_history)
+                .content(R.string.consultation_history_pending_message)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .positiveText(R.string.consultation_history_pending_button)
+                .cancelable(false)
+                .autoDismiss(true)
+                .show();
     }
 }

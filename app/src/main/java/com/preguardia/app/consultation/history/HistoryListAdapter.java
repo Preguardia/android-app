@@ -62,6 +62,13 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 holder.setUserName(context.getString(R.string.consultation_history_name_pending));
                 holder.setStateIcoImageView(R.drawable.ic_access_time_24dp);
 
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(null);
+                    }
+                });
+
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
@@ -78,6 +85,12 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 }
 
                 holder.setStateIcoImageView(R.drawable.ic_check_black_24dp);
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(consultation.getId());
+                    }
+                });
 
                 break;
 
@@ -96,16 +109,17 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 }
 
                 holder.setStateIcoImageView(R.drawable.ic_close_24dp);
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(consultation.getId());
+                    }
+                });
 
                 break;
         }
 
-        holder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                itemListener.onConsultationClick(consultation.getId());
-            }
-        });
+
         // TODO: replace with dynamic image
         holder.setUserImageView("http://media.graciasdoc.com/pictures/user_placeholder.png");
         holder.setSummaryText(consultation.getDetails().getDescription());

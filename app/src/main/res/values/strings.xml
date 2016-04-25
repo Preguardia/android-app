@@ -247,5 +247,7 @@
     <string name="consultation_rating_empty">Rating not entered</string>
     <string name="consultation_rating_empty_comment">Por favor ingrese un comentario</string>
     <string name="consultation_rating_success">Muchas gracias por su comentario!</string>
+    <string name="consultation_history_pending_message">Su consulta aun no ha sido tomada por nuestros profesionales. Sera notificado en un plazo maximo de 2 horas.</string>
+    <string name="consultation_history_pending_button">Ok</string>
 
 </resources>
