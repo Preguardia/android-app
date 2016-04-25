@@ -1,4 +1,4 @@
-package com.preguardia.app.general;
+package com.preguardia.app.terms;
 
 import android.graphics.Color;
 import android.os.Bundle;

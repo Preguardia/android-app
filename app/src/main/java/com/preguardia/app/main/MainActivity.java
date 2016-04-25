@@ -29,8 +29,8 @@ import com.preguardia.app.consultation.create.CreateConsultationFragment;
 import com.preguardia.app.consultation.history.HistoryFragment;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.general.HelpFragment;
-import com.preguardia.app.general.TermsFragment;
 import com.preguardia.app.notification.RegistrationIntentService;
+import com.preguardia.app.terms.TermsFragment;
 import com.preguardia.app.user.profile.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -179,25 +179,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 title = getString(R.string.drawer_terms);
 
                 break;
-
-//            case R.id.nav_checkout:
-//
-//                fragment = TermsFragment.newInstance();
-//                title = getString(R.string.drawer_terms);
-//
-//                Uri uri = Uri.parse("http://graciasdoc.com/mp.php");
-//
-//                CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-//                CustomTabActivityHelper.openCustomTab(this, customTabsIntent, uri,
-//                        new CustomTabActivityHelper.CustomTabFallback() {
-//                            @Override
-//                            public void openUri(Activity activity, Uri uri) {
-//                                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-//                                startActivity(intent);
-//                            }
-//                        });
-//
-//                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

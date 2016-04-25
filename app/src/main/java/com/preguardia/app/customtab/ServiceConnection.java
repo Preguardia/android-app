@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.preguardia.app.checkout;
+package com.preguardia.app.customtab;
 
 import android.content.ComponentName;
 import android.support.customtabs.CustomTabsClient;

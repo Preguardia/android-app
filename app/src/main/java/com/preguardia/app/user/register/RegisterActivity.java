@@ -1,5 +1,6 @@
 package com.preguardia.app.user.register;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
+import com.preguardia.app.customtab.CustomTabActivityHelper;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.main.MainActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -137,8 +140,25 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     @SuppressWarnings("unused")
     @OnClick(R.id.user_register_terms_text)
     public void onTermsClick() {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.general_terms_url)));
-        startActivity(browserIntent);
+        Uri uri = Uri.parse(getString(R.string.general_terms_url));
+
+        //Setting a custom toolbar color
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+
+        int color = getResources().getColor(R.color.colorPrimary);
+        intentBuilder.setToolbarColor(color);
+        intentBuilder.setShowTitle(true);
+
+        CustomTabsIntent customTabsIntent = intentBuilder.build();
+
+        CustomTabActivityHelper.openCustomTab(this, customTabsIntent, uri,
+                new CustomTabActivityHelper.CustomTabFallback() {
+                    @Override
+                    public void openUri(Activity activity, Uri uri) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
     }
 
     @SuppressWarnings("unused")

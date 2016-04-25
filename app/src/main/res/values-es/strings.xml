@@ -13,7 +13,7 @@
     <string name="user_register_patient">Soy Paciente</string>
     <string name="user_register_medic">Soy Médico</string>
     <string name="user_register_surname">Apellido</string>
-    <string name="user_register_email">eMail</string>
+    <string name="user_register_email">Email</string>
     <string name="user_register_date">Fecha de nacimiento</string>
     <string name="user_register_medical">Obra social</string>
     <string name="user_register_phone">Teléfono</string>
