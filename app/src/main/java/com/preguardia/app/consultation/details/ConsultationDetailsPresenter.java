@@ -137,6 +137,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                 view.invalidateMessageInput();
                                 view.invalidateActions();
 
+                                // Check if already rated
                                 if (consultation.getRating() == null) {
                                     view.showRating();
                                 }
