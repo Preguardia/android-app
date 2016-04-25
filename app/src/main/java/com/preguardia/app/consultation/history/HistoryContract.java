@@ -10,6 +10,7 @@ import java.util.List;
  * @author amouly on 3/10/16.
  */
 public interface HistoryContract {
+
     interface View {
 
         void configAdapter(String userType);

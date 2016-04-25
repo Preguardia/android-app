@@ -4,6 +4,8 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -49,6 +53,7 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
 
     private MessagesListAdapter adapter;
     private MaterialDialog progressDialog;
+    private MaterialDialog ratingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -263,6 +268,54 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     @Override
     public void invalidateActions() {
         actionButton.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showRating() {
+        ratingDialog = new MaterialDialog.Builder(this)
+                .title(R.string.consultation_rating_title)
+                .customView(R.layout.fragment_consultation_rating, true)
+                .positiveText(R.string.consultation_rating_positive)
+                .autoDismiss(false)
+                .negativeText(R.string.consultation_rating_negative)
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        View view = dialog.getCustomView();
+
+                        if (view != null) {
+                            RatingBar ratingBar = ButterKnife.findById(view, R.id.consultation_rating_bar);
+                            EditText editText = ButterKnife.findById(view, R.id.consultation_rating_comment);
+
+                            float rating = ratingBar.getRating();
+                            String comment = editText.getText().toString();
+
+                            // Execute UseCase
+                            presenter.saveRating(rating, comment);
+                        }
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // Send empty Rating
+                        presenter.saveRating(0, getString(R.string.consultation_rating_empty));
+
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void hideRating() {
+        ratingDialog.dismiss();
+    }
+
+    @Override
+    public void showMessage(@StringRes int res) {
+        Snackbar.make(toolbar, res, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

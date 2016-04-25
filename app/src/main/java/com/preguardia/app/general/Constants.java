@@ -43,6 +43,8 @@ public class Constants {
     public static final String FIREBASE_USER_TYPE_PATIENT = "patient";
     public static final String FIREBASE_USER_REGISTER_ID = "gcmRegisterId";
 
+    public static final String FIREBASE_CONSULTATION_RATING = "rating";
+
     public static final String FIREBASE_CONSULTATION_STATUS = "status";
     public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";
     public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";

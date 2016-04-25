@@ -4,6 +4,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 import com.preguardia.app.data.model.GenericMessage;
+import com.preguardia.app.data.model.Rating;
 
 /**
  * @author amouly on 3/14/16.
@@ -15,6 +16,8 @@ public interface Repository {
     ValueEventListener getConsultationById(String consultationId, ValueEventListener valueEventListener);
 
     void closeConsultationById(String consultationId, Firebase.CompletionListener completionListener);
+
+    void rateConsultationById(String consultationId, Rating rating);
 
     void removeConsultationsEventListener(ValueEventListener eventListener);
 

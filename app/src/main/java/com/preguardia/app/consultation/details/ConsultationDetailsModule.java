@@ -7,6 +7,7 @@ import com.preguardia.app.consultation.details.domain.CreateConsultationClosedTa
 import com.preguardia.app.consultation.details.domain.CreateNewMessageTaskUseCase;
 import com.preguardia.app.consultation.details.domain.GetConsultationByIdUseCase;
 import com.preguardia.app.consultation.details.domain.GetMessagesByIdUseCase;
+import com.preguardia.app.consultation.details.domain.RateConsultationUseCase;
 import com.preguardia.app.consultation.details.domain.SendMessageUseCase;
 import com.preguardia.app.data.Repository;
 import com.preguardia.app.injection.ActivityScope;
@@ -60,5 +61,11 @@ public class ConsultationDetailsModule {
     @ActivityScope
     CreateConsultationClosedTaskUseCase provideCreateConsultationClosedTaskUseCase(Repository repository) {
         return new CreateConsultationClosedTaskUseCase(repository);
+    }
+
+    @Provides
+    @ActivityScope
+    RateConsultationUseCase provideRateConsultationUseCase(Repository repository) {
+        return new RateConsultationUseCase(repository);
     }
 }

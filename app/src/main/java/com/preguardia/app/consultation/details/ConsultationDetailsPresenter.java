@@ -9,16 +9,19 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
+import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.domain.CloseConsultationUseCase;
 import com.preguardia.app.consultation.details.domain.CreateConsultationClosedTaskUseCase;
 import com.preguardia.app.consultation.details.domain.CreateNewMessageTaskUseCase;
 import com.preguardia.app.consultation.details.domain.GetConsultationByIdUseCase;
 import com.preguardia.app.consultation.details.domain.GetMessagesByIdUseCase;
+import com.preguardia.app.consultation.details.domain.RateConsultationUseCase;
 import com.preguardia.app.consultation.details.domain.SendMessageUseCase;
 import com.preguardia.app.data.model.Consultation;
 import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.data.model.Medic;
 import com.preguardia.app.data.model.Patient;
+import com.preguardia.app.data.model.Rating;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.user.SessionManager;
 
@@ -44,6 +47,8 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     @NonNull
     private final CreateConsultationClosedTaskUseCase createConsultationClosedTaskUseCase;
     @NonNull
+    private final RateConsultationUseCase rateConsultationUseCase;
+    @NonNull
     private final SessionManager sessionManager;
     private final String currentUserName;
     private final String currentUserType;
@@ -62,6 +67,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                         @NonNull CreateNewMessageTaskUseCase createNewMessageTaskUseCase,
                                         @NonNull CloseConsultationUseCase closeConsultationUseCase,
                                         @NonNull CreateConsultationClosedTaskUseCase createConsultationClosedTaskUseCase,
+                                        @NonNull RateConsultationUseCase rateConsultationUseCase,
                                         @NonNull SessionManager sessionManager) {
         this.getConsultationByIdUseCase = getConsultationByIdUseCase;
         this.getMessagesByIdUseCase = getMessagesByIdUseCase;
@@ -69,6 +75,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
         this.createNewMessageTaskUseCase = createNewMessageTaskUseCase;
         this.closeConsultationUseCase = closeConsultationUseCase;
         this.createConsultationClosedTaskUseCase = createConsultationClosedTaskUseCase;
+        this.rateConsultationUseCase = rateConsultationUseCase;
         this.sessionManager = sessionManager;
 
         this.currentUserType = sessionManager.getUserType();
@@ -130,6 +137,10 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
                                 view.invalidateMessageInput();
                                 view.invalidateActions();
 
+                                if (consultation.getRating() == null) {
+                                    view.showRating();
+                                }
+
                                 break;
 
                             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
@@ -189,7 +200,24 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     }
 
     @Override
+    public void saveRating(float score, String comment) {
+        Rating rating = new Rating(score, comment);
+
+        if (!comment.isEmpty()) {
+            rateConsultationUseCase.execute(consultationId, rating);
+
+            if (score != 0) {
+                // Show message
+                view.showMessage(R.string.consultation_rating_success);
+
+                view.hideRating();
+            }
+        }
+    }
+
+    @Override
     public void sendPicture() {
+
 
     }
 
@@ -199,7 +227,6 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
 
         // Listen to Messages for specific Consultation
         messagesListener = getMessagesByIdUseCase.execute(consultationId, new ChildEventListener() {
-            // Retrieve new posts as they are added to the database
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
                 // Convert Firebase object to POJO

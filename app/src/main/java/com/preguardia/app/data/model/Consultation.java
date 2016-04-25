@@ -15,6 +15,7 @@ public class Consultation {
     private Patient patient;
     private Details details;
     private Medic medic;
+    private Rating rating;
 
     public Consultation() {
     }
@@ -89,5 +90,13 @@ public class Consultation {
 
     public void setDetails(Details details) {
         this.details = details;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 }

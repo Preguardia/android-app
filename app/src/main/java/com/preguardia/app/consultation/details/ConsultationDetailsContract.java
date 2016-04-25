@@ -1,5 +1,7 @@
 package com.preguardia.app.consultation.details;
 
+import android.support.annotation.StringRes;
+
 import com.preguardia.app.data.model.GenericMessage;
 
 import java.io.IOException;
@@ -48,6 +50,12 @@ public interface ConsultationDetailsContract {
         void invalidateMessageInput();
 
         void invalidateActions();
+
+        void showRating();
+
+        void hideRating();
+
+        void showMessage(@StringRes int res);
     }
 
     interface Presenter {
@@ -59,6 +67,8 @@ public interface ConsultationDetailsContract {
         void takePicture() throws IOException;
 
         void sendMessage(String message);
+
+        void saveRating(float score, String comment);
 
         void sendPicture();
 

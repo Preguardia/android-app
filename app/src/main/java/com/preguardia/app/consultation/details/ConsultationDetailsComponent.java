@@ -5,6 +5,7 @@ import com.preguardia.app.consultation.details.domain.CreateConsultationClosedTa
 import com.preguardia.app.consultation.details.domain.CreateNewMessageTaskUseCase;
 import com.preguardia.app.consultation.details.domain.GetConsultationByIdUseCase;
 import com.preguardia.app.consultation.details.domain.GetMessagesByIdUseCase;
+import com.preguardia.app.consultation.details.domain.RateConsultationUseCase;
 import com.preguardia.app.consultation.details.domain.SendMessageUseCase;
 import com.preguardia.app.injection.ActivityScope;
 import com.preguardia.app.injection.component.ApplicationComponent;
@@ -31,4 +32,6 @@ public interface ConsultationDetailsComponent {
     CloseConsultationUseCase closeConsultationUseCase();
 
     CreateConsultationClosedTaskUseCase createConsultationClosedTaskUseCase();
+
+    RateConsultationUseCase rateConsultationUseCase();
 }

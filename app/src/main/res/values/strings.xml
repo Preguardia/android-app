@@ -240,5 +240,12 @@
     <string name="user_register_service_error">Service error</string>
     <string name="user_register_terms_uncheck">Terms must be accepted</string>
     <string name="general_terms_url">http://graciasdoc.com/tyc.html</string>
+    <string name="consultation_rating_title">Puntaje de consulta</string>
+    <string name="consultation_rating_negative">No gracias</string>
+    <string name="consultation_rating_positive">Enviar</string>
+    <string name="consultation_comment_hint">Ingrese un comentario</string>
+    <string name="consultation_rating_empty">Rating not entered</string>
+    <string name="consultation_rating_empty_comment">Por favor ingrese un comentario</string>
+    <string name="consultation_rating_success">Muchas gracias por su comentario!</string>
 
 </resources>

@@ -4,6 +4,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.Firebase;
 import com.firebase.client.ValueEventListener;
 import com.preguardia.app.data.model.GenericMessage;
+import com.preguardia.app.data.model.Rating;
 import com.preguardia.app.general.Constants;
 
 import java.util.HashMap;
@@ -49,6 +50,14 @@ public class DataRepository implements Repository {
         consultationsRef
                 .child(consultationId)
                 .updateChildren(attributes, completionListener);
+    }
+
+    @Override
+    public void rateConsultationById(String consultationId, Rating rating) {
+        consultationsRef
+                .child(consultationId)
+                .child(Constants.FIREBASE_CONSULTATION_RATING)
+                .setValue(rating);
     }
 
     @Override
