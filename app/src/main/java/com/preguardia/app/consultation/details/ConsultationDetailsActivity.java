@@ -119,6 +119,7 @@ public class ConsultationDetailsActivity extends AppCompatActivity implements Co
     public void onStop() {
         super.onStop();
 
+        presenter.stopConsultationListener();
         presenter.stopMessagesListener();
     }
 

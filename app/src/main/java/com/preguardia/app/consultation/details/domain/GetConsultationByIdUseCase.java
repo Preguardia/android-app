@@ -19,6 +19,6 @@ public class GetConsultationByIdUseCase {
     }
 
     public void stop(ValueEventListener valueEventListener) {
-        repository.removeConsultationsEventListener(valueEventListener);
+        repository.stopConsultationById(valueEventListener);
     }
 }

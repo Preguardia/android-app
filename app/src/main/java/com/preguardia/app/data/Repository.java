@@ -15,6 +15,8 @@ public interface Repository {
 
     ValueEventListener getConsultationById(String consultationId, ValueEventListener valueEventListener);
 
+    void stopConsultationById(ValueEventListener valueEventListener);
+
     void closeConsultationById(String consultationId, Firebase.CompletionListener completionListener);
 
     void rateConsultationById(String consultationId, Rating rating);

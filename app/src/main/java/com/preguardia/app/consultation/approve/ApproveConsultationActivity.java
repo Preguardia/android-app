@@ -177,7 +177,7 @@ public class ApproveConsultationActivity extends AppCompatActivity implements Ap
                     }
                 })
                 .positiveText("Ok")
-                .autoDismiss(false)
+                .cancelable(false)
                 .show();
     }
 

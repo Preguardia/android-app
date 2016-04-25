@@ -20,6 +20,8 @@ public class DataRepository implements Repository {
     private final Firebase messagesRef;
     private final Firebase queueRef;
 
+    private Firebase consultationRef;
+
     public DataRepository(Firebase firebaseRef) {
         this.firebaseRef = firebaseRef;
         this.consultationsRef = firebaseRef.child(Constants.FIREBASE_CONSULTATIONS);
@@ -37,9 +39,15 @@ public class DataRepository implements Repository {
 
     @Override
     public ValueEventListener getConsultationById(String consultationId, ValueEventListener valueEventListener) {
-        return consultationsRef
-                .child(consultationId)
+        consultationRef = consultationsRef.child(consultationId);
+
+        return consultationRef
                 .addValueEventListener(valueEventListener);
+    }
+
+    @Override
+    public void stopConsultationById(ValueEventListener valueEventListener) {
+        consultationRef.removeEventListener(valueEventListener);
     }
 
     @Override
