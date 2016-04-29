@@ -29,6 +29,9 @@ public class Constants {
     public static final String FIREBASE_MEDIC_ID = "medicId";
     public static final String FIREBASE_PATIENT_ID = "patientId";
 
+    public static final String FIREBASE_MESSAGE_TYPE_TEXT = "text";
+    public static final String FIREBASE_MESSAGE_TYPE_PICTURE = "picture";
+
     public static final String FIREBASE_TASK_TYPE = "type";
     public static final String FIREBASE_TASK_CONTENT = "content";
     public static final String FIREBASE_TASK_FIELD_MEDIC_ID = "medicId";

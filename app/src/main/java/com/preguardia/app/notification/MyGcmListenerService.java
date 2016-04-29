@@ -61,14 +61,12 @@ public class MyGcmListenerService extends GcmListenerService {
         switch (from) {
 
             case "/topics/medic":
-
                 // message received from some topic.
                 showMedicNotification(title, message, consultationId);
 
                 break;
 
             case "/topics/patient":
-
                 // normal downstream message.
                 showPatientNotification(title, message, consultationId);
 

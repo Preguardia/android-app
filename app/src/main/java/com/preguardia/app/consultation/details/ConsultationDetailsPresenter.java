@@ -171,7 +171,7 @@ public class ConsultationDetailsPresenter implements ConsultationDetailsContract
     @Override
     public void sendMessage(String message) {
         if (!message.isEmpty()) {
-            GenericMessage genericMessage = new GenericMessage(message, "text", currentUserType);
+            GenericMessage genericMessage = new GenericMessage(message, Constants.FIREBASE_MESSAGE_TYPE_TEXT, currentUserType);
 
             // Push message to Firebase with generated ID
             sendMessageUseCase.execute(consultationId, genericMessage);
