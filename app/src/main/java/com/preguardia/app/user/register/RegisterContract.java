@@ -1,5 +1,7 @@
 package com.preguardia.app.user.register;
 
+import android.support.annotation.StringRes;
+
 /**
  * @author amouly on 3/5/16.
  */
@@ -9,7 +11,7 @@ public interface RegisterContract {
 
         void showSuccess();
 
-        void showError();
+        void showError(@StringRes int stringRes);
 
         void showProgress();
 
@@ -24,8 +26,8 @@ public interface RegisterContract {
 
     interface Presenter {
 
-        void registerUser(String type, String name, String email, String password, String birthDate,
-                          String medical, String plate, String phone);
+        void registerUser(String type, String name, String email, String password, String password2, String birthDate,
+                          String medical, String plate, String phone, boolean terms);
     }
 
 }

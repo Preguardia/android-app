@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import com.preguardia.app.R;
 import com.preguardia.app.consultation.details.view.MessageLeftViewHolder;
 import com.preguardia.app.consultation.details.view.MessageRightViewHolder;
-import com.preguardia.app.consultation.model.GenericMessage;
+import com.preguardia.app.consultation.details.view.PictureViewHolder;
+import com.preguardia.app.data.model.GenericMessage;
 import com.preguardia.app.general.Constants;
 
 import java.util.List;
@@ -22,6 +23,9 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private static final int MESSAGE_TYPE_TITLE = 0;
     private static final int MESSAGE_TYPE_TEXT_RIGHT = 1;
     private static final int MESSAGE_TYPE_TEXT_LEFT = 2;
+
+    private static final int MESSAGE_TYPE_PICTURE_RIGHT = 3;
+    private static final int MESSAGE_TYPE_PICTURE_LEFT = 4;
 
     private final Context context;
     private final String userType;
@@ -43,10 +47,11 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemViewType(int position) {
         GenericMessage item = itemsList.get(position);
 
+        boolean isFromMedic = item.getFrom().equals(Constants.FIREBASE_USER_TYPE_MEDIC);
+        boolean isUserMedic = userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC);
+
         switch (item.getType()) {
-            case "text": {
-                boolean isFromMedic = item.getFrom().equals(Constants.FIREBASE_USER_TYPE_MEDIC);
-                boolean isUserMedic = userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC);
+            case Constants.FIREBASE_MESSAGE_TYPE_TEXT: {
 
                 if (isFromMedic && isUserMedic) {
                     return MESSAGE_TYPE_TEXT_RIGHT;
@@ -57,6 +62,23 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 } else if (!isFromMedic && !isUserMedic) {
                     return MESSAGE_TYPE_TEXT_RIGHT;
                 }
+
+                break;
+            }
+
+            case Constants.FIREBASE_MESSAGE_TYPE_PICTURE: {
+
+                if (isFromMedic && isUserMedic) {
+                    return MESSAGE_TYPE_PICTURE_RIGHT;
+                } else if (!isFromMedic && isUserMedic) {
+                    return MESSAGE_TYPE_PICTURE_LEFT;
+                } else if (isFromMedic && !isUserMedic) {
+                    return MESSAGE_TYPE_PICTURE_LEFT;
+                } else if (!isFromMedic && !isUserMedic) {
+                    return MESSAGE_TYPE_PICTURE_RIGHT;
+                }
+
+                break;
             }
         }
 
@@ -106,12 +128,12 @@ public class MessagesListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             messageHolder2.setImage("http://media.graciasdoc.com/pictures/user_placeholder.png");
         }
 
-//        if (viewHolder instanceof PictureViewHolder) {
-//            final String picture = ((PictureItem) itemsList.get(position)).getPicture();
-//            final PictureViewHolder pictureHolder = (PictureViewHolder) viewHolder;
-//
-//            pictureHolder.setImage(picture);
-//        }
+        if (viewHolder instanceof PictureViewHolder) {
+            final String picture = itemsList.get(position).getContent();
+            final PictureViewHolder pictureHolder = (PictureViewHolder) viewHolder;
+
+            pictureHolder.setImage(picture);
+        }
 
     }
 

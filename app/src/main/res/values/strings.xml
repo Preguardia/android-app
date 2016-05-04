@@ -19,7 +19,7 @@
     <string name="user_register_patient">I\'m patient</string>
     <string name="user_register_medic">I\'m medic</string>
     <string name="user_register_surname">Surname</string>
-    <string name="user_register_email">eMail</string>
+    <string name="user_register_email">Email</string>
     <string name="user_register_date">Birth date</string>
     <string name="user_register_medical">Medical Care</string>
     <string name="user_register_phone">Phone</string>
@@ -76,12 +76,12 @@
     <string name="consultation_create_step_allergy_new">Add another allergy</string>
 
     <string name="consultation_create_error">Error creating Consultation</string>
-    <string name="consultation_create_step_allergy_question" translatable="false">Por favor indicanos si sos alérgico…</string>
-    <string name="consultation_create_step_medications_question" translatable="false">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
-    <string name="consultation_create_step_description_question" translatable="false">Por favor, describi brevemente lo que motiva tu consulta</string>
-    <string name="consultation_create_step_conditions_question" translatable="false">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
-    <string name="consultation_create_step_patient_question" translatable="false">¿Quién es el paciente?</string>
-    <string name="consultation_create_step_symptoms_question" translatable="false">¿Padeces alguno de estos síntomas?</string>
+    <string name="consultation_create_step_allergy_question">Por favor indicanos si sos alérgico…</string>
+    <string name="consultation_create_step_medications_question">Por favor indica si estás tomando alguna medicación. Si es así, ¿desde cuándo?</string>
+    <string name="consultation_create_step_description_question">Por favor, describi brevemente lo que motiva tu consulta</string>
+    <string name="consultation_create_step_conditions_question">Por favor hacenos saber si padeces alguna de las siguientes enfermedades o condiciones:</string>
+    <string name="consultation_create_step_patient_question">¿Quién es el paciente?</string>
+    <string name="consultation_create_step_symptoms_question">¿Padeces alguno de estos síntomas?</string>
     <string name="consultation_create_cancel_title">Do you want to cancel?</string>
     <string name="consultation_create_cancel_positive">Yes</string>
     <string name="consultation_create_cancel_negative">No</string>
@@ -218,8 +218,8 @@
     <string name="ms_optional">Optional</string>
     <string name="ms_prev">Previous</string>
     <string name="ms_text_step">Step $current of $total</string>
-    <string name="consultation_create_step_patient_error" translatable="false">Debe seleccionar una opción</string>
-    <string name="consultation_create_step_description_error" translatable="false">Debe ingresar una descripción</string>
+    <string name="consultation_create_step_patient_error">Debe seleccionar una opción</string>
+    <string name="consultation_create_step_description_error">Debe ingresar una descripción</string>
     <string name="consultation_create_home_clinics">Clinics</string>
     <string name="consultation_create_home_pediatrics">Pediatrics</string>
     <string name="consultation_create_home_dermatology">Dermatology</string>
@@ -229,5 +229,25 @@
     <string name="consultation_new_details">Detao;s</string>
     <string name="consultation_create_step_time_error">Select one option.</string>
     <string name="consultation_create_step_time_question">¿Cuándo te empezaste a sentir de esta manera?</string>
+    <string name="consultation_details_dialog_content">Está seguro que desea cerrar la consulta?</string>
+    <string name="consultation_details_dialog_positive">Si</string>
+    <string name="consultation_details_dialog_negative">No</string>
+    <string name="consultation_history_name_pending">Pendiente de aprobación</string>
+    <string name="consultation_details_close_input_hint">La consulta fue cerrada</string>
+    <string name="consultation_details_message_send">Enviar mensaje</string>
+    <string name="user_register_password2">Repeat password</string>
+    <string name="user_register_password_not_match">Password does not match</string>
+    <string name="user_register_service_error">Service error</string>
+    <string name="user_register_terms_uncheck">Terms must be accepted</string>
+    <string name="general_terms_url">http://graciasdoc.com/tyc.html</string>
+    <string name="consultation_rating_title">Puntaje de consulta</string>
+    <string name="consultation_rating_negative">No gracias</string>
+    <string name="consultation_rating_positive">Enviar</string>
+    <string name="consultation_comment_hint">Ingrese un comentario</string>
+    <string name="consultation_rating_empty">Rating not entered</string>
+    <string name="consultation_rating_empty_comment">Por favor ingrese un comentario</string>
+    <string name="consultation_rating_success">Muchas gracias por su comentario!</string>
+    <string name="consultation_history_pending_message">Su consulta aun no ha sido tomada por nuestros profesionales. Sera notificado en un plazo maximo de 2 horas.</string>
+    <string name="consultation_history_pending_button">Ok</string>
 
 </resources>

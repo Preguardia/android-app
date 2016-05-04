@@ -32,6 +32,7 @@
             android:background="@color/colorPrimaryDark"
             android:drawableLeft="@drawable/ic_add_box_24dp"
             android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_add_box_24dp"
             android:fontFamily="sans-serif-medium"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"

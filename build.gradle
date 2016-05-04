@@ -6,7 +6,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0-beta1'
+        classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'com.google.gms:google-services:2.0.0-beta5'
     }
@@ -15,7 +15,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "http://maven.batch.com/release" }
         maven { url "https://jitpack.io" }
     }
 }

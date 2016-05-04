@@ -1,6 +1,8 @@
 package com.preguardia.app.consultation.details;
 
-import com.preguardia.app.consultation.model.GenericMessage;
+import android.support.annotation.StringRes;
+
+import com.preguardia.app.data.model.GenericMessage;
 
 import java.io.IOException;
 
@@ -32,18 +34,52 @@ public interface ConsultationDetailsContract {
         void showUserDesc(String desc);
 
         void addItem(GenericMessage item);
+
+        void showMedicActions();
+
+        void showPatientActions();
+
+        void onCloseConsultationClick();
+
+        void onAttachFileClick();
+
+        void onClose();
+
+        void dismissNewMessageNotification();
+
+        void invalidateMessageInput();
+
+        void invalidateActions();
+
+        void showRating();
+
+        void hideRating();
+
+        void showMessage(@StringRes int res);
     }
 
     interface Presenter {
+
+        void init(String consultationId);
+
+        void loadConsultation();
 
         void takePicture() throws IOException;
 
         void sendMessage(String message);
 
+        void saveRating(float score, String comment);
+
         void sendPicture();
 
-        void loadItems();
+        void loadMessages();
 
-        void stopListener();
+        void closeConsultation();
+
+        void stopConsultationListener();
+
+        void stopMessagesListener();
+
+        void attachView(ConsultationDetailsContract.View view);
     }
 }

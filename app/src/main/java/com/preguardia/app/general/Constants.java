@@ -26,11 +26,19 @@ public class Constants {
     public static final String FIREBASE_MESSAGES = "messages";
     public static final String FIREBASE_QUEUE = "queue";
     public static final String FIREBASE_TASKS = "tasks";
+    public static final String FIREBASE_MEDIC_ID = "medicId";
+    public static final String FIREBASE_PATIENT_ID = "patientId";
+
+    public static final String FIREBASE_MESSAGE_TYPE_TEXT = "text";
+    public static final String FIREBASE_MESSAGE_TYPE_PICTURE = "picture";
 
     public static final String FIREBASE_TASK_TYPE = "type";
     public static final String FIREBASE_TASK_CONTENT = "content";
+    public static final String FIREBASE_TASK_FIELD_MEDIC_ID = "medicId";
     public static final String FIREBASE_TASK_TYPE_CONSULTATION_NEW = "new-consultation";
     public static final String FIREBASE_TASK_TYPE_MESSAGE_NEW = "message-new";
+    public static final String FIREBASE_TASK_TYPE_CONSULTATION_APPROVED = "consultation-approved";
+    public static final String FIREBASE_TASK_TYPE_CONSULTATION_CLOSED = "consultation-closed";
 
     public static final String FIREBASE_USER_MEDIC_ID = "medic/id";
     public static final String FIREBASE_USER_PATIENT_ID = "patient/id";
@@ -38,12 +46,15 @@ public class Constants {
     public static final String FIREBASE_USER_TYPE_PATIENT = "patient";
     public static final String FIREBASE_USER_REGISTER_ID = "gcmRegisterId";
 
+    public static final String FIREBASE_CONSULTATION_RATING = "rating";
+
     public static final String FIREBASE_CONSULTATION_STATUS = "status";
     public static final String FIREBASE_CONSULTATION_STATUS_PENDING = "pending";
     public static final String FIREBASE_CONSULTATION_STATUS_ASSIGNED = "assigned";
     public static final String FIREBASE_CONSULTATION_STATUS_CLOSED = "closed";
 
     public static final String FIREBASE_CONSULTATION_CATEGORY = "category";
+    public static final String FIREBASE_CONSULTATION_CATEGORY_UNDEFINED = "Indefinido";
     public static final String FIREBASE_CONSULTATION_CATEGORY_CLINICS = "Clínica";
     public static final String FIREBASE_CONSULTATION_CATEGORY_PEDIATRICS = "Pediatría y recién nacidos";
     public static final String FIREBASE_CONSULTATION_CATEGORY_DERMATOLOGY = "Dermatología";
@@ -59,4 +70,9 @@ public class Constants {
     public static final String EXTRA_USER_TYPE = "extra:user:type";
 
     public static final String EXTRA_CONSULTATION_CREATE_CATEGORY = "extra:consultation:create:category";
+
+    public static final int MEDIC_REQUEST_CODE = 20;
+    public static final int PATIENT_REQUEST_CODE = 30;
+    public static final int GENERAL_NEW_MESSAGE_REQUEST_CODE = 10;
+    public static final int NOTIFICATION_NEW_MESSAGE_ID = 1;
 }

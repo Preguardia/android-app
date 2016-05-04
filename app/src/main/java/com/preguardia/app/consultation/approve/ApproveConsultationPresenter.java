@@ -10,10 +10,10 @@ import com.google.common.base.Joiner;
 import com.orhanobut.logger.Logger;
 import com.preguardia.app.BuildConfig;
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
+import com.preguardia.app.data.model.Medic;
+import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.Medic;
-import com.preguardia.app.user.model.Patient;
 
 import net.grandcentrix.tray.TrayAppPreferences;
 
@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Years;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -76,19 +77,18 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             public void onDataChange(DataSnapshot dataSnapshot) {
                 consultation = dataSnapshot.getValue(Consultation.class);
 
+                // Set Patient data
                 final Patient patient = consultation.getPatient();
-
                 String patientName = patient.getName();
                 String patientMedical = patient.getMedical();
                 String patientBirth = patient.getBirthDate();
 
                 // Calculate Patient age
                 DateTime birthdate = new DateTime(patientBirth);
-                DateTime now = new DateTime();
-                Years age = Years.yearsBetween(birthdate, now);
-
+                Years age = Years.yearsBetween(birthdate, new DateTime());
                 String ageFormatted = age.getYears() + " años";
 
+                // TODO: replace with custom avatar
                 if ((patientName != null) && (patientMedical != null)) {
                     view.showPatientInfo(patientName, ageFormatted, patientMedical, "http://media.graciasdoc.com/pictures/user_placeholder.png");
                 }
@@ -98,15 +98,34 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
                 view.showDescription(consultation.getDetails().getDescription());
                 view.showFrequency(consultation.getDetails().getTime());
 
-                String medications = Joiner.on(", ").skipNulls().join(consultation.getDetails().getMedications());
-                String allergies = Joiner.on(", ").skipNulls().join(consultation.getDetails().getAllergies());
-                String symptoms = Joiner.on(", ").skipNulls().join(consultation.getDetails().getSymptoms());
-                String conditions = Joiner.on(", ").skipNulls().join(consultation.getDetails().getConditions());
+                List<String> medicationsList = consultation.getDetails().getMedications();
+                List<String> allergiesList = consultation.getDetails().getAllergies();
+                List<String> symptomsList = consultation.getDetails().getSymptoms();
+                List<String> conditionsList = consultation.getDetails().getConditions();
 
-                view.showMedications(medications);
-                view.showAllergies(allergies);
-                view.showSymptoms(symptoms);
-                view.showConditions(conditions);
+                if (medicationsList != null) {
+                    String medications = Joiner.on(", ").skipNulls().join(medicationsList);
+
+                    view.showMedications(medications);
+                }
+
+                if (allergiesList != null) {
+                    String allergies = Joiner.on(", ").skipNulls().join(allergiesList);
+
+                    view.showAllergies(allergies);
+                }
+
+                if (symptomsList != null) {
+                    String symptoms = Joiner.on(", ").skipNulls().join(symptomsList);
+
+                    view.showSymptoms(symptoms);
+                }
+
+                if (conditionsList != null) {
+                    String conditions = Joiner.on(", ").skipNulls().join(conditionsList);
+
+                    view.showConditions(conditions);
+                }
 
                 view.hideLoading();
             }
@@ -135,6 +154,7 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
                 view.showLoading();
 
+                // Set Medic data
                 final Medic medic = new Medic();
                 medic.setId(currentUserId);
                 medic.setName(currentUserName);
@@ -155,16 +175,16 @@ public class ApproveConsultationPresenter implements ApproveConsultationContract
 
                         // Create Task with data
                         Map<String, String> task = new HashMap<>();
-                        task.put("type", "consultation-approved");
+                        task.put(Constants.FIREBASE_TASK_TYPE, Constants.FIREBASE_TASK_TYPE_CONSULTATION_APPROVED);
                         task.put("content", "Su consulta fue tomada por " + currentUserName);
-                        task.put("patientId", consultation.getPatient().getId());
+                        task.put(Constants.FIREBASE_PATIENT_ID, consultation.getPatient().getId());
                         task.put(Constants.FIREBASE_CONSULTATION_ID, consultationId);
 
                         // Push task to be processed
                         tasksRef.push().setValue(task);
 
                         if (BuildConfig.DEBUG) {
-                            Logger.d("New Consultation data saved successfully.");
+                            Logger.d("Consultation Approved data saved successfully.");
                         }
                     }
                 });

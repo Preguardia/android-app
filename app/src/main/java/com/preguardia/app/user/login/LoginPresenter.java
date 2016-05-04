@@ -16,24 +16,21 @@ import net.grandcentrix.tray.TrayAppPreferences;
 public class LoginPresenter implements LoginContract.Presenter {
 
     @NonNull
-    private final LoginContract.View loginView;
-    @NonNull
     private final Firebase firebase;
     @NonNull
     private final TrayAppPreferences appPreferences;
+    private LoginContract.View view;
 
-    public LoginPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences,
-                          @NonNull LoginContract.View loginView) {
+    public LoginPresenter(@NonNull Firebase firebase, @NonNull TrayAppPreferences appPreferences) {
         this.firebase = firebase;
         this.appPreferences = appPreferences;
-        this.loginView = loginView;
     }
 
     @Override
     public void loginUser(String user, String password) {
 
         if (!user.isEmpty() && !password.isEmpty()) {
-            loginView.showProgress();
+            view.showProgress();
 
             firebase.authWithPassword(user, password, new Firebase.AuthResultHandler() {
                 @Override
@@ -44,28 +41,33 @@ public class LoginPresenter implements LoginContract.Presenter {
                     appPreferences.put(Constants.PREFERENCES_USER_UID, authData.getUid());
                     appPreferences.put(Constants.PREFERENCES_USER_TOKEN, authData.getToken());
 
-                    loginView.hideProgress();
-                    loginView.openMain();
+                    view.hideProgress();
+                    view.openMain();
                 }
 
                 @Override
                 public void onAuthenticationError(FirebaseError firebaseError) {
                     Logger.e("Login error - Message: " + firebaseError.getMessage());
 
-                    loginView.showLoginError(firebaseError.getMessage());
-                    loginView.hideProgress();
+                    view.showLoginError(firebaseError.getMessage());
+                    view.hideProgress();
                 }
             });
 
         } else {
             Logger.d("Empty fields.");
 
-            loginView.showEmptyFieldError();
+            view.showEmptyFieldError();
         }
     }
 
     @Override
     public void registerUser() {
-        loginView.openRegister();
+        view.openRegister();
+    }
+
+    @Override
+    public void attachView(LoginContract.View view) {
+        this.view = view;
     }
 }

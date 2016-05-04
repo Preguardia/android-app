@@ -2,7 +2,7 @@ package com.preguardia.app.consultation.history;
 
 import android.support.annotation.Nullable;
 
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import java.util.List;
  * @author amouly on 3/10/16.
  */
 public interface HistoryContract {
+
     interface View {
 
         void configAdapter(String userType);
@@ -31,6 +32,8 @@ public interface HistoryContract {
         void hideEmpty();
 
         void hideResults();
+
+        void showPendingMessage();
     }
 
     interface Presenter {
@@ -38,6 +41,8 @@ public interface HistoryContract {
         void loadItems();
 
         void stopListener();
+
+        void attachView(HistoryContract.View view);
     }
 
     interface ConsultationItemListener {

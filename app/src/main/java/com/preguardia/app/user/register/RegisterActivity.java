@@ -1,10 +1,14 @@
 package com.preguardia.app.user.register;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -20,6 +25,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.firebase.client.Firebase;
 import com.preguardia.app.R;
+import com.preguardia.app.customtab.CustomTabActivityHelper;
 import com.preguardia.app.general.Constants;
 import com.preguardia.app.main.MainActivity;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -52,6 +58,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     TextInputLayout emailInputView;
     @Bind(R.id.user_register_password)
     TextInputLayout passwordInputView;
+    @Bind(R.id.user_register_password2)
+    TextInputLayout password2InputView;
     @Bind(R.id.user_register_date)
     TextInputLayout dateInputView;
     @Bind(R.id.user_register_medical)
@@ -64,6 +72,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     LinearLayout plateContainerView;
     @Bind(R.id.user_register_medical_container)
     LinearLayout medicalContainerView;
+    @Bind(R.id.user_register_terms)
+    CheckBox termsCheckBox;
 
     private RegisterContract.Presenter presenter;
     private MaterialDialog progressDialog;
@@ -76,7 +86,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Init the Presenter
         presenter = new RegisterPresenter(new Firebase(Constants.FIREBASE_URL), new TrayAppPreferences(this), this);
@@ -91,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
         progressDialog = progressBuilder.build();
 
         patientButton.setPressed(true);
+        patientButton.setActivated(true);
     }
 
     @SuppressWarnings("unused")
@@ -124,16 +138,42 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.user_register_terms_text)
+    public void onTermsClick() {
+        Uri uri = Uri.parse(getString(R.string.general_terms_url));
+
+        //Setting a custom toolbar color
+        CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
+
+        int color = getResources().getColor(R.color.colorPrimary);
+        intentBuilder.setToolbarColor(color);
+        intentBuilder.setShowTitle(true);
+
+        CustomTabsIntent customTabsIntent = intentBuilder.build();
+
+        CustomTabActivityHelper.openCustomTab(this, customTabsIntent, uri,
+                new CustomTabActivityHelper.CustomTabFallback() {
+                    @Override
+                    public void openUri(Activity activity, Uri uri) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+                    }
+                });
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.register_medic_button)
     public void onRegisterClick() {
         String type = null;
         String name = nameInputView.getEditText().getText().toString();
         String email = emailInputView.getEditText().getText().toString();
         String password = passwordInputView.getEditText().getText().toString();
+        String password2 = password2InputView.getEditText().getText().toString();
         String birthDate = dateInputView.getEditText().getText().toString();
         String medical = medicalInputView.getEditText().getText().toString();
         String plate = plateInputView.getEditText().getText().toString();
         String phone = phoneInputView.getEditText().getText().toString();
+        boolean terms = termsCheckBox.isChecked();
 
         if (medicButton.isActivated()) {
             type = Constants.FIREBASE_USER_TYPE_MEDIC;
@@ -143,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
 
         this.toggleKeyboard();
 
-        presenter.registerUser(type, name, email, password, birthDate, medical, plate, phone);
+        presenter.registerUser(type, name, email, password, password2, birthDate, medical, plate, phone, terms);
     }
 
     @Override
@@ -163,8 +203,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterContr
     }
 
     @Override
-    public void showError() {
-        Snackbar.make(toolbar, getString(R.string.user_register_incomplete_fields), Snackbar.LENGTH_LONG)
+    public void showError(@StringRes int stringRes) {
+        Snackbar.make(toolbar, stringRes, Snackbar.LENGTH_LONG)
                 .show();
     }
 

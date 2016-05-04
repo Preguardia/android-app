@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/consultation_details_camera"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_photo_camera_24dp"
-        android:title="@string/consultation_new_media" />
+        android:id="@+id/consultation_details_attach"
+        android:icon="@drawable/ic_attachment_24dp"
+        android:title="@string/consultation_new_media"
+        app:showAsAction="ifRoom" />
 
     <item
-        app:showAsAction="never"
-        android:title="@string/menu_consultation_incident" />
+        android:title="@string/menu_consultation_incident"
+        app:showAsAction="never" />
 
 </menu>

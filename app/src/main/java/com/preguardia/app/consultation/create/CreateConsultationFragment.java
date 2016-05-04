@@ -33,6 +33,12 @@ public class CreateConsultationFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
+    @OnClick(R.id.consultation_create_undefined)
+    public void onUndefinedClick() {
+        openStepsActivity(Constants.FIREBASE_CONSULTATION_CATEGORY_UNDEFINED);
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.consultation_create_clinics)
     public void onClinicsClick() {
         openStepsActivity(Constants.FIREBASE_CONSULTATION_CATEGORY_CLINICS);
@@ -61,7 +67,6 @@ public class CreateConsultationFragment extends Fragment {
         intent.putExtra(Constants.EXTRA_CONSULTATION_CREATE_CATEGORY, category);
 
         startActivity(intent);
-        getActivity().overridePendingTransition(0, 0);
     }
 
     @Override

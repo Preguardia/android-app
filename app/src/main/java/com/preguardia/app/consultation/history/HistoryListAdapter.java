@@ -1,15 +1,16 @@
 package com.preguardia.app.consultation.history;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.preguardia.app.R;
-import com.preguardia.app.consultation.model.Consultation;
+import com.preguardia.app.data.model.Consultation;
+import com.preguardia.app.data.model.Medic;
+import com.preguardia.app.data.model.Patient;
 import com.preguardia.app.general.Constants;
-import com.preguardia.app.user.model.Medic;
-import com.preguardia.app.user.model.Patient;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -24,11 +25,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
 
+    private final Context context;
     private final String userType;
     private List<Consultation> historyList;
     private HistoryContract.ConsultationItemListener itemListener;
 
-    public HistoryListAdapter(List<Consultation> itemsList, String userType, HistoryContract.ConsultationItemListener clickListener) {
+    public HistoryListAdapter(Context context, List<Consultation> itemsList, String userType, HistoryContract.ConsultationItemListener clickListener) {
+        this.context = context;
         this.historyList = itemsList;
         this.itemListener = clickListener;
         this.userType = userType;
@@ -50,28 +53,38 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
         DateTime dateTime = ISODateTimeFormat.dateTime().parseDateTime(consultation.getDateCreated());
         String dateFormatted = dateTime.toString(DateTimeFormat.forPattern("MMM dd"));
 
+        final Patient patient = consultation.getPatient();
+        final Medic medic = consultation.getMedic();
+
         switch (consultation.getStatus()) {
             case Constants.FIREBASE_CONSULTATION_STATUS_PENDING:
 
-                // TODO: replace with resource string
-                holder.setUserName("Pendiente de aprobación");
+                holder.setUserName(context.getString(R.string.consultation_history_name_pending));
                 holder.setStateIcoImageView(R.drawable.ic_access_time_24dp);
+
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(null);
+                    }
+                });
 
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_ASSIGNED:
 
-                if (userType.equals(Constants.FIREBASE_USER_TYPE_MEDIC)) {
-                    final Patient patient = consultation.getPatient();
+                switch (userType) {
+                    case Constants.FIREBASE_USER_TYPE_MEDIC:
+                        holder.setUserName(patient.getName());
 
-                    holder.setUserName(patient.getName());
-                } else {
-                    final Medic medic = consultation.getMedic();
+                        break;
 
-                    holder.setUserName(medic.getName());
+                    case Constants.FIREBASE_USER_TYPE_PATIENT:
+                        holder.setUserName(medic.getName());
+                        break;
                 }
 
-                holder.setStateIcoImageView(R.drawable.ic_chevron_right_24dp);
+                holder.setStateIcoImageView(R.drawable.ic_check_black_24dp);
                 holder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -82,13 +95,30 @@ public class HistoryListAdapter extends RecyclerView.Adapter<HistoryViewHolder> 
                 break;
 
             case Constants.FIREBASE_CONSULTATION_STATUS_CLOSED:
-                final Medic medic = consultation.getMedic();
 
-                holder.setUserName(medic.getName());
+                switch (userType) {
+                    case Constants.FIREBASE_USER_TYPE_MEDIC:
+                        holder.setUserName(patient.getName());
+
+                        break;
+
+                    case Constants.FIREBASE_USER_TYPE_PATIENT:
+                        holder.setUserName(medic.getName());
+
+                        break;
+                }
+
                 holder.setStateIcoImageView(R.drawable.ic_close_24dp);
+                holder.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        itemListener.onConsultationClick(consultation.getId());
+                    }
+                });
 
                 break;
         }
+
 
         // TODO: replace with dynamic image
         holder.setUserImageView("http://media.graciasdoc.com/pictures/user_placeholder.png");

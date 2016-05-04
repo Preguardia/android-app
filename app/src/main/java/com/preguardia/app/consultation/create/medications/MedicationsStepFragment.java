@@ -1,9 +1,12 @@
 package com.preguardia.app.consultation.create.medications;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -28,6 +31,11 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
     private MedicationsStepContract.Presenter presenter;
     private List<EditText> editTextList = new ArrayList<>();
     private LayoutInflater layoutInflater;
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +75,8 @@ public class MedicationsStepFragment extends AbstractStep implements Medications
 
     @Override
     public boolean nextIf() {
+        hideKeyboardFrom(getActivity(), itemsContainer);
+
         return true;
     }
 
